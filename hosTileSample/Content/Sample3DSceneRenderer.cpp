@@ -178,6 +178,16 @@ void Sample3DSceneRenderer::Render()
 		0,
 		0
 		);
+
+	m_bitmap->Render(m_deviceResources->GetD3DDeviceContext(), 100, 100);
+
+	XMMATRIX worldMatrix = XMMatrixIdentity();
+	XMMATRIX viewMatrix = XMMatrixLookAtLH(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f), XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
+	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height, 0.1f, 1000.0f);
+	m_textureShader->Render(m_deviceResources->GetD3DDeviceContext(),
+		m_bitmap->GetIndexCount(),
+		worldMatrix, viewMatrix, orthoMatrix,
+		m_bitmap->GetTexture());
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -310,6 +320,12 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	createCubeTask.then([this] () {
 		m_loadingComplete = true;
 	});
+
+	m_bitmap = std::make_unique<BitmapClass>();
+	m_bitmap->Initialize(
+		m_deviceResources->GetD3DDevice(),
+		m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height,
+		L"../Assets/seafloor.dds", 256, 256);
 }
 
 void Sample3DSceneRenderer::ReleaseDeviceDependentResources()

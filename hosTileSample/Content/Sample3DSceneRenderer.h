@@ -4,6 +4,9 @@
 #include "ShaderStructures.h"
 #include "..\Common\StepTimer.h"
 
+#include "bitmapclass.h"
+#include "textureshaderclass.h"
+
 namespace hosTileSample
 {
 	// This sample renderer instantiates a basic rendering pipeline.
@@ -45,6 +48,9 @@ namespace hosTileSample
 		bool	m_loadingComplete;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
+
+		std::unique_ptr<BitmapClass> m_bitmap;
+		std::unique_ptr<TextureShaderClass> m_textureShader;
 	};
 }
 
