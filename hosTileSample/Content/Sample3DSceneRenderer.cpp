@@ -39,13 +39,7 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 	// made to the swap chain render target. For draw calls to other targets,
 	// this transform should not be applied.
 
-	// This sample makes use of a right-handed coordinate system using row-major matrices.
-	XMMATRIX perspectiveMatrix = XMMatrixPerspectiveFovRH(
-		fovAngleY,
-		aspectRatio,
-		0.01f,
-		100.0f
-		);
+	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
 
 	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
 
@@ -53,15 +47,14 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 
 	XMStoreFloat4x4(
 		&m_constantBufferData.projection,
-		XMMatrixTranspose(perspectiveMatrix * orientationMatrix)
+		XMMatrixTranspose(orthoMatrix * orientationMatrix)
 		);
 
-	// Eye is at (0,0.7,1.5), looking at point (0,-0.1,0) with the up-vector along the y-axis.
-	static const XMVECTORF32 eye = { 0.0f, 0.7f, 1.5f, 0.0f };
-	static const XMVECTORF32 at = { 0.0f, -0.1f, 0.0f, 0.0f };
+	static const XMVECTORF32 eye = { 0.0f, 0.0f, -1.0f, 0.0f };
+	static const XMVECTORF32 at = { 0.0f, 0.0f, 1.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
 
-	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtRH(eye, at, up)));
+	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtLH(eye, at, up)));
 }
 
 // Called once per frame, calculate the model and view matrices.
@@ -218,10 +211,10 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		// Load mesh vertices. Each vertex has a position and a texture coordinate.
 		static const VertexPositionTex meshVertices[] = 
 		{
-			{XMFLOAT3(-0.5f, -0.5f, 0.0f), XMFLOAT2(0.0f, 1.0f)},
-			{XMFLOAT3(0.5f, -0.5f, 0.0f), XMFLOAT2(1.0f, 1.0f)},
-			{XMFLOAT3(0.5f, 0.5f, 0.0f), XMFLOAT2(1.0f, 0.0f)},
-			{XMFLOAT3(-0.5f, 0.5f, 0.0f), XMFLOAT2(0.0f, 0.0f)},
+			{XMFLOAT3(-128.0, -128.0f, 0.0f), XMFLOAT2(0.0f, 1.0f)},	// 0, bottom-left
+			{XMFLOAT3(128.0f, -128.0f, 0.0f), XMFLOAT2(1.0f, 1.0f)},	// 1, bottom-right
+			{XMFLOAT3(128.0f, 128.0f, 0.0f), XMFLOAT2(1.0f, 0.0f)},		// 2, top-right
+			{XMFLOAT3(-128.0f, 128.0f, 0.0f), XMFLOAT2(0.0f, 0.0f)},	// 3, top-left
 		};
 
 		D3D11_SUBRESOURCE_DATA vertexBufferData = {0};
@@ -238,10 +231,8 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			);
 
 		// Load mesh indices. Each trio of indices represents
-		// a triangle to be rendered on the screen.
-		// For example: 0,2,1 means that the vertices with indexes
-		// 0, 2 and 1 from the vertex buffer compose the 
-		// first triangle of this mesh.
+		// a triangle to be rendered on the screen. Note the
+		// clockwise winding order.
 		static const unsigned short meshIndices [] =
 		{
 			0,2,1,
