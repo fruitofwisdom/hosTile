@@ -67,16 +67,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Content\bitmapclass.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\textureclass.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
     <ClCompile Include="Content\DDSTextureLoader11.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\textureshaderclass.cpp">
       <Filter>Content</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,16 +75,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Content\bitmapclass.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\textureclass.h">
-      <Filter>Content</Filter>
-    </ClInclude>
     <ClInclude Include="Content\DDSTextureLoader11.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\textureshaderclass.h">
       <Filter>Content</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,9 +4,6 @@
 #include "ShaderStructures.h"
 #include "..\Common\StepTimer.h"
 
-#include "bitmapclass.h"
-#include "textureshaderclass.h"
-
 namespace hosTileSample
 {
 	// This sample renderer instantiates a basic rendering pipeline.
@@ -40,6 +37,9 @@ namespace hosTileSample
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_constantBuffer;
 
+		ID3D11ShaderResourceView* m_texture;
+		ID3D11SamplerState* m_sampler;
+
 		// System resources for cube geometry.
 		ModelViewProjectionConstantBuffer	m_constantBufferData;
 		uint32	m_indexCount;
@@ -48,9 +48,6 @@ namespace hosTileSample
 		bool	m_loadingComplete;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
-
-		std::shared_ptr<BitmapClass> m_bitmap;
-		std::shared_ptr<TextureShaderClass> m_textureShader;
 	};
 }
 

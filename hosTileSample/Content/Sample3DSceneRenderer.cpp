@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Sample3DSceneRenderer.h"
 
+#include "DDSTextureLoader11.h"
 #include "..\Common\DirectXHelper.h"
 
 using namespace hosTileSample;
@@ -172,22 +173,24 @@ void Sample3DSceneRenderer::Render()
 		0
 		);
 
+	context->PSSetShaderResources(
+		0,
+		1,
+		&m_texture
+	);
+
+	context->PSSetSamplers(
+		0,
+		1,
+		&m_sampler
+	);
+
 	// Draw the objects.
 	context->DrawIndexed(
 		m_indexCount,
 		0,
 		0
 		);
-
-	m_bitmap->Render(m_deviceResources->GetD3DDeviceContext(), 100, 100);
-
-	XMMATRIX worldMatrix = XMMatrixIdentity();
-	XMMATRIX viewMatrix = XMMatrixLookAtLH(XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f), XMVectorSet(0.0f, 0.0f, 1.0f, 1.0f), XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f));
-	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height, 0.1f, 1000.0f);
-	m_textureShader->Render(m_deviceResources->GetD3DDeviceContext(),
-		m_bitmap->GetIndexCount(),
-		worldMatrix, viewMatrix, orthoMatrix,
-		m_bitmap->GetTexture());
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -315,14 +318,39 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				)
 			);
 
-		m_bitmap = std::make_shared<BitmapClass>();
-		m_bitmap->Initialize(
-			m_deviceResources->GetD3DDevice(),
-			m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height,
-			L"../Assets/seafloor.dds", 256, 256);
+		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/seafloor.dds", nullptr, &m_texture);
 
-		m_textureShader = std::make_shared<TextureShaderClass>();
-		m_textureShader->Initialize(m_deviceResources->GetD3DDevice(), m_vertexShader.Get(), m_pixelShader.Get());
+		D3D11_SAMPLER_DESC samplerDesc;
+		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+
+		// The sampler does not use anisotropic filtering, so this parameter is ignored.
+		samplerDesc.MaxAnisotropy = 0;
+
+		// Specify how texture coordinates outside of the range 0..1 are resolved.
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+
+		// Use no special MIP clamping or bias.
+		samplerDesc.MipLODBias = 0.0f;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+		// Don't use a comparison function.
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+
+		// Border address mode is not used, so this parameter is ignored.
+		samplerDesc.BorderColor[0] = 0.0f;
+		samplerDesc.BorderColor[1] = 0.0f;
+		samplerDesc.BorderColor[2] = 0.0f;
+		samplerDesc.BorderColor[3] = 0.0f;
+
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateSamplerState(
+				&samplerDesc,
+				&m_sampler
+			)
+		);
 	});
 
 	// Once the cube is loaded, the object is ready to be rendered.
