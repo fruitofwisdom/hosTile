@@ -49,8 +49,8 @@ namespace hosTileSample
 		float	m_degreesPerSecond;
 		bool	m_tracking;
 
-		std::unique_ptr<BitmapClass> m_bitmap;
-		std::unique_ptr<TextureShaderClass> m_textureShader;
+		std::shared_ptr<BitmapClass> m_bitmap;
+		std::shared_ptr<TextureShaderClass> m_textureShader;
 	};
 }
 

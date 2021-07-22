@@ -26,13 +26,13 @@ TextureShaderClass::~TextureShaderClass()
 }
 
 
-bool TextureShaderClass::Initialize(ID3D11Device* device, HWND hwnd, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader)
+bool TextureShaderClass::Initialize(ID3D11Device* device, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader)
 {
 	bool result;
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, vertexShader, pixelShader);
+	result = InitializeShader(device, vertexShader, pixelShader);
 	if(!result)
 	{
 		return false;
@@ -71,7 +71,7 @@ bool TextureShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCou
 }
 
 
-bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader)
+bool TextureShaderClass::InitializeShader(ID3D11Device* device, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader)
 {
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -87,6 +87,9 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, ID3D1
 	errorMessage = 0;
 	vertexShaderBuffer = 0;
 	pixelShaderBuffer = 0;
+
+	m_vertexShader = vertexShader;
+	m_pixelShader = pixelShader;
 
 	/*
     // Compile the vertex shader code.
@@ -141,8 +144,6 @@ bool TextureShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, ID3D1
 		return false;
 	}
 	*/
-	m_vertexShader = vertexShader;
-	m_pixelShader = pixelShader;
 
 	// Create the vertex input layout description.
 	// This setup needs to match the VertexType stucture in the ModelClass and in the shader.

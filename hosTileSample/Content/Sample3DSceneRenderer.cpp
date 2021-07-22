@@ -210,7 +210,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc [] =
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 
 		DX::ThrowIfFailed(
@@ -314,18 +314,21 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				&m_indexBuffer
 				)
 			);
+
+		m_bitmap = std::make_shared<BitmapClass>();
+		m_bitmap->Initialize(
+			m_deviceResources->GetD3DDevice(),
+			m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height,
+			L"../Assets/seafloor.dds", 256, 256);
+
+		m_textureShader = std::make_shared<TextureShaderClass>();
+		m_textureShader->Initialize(m_deviceResources->GetD3DDevice(), m_vertexShader.Get(), m_pixelShader.Get());
 	});
 
 	// Once the cube is loaded, the object is ready to be rendered.
 	createCubeTask.then([this] () {
 		m_loadingComplete = true;
 	});
-
-	m_bitmap = std::make_unique<BitmapClass>();
-	m_bitmap->Initialize(
-		m_deviceResources->GetD3DDevice(),
-		m_deviceResources->GetOutputSize().Width, m_deviceResources->GetOutputSize().Height,
-		L"../Assets/seafloor.dds", 256, 256);
 }
 
 void Sample3DSceneRenderer::ReleaseDeviceDependentResources()

@@ -32,12 +32,12 @@ public:
 	TextureShaderClass(const TextureShaderClass&);
 	~TextureShaderClass();
 
-	bool Initialize(ID3D11Device*, HWND, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader);
+	bool Initialize(ID3D11Device*, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader);
 	void Shutdown();
 	bool Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX, ID3D11ShaderResourceView*);
 
 private:
-	bool InitializeShader(ID3D11Device*, HWND, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader);
+	bool InitializeShader(ID3D11Device*, ID3D11VertexShader* vertexShader, ID3D11PixelShader* pixelShader);
 	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, WCHAR*);
 
