@@ -16,20 +16,12 @@ namespace hosTileSample
 		void ReleaseDeviceDependentResources();
 		void Update(DX::StepTimer const& timer);
 		void Render();
-		void StartTracking();
-		void TrackingUpdate(float positionX);
-		void StopTracking();
-		bool IsTracking() { return m_tracking; }
-
-
-	private:
-		void Rotate(float radians);
 
 	private:
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
-		// Direct3D resources for cube geometry.
+		// Direct3D resources for the geometry.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>	m_inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_indexBuffer;
@@ -40,14 +32,12 @@ namespace hosTileSample
 		ID3D11ShaderResourceView* m_texture;
 		ID3D11SamplerState* m_sampler;
 
-		// System resources for cube geometry.
-		ModelViewProjectionConstantBuffer	m_constantBufferData;
-		uint32	m_indexCount;
+		// System resources for the geometry.
+		ModelViewProjectionConstantBuffer m_constantBufferData;
+		uint32 m_indexCount;
 
 		// Variables used with the rendering loop.
-		bool	m_loadingComplete;
-		float	m_degreesPerSecond;
-		bool	m_tracking;
+		bool m_loadingComplete;
 	};
 }
 
