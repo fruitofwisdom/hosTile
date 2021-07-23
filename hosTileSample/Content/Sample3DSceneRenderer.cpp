@@ -209,12 +209,14 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	auto createMeshTask = (createPSTask && createVSTask).then([this] () {
 
 		// Load mesh vertices. Each vertex has a position and a texture coordinate.
+		float width = 544.0f;
+		float height = 544.0f;
 		static const VertexPositionTex meshVertices[] = 
 		{
-			{XMFLOAT3(-128.0, -128.0f, 0.0f), XMFLOAT2(0.0f, 1.0f)},	// 0, bottom-left
-			{XMFLOAT3(128.0f, -128.0f, 0.0f), XMFLOAT2(1.0f, 1.0f)},	// 1, bottom-right
-			{XMFLOAT3(128.0f, 128.0f, 0.0f), XMFLOAT2(1.0f, 0.0f)},		// 2, top-right
-			{XMFLOAT3(-128.0f, 128.0f, 0.0f), XMFLOAT2(0.0f, 0.0f)},	// 3, top-left
+			{XMFLOAT3(width / 2 * -1, height / 2 * -1, 0.0f), XMFLOAT2(0.0f, 1.0f)},	// 0, bottom-left
+			{XMFLOAT3(width / 2, height / 2* -1, 0.0f), XMFLOAT2(1.0f, 1.0f)},	// 1, bottom-right
+			{XMFLOAT3(width / 2, height / 2, 0.0f), XMFLOAT2(1.0f, 0.0f)},		// 2, top-right
+			{XMFLOAT3(width / 2 * -1, height / 2, 0.0f), XMFLOAT2(0.0f, 0.0f)},	// 3, top-left
 		};
 
 		D3D11_SUBRESOURCE_DATA vertexBufferData = {0};
@@ -254,7 +256,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				)
 			);
 
-		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/seafloor.dds", nullptr, &m_texture);
+		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/NES - Final Fantasy - Corneria Castle.dds", nullptr, &m_texture);
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
