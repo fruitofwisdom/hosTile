@@ -83,7 +83,10 @@
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\NES - Final Fantasy - Corneria Castle.dds">
+    <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\NES - Final Fantasy - Warrior.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

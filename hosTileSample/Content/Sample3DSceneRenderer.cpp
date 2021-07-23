@@ -256,7 +256,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				)
 			);
 
-		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/NES - Final Fantasy - Corneria Castle.dds", nullptr, &m_texture);
+		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/NES - Final Fantasy - Castle Corneria.dds", nullptr, &m_texture);
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));

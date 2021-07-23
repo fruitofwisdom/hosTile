@@ -242,7 +242,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
-    <Image Include="Assets\NES - Final Fantasy - Corneria Castle.dds" />
+    <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds" />
+    <Image Include="Assets\NES - Final Fantasy - Warrior.dds" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
