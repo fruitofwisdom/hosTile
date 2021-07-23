@@ -70,12 +70,18 @@
     <ClCompile Include="Content\DDSTextureLoader11.cpp">
       <Filter>Content</Filter>
     </ClCompile>
+    <ClCompile Include="Content\hosTile.cpp">
+      <Filter>Content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Content\DDSTextureLoader11.h">
+      <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\hosTile.h">
       <Filter>Content</Filter>
     </ClInclude>
   </ItemGroup>
