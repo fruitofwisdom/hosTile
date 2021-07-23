@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "pch.h"
-#include "Common\DeviceResources.h"
 #include "hosTileSampleMain.h"
+#include "hosTile\DeviceResources.h"
 
 namespace hosTileSample
 {

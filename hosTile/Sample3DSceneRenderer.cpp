@@ -2,7 +2,7 @@
 #include "Sample3DSceneRenderer.h"
 
 #include "DDSTextureLoader11.h"
-#include "..\Common\DirectXHelper.h"
+#include "DirectXHelper.h"
 
 using namespace hosTileSample;
 
@@ -58,7 +58,7 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 }
 
 // Called once per frame, calculate the model and view matrices.
-void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
+void Sample3DSceneRenderer::Update()
 {
 	// Prepare to pass the updated model matrix to the shader
 	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "Common\StepTimer.h"
-#include "Common\DeviceResources.h"
-#include "Content\Sample3DSceneRenderer.h"
-#include "Content\SampleFpsTextRenderer.h"
+#include "hosTile\DeviceResources.h"
+#include "hosTile\Sample3DSceneRenderer.h"
+//#include "Content\SampleFpsTextRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace hosTileSample
@@ -27,9 +27,9 @@ namespace hosTileSample
 
 		// TODO: Replace with your own content renderers.
 		std::unique_ptr<Sample3DSceneRenderer> m_sceneRenderer;
-		std::unique_ptr<SampleFpsTextRenderer> m_fpsTextRenderer;
+		//std::unique_ptr<SampleFpsTextRenderer> m_fpsTextRenderer;
 
-		// Rendering loop timer.
+		// Game loop timer.
 		DX::StepTimer m_timer;
 	};
 }

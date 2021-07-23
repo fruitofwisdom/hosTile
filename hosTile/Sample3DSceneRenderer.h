@@ -1,8 +1,7 @@
 ﻿#pragma once
 
-#include "..\Common\DeviceResources.h"
+#include "DeviceResources.h"
 #include "ShaderStructures.h"
-#include "..\Common\StepTimer.h"
 
 namespace hosTileSample
 {
@@ -14,7 +13,7 @@ namespace hosTileSample
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
-		void Update(DX::StepTimer const& timer);
+		void Update();
 		void Render();
 
 	private:

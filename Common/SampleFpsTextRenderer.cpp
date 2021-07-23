@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "SampleFpsTextRenderer.h"
 
-#include "Common/DirectXHelper.h"
+#include "hosTile/DirectXHelper.h"
 
 using namespace hosTileSample;
 using namespace Microsoft::WRL;

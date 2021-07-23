@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include <string>
-#include "..\Common\DeviceResources.h"
-#include "..\Common\StepTimer.h"
+#include "..\hosTile\DeviceResources.h"
+#include "StepTimer.h"
 
 namespace hosTileSample
 {

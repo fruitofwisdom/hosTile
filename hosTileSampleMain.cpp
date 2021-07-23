@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "hosTileSampleMain.h"
-#include "Common\DirectXHelper.h"
+
+#include "hosTile\DirectXHelper.h"
 
 using namespace hosTileSample;
 using namespace Windows::Foundation;
@@ -17,7 +18,7 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	// TODO: Replace this with your app's content initialization.
 	m_sceneRenderer = std::unique_ptr<Sample3DSceneRenderer>(new Sample3DSceneRenderer(m_deviceResources));
 
-	m_fpsTextRenderer = std::unique_ptr<SampleFpsTextRenderer>(new SampleFpsTextRenderer(m_deviceResources));
+	//m_fpsTextRenderer = std::unique_ptr<SampleFpsTextRenderer>(new SampleFpsTextRenderer(m_deviceResources));
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -47,8 +48,8 @@ void hosTileSampleMain::Update()
 	m_timer.Tick([&]()
 	{
 		// TODO: Replace this with your app's content update functions.
-		m_sceneRenderer->Update(m_timer);
-		m_fpsTextRenderer->Update(m_timer);
+		m_sceneRenderer->Update();
+		//m_fpsTextRenderer->Update(m_timer);
 	});
 }
 
@@ -79,7 +80,7 @@ bool hosTileSampleMain::Render()
 	// Render the scene objects.
 	// TODO: Replace this with your app's content rendering functions.
 	m_sceneRenderer->Render();
-	m_fpsTextRenderer->Render();
+	//m_fpsTextRenderer->Render();
 
 	return true;
 }
@@ -88,13 +89,13 @@ bool hosTileSampleMain::Render()
 void hosTileSampleMain::OnDeviceLost()
 {
 	m_sceneRenderer->ReleaseDeviceDependentResources();
-	m_fpsTextRenderer->ReleaseDeviceDependentResources();
+	//m_fpsTextRenderer->ReleaseDeviceDependentResources();
 }
 
 // Notifies renderers that device resources may now be recreated.
 void hosTileSampleMain::OnDeviceRestored()
 {
 	m_sceneRenderer->CreateDeviceDependentResources();
-	m_fpsTextRenderer->CreateDeviceDependentResources();
+	//m_fpsTextRenderer->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
