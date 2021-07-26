@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace hosTileSample
+namespace hosTile
 {
 	// Constant buffer used to send MVP matrices to the vertex shader.
 	struct ModelViewProjectionConstantBuffer

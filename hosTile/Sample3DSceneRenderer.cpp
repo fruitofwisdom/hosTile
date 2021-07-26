@@ -4,7 +4,7 @@
 #include "DDSTextureLoader11.h"
 #include "DirectXHelper.h"
 
-using namespace hosTileSample;
+using namespace hosTile;
 
 using namespace DirectX;
 using namespace Windows::Foundation;
@@ -91,13 +91,17 @@ void Sample3DSceneRenderer::Render()
 	// Each vertex is one instance of the VertexPositionTex struct.
 	UINT stride = sizeof(VertexPositionTex);
 	UINT offset = 0;
-	context->IASetVertexBuffers(
-		0,
-		1,
-		m_vertexBuffer.GetAddressOf(),
-		&stride,
-		&offset
+	for (auto sprite : m_sprites)
+	{
+		ID3D11Buffer* vertexBuffer = sprite->GetVertexBuffer();
+		context->IASetVertexBuffers(
+			0,
+			1,
+			&vertexBuffer,
+			&stride,
+			&offset
 		);
+	}
 
 	context->IASetIndexBuffer(
 		m_indexBuffer.Get(),
@@ -147,14 +151,14 @@ void Sample3DSceneRenderer::Render()
 			1,
 			&texture
 		);
-
-		// Draw the objects.
-		context->DrawIndexed(
-			m_indexCount,
-			0,
-			0
-		);
 	}
+
+	// Draw the objects.
+	context->DrawIndexed(
+		m_indexCount,
+		0,
+		0
+	);
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -212,33 +216,8 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 			);
 	});
 
-	// Once both shaders are loaded, create the mesh.
-	auto createMeshTask = (createPSTask && createVSTask).then([this] () {
-
-		// Load mesh vertices. Each vertex has a position and a texture coordinate.
-		float width = 544.0f;
-		float height = 544.0f;
-		static const VertexPositionTex meshVertices[] = 
-		{
-			{XMFLOAT3(width / 2 * -1, height / 2 * -1, 0.0f), XMFLOAT2(0.0f, 1.0f)},	// 0, bottom-left
-			{XMFLOAT3(width / 2, height / 2* -1, 0.0f), XMFLOAT2(1.0f, 1.0f)},	// 1, bottom-right
-			{XMFLOAT3(width / 2, height / 2, 0.0f), XMFLOAT2(1.0f, 0.0f)},		// 2, top-right
-			{XMFLOAT3(width / 2 * -1, height / 2, 0.0f), XMFLOAT2(0.0f, 0.0f)},	// 3, top-left
-		};
-
-		D3D11_SUBRESOURCE_DATA vertexBufferData = {0};
-		vertexBufferData.pSysMem = meshVertices;
-		vertexBufferData.SysMemPitch = 0;
-		vertexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(meshVertices), D3D11_BIND_VERTEX_BUFFER);
-		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateBuffer(
-				&vertexBufferDesc,
-				&vertexBufferData,
-				&m_vertexBuffer
-				)
-			);
-
+	// Once both shaders are loaded, create the mesh, index buffer, and sampler.
+	auto finishSetupTask = (createPSTask && createVSTask).then([this] () {
 		// Load mesh indices. Each trio of indices represents
 		// a triangle to be rendered on the screen. Note the
 		// clockwise winding order.
@@ -296,8 +275,8 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 		);
 	});
 
-	// Once the mesh data is loaded, the object is ready to be rendered.
-	createMeshTask.then([this] () {
+	// Once all tasks have finished, we are ready to render.
+	finishSetupTask.then([this] () {
 		m_loadingComplete = true;
 	});
 }
@@ -309,7 +288,6 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	m_inputLayout.Reset();
 	m_pixelShader.Reset();
 	m_constantBuffer.Reset();
-	m_vertexBuffer.Reset();
 	m_indexBuffer.Reset();
 }
 

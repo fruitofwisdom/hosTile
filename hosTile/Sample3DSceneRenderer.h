@@ -3,10 +3,10 @@
 #include <vector>
 
 #include "DeviceResources.h"
+#include "hosTileShaderStructures.h"
 #include "hosTileSprite.h"
-#include "ShaderStructures.h"
 
-namespace hosTileSample
+namespace hosTile
 {
 	// This sample renderer instantiates a basic rendering pipeline.
 	class Sample3DSceneRenderer
@@ -28,7 +28,6 @@ namespace hosTileSample
 
 		// Direct3D resources for the geometry.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>	m_inputLayout;
-		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_indexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11VertexShader>	m_vertexShader;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
@@ -45,4 +44,3 @@ namespace hosTileSample
 		bool m_loadingComplete;
 	};
 }
-

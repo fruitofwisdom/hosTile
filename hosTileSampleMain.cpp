@@ -3,6 +3,7 @@
 
 #include "hosTile\DirectXHelper.h"
 
+using namespace hosTile;
 using namespace hosTileSample;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
@@ -15,13 +16,12 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	// TODO: Replace this with your app's content initialization.
 	m_sceneRenderer = std::unique_ptr<Sample3DSceneRenderer>(new Sample3DSceneRenderer(m_deviceResources));
+		//m_fpsTextRenderer = std::unique_ptr<SampleFpsTextRenderer>(new SampleFpsTextRenderer(m_deviceResources));
 
-	//m_fpsTextRenderer = std::unique_ptr<SampleFpsTextRenderer>(new SampleFpsTextRenderer(m_deviceResources));
-
+	// TODO: Replace this with your app's content initialization.
 	m_sceneRenderer->AddSprite(
-		std::shared_ptr<hosTile::hosTileSprite>(new hosTile::hosTileSprite(m_deviceResources, "Assets/NES - Final Fantasy - Castle Corneria.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)))
+		std::shared_ptr<hosTileSprite>(new hosTileSprite(m_deviceResources, "Assets/NES - Final Fantasy - Castle Corneria.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)))
 		);
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
