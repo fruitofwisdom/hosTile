@@ -1,13 +1,13 @@
 ﻿#include "pch.h"
 #include "hosTileSampleMain.h"
 
-#include "hosTile\DirectXHelper.h"
+#include "DirectX\DirectXHelper.h"
 
+using namespace Concurrency;
 using namespace hosTile;
 using namespace hosTileSample;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
-using namespace Concurrency;
 
 // Loads and initializes application assets when the application is loaded.
 hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :

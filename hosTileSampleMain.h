@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "Common\StepTimer.h"
-#include "hosTile\DeviceResources.h"
+#include "DirectX\DeviceResources.h"
+#include "DirectX\StepTimer.h"
 #include "hosTile\hosTileSprite.h"
 #include "hosTile\Sample3DSceneRenderer.h"
 

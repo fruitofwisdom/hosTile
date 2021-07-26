@@ -1,8 +1,7 @@
 ﻿#pragma once
 
 #include <vector>
-
-#include "DeviceResources.h"
+#include "DirectX/DeviceResources.h"
 #include "hosTileShaderStructures.h"
 #include "hosTileSprite.h"
 

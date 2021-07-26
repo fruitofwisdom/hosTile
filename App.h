@@ -2,7 +2,6 @@
 
 #include "pch.h"
 #include "hosTileSampleMain.h"
-#include "hosTile\DeviceResources.h"
 
 namespace hosTileSample
 {

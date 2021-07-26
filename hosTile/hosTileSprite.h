@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "DeviceResources.h"
+#include "DirectX/DeviceResources.h"
 
 namespace hosTile
 {

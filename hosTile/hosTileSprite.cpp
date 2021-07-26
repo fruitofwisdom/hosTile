@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "hosTileSprite.h"
 
-#include "DDSTextureLoader11.h"
-#include "DirectXHelper.h"
+#include "DirectX/DDSTextureLoader11.h"
+#include "DirectX/DirectXHelper.h"
 #include "hosTileShaderStructures.h"
 #include "Sample3DSceneRenderer.h"
 

@@ -1,15 +1,13 @@
 ﻿#include "pch.h"
 #include "Sample3DSceneRenderer.h"
 
-#include "DDSTextureLoader11.h"
-#include "DirectXHelper.h"
-
-using namespace hosTile;
+#include "DirectX/DDSTextureLoader11.h"
+#include "DirectX/DirectXHelper.h"
 
 using namespace DirectX;
-using namespace Windows::Foundation;
-
+using namespace hosTile;
 using namespace std;
+using namespace Windows::Foundation;
 
 // Loads vertex and pixel shaders from files and instantiates the geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer(const shared_ptr<DX::DeviceResources>& deviceResources) :
