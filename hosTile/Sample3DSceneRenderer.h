@@ -1,6 +1,9 @@
 ﻿#pragma once
 
+#include <vector>
+
 #include "DeviceResources.h"
+#include "hosTileSprite.h"
 #include "ShaderStructures.h"
 
 namespace hosTileSample
@@ -13,8 +16,11 @@ namespace hosTileSample
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
+
 		void Update();
 		void Render();
+
+		void AddSprite(std::shared_ptr<hosTile::hosTileSprite> sprite);
 
 	private:
 		// Cached pointer to device resources.
@@ -28,7 +34,7 @@ namespace hosTileSample
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_constantBuffer;
 
-		ID3D11ShaderResourceView* m_texture;
+		std::vector<std::shared_ptr<hosTile::hosTileSprite>> m_sprites;
 		ID3D11SamplerState* m_sampler;
 
 		// System resources for the geometry.

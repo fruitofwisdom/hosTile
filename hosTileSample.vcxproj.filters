@@ -52,6 +52,9 @@
     <ClCompile Include="Common\SampleFpsTextRenderer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="hosTile\hosTileSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Common\SampleFpsTextRenderer.h">
       <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hosTileSprite.h">
+      <Filter>hosTile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

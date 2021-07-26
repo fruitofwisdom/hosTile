@@ -9,8 +9,10 @@ using namespace hosTileSample;
 using namespace DirectX;
 using namespace Windows::Foundation;
 
+using namespace std;
+
 // Loads vertex and pixel shaders from files and instantiates the geometry.
-Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
+Sample3DSceneRenderer::Sample3DSceneRenderer(const shared_ptr<DX::DeviceResources>& deviceResources) :
 	m_loadingComplete(false),
 	m_indexCount(0),
 	m_deviceResources(deviceResources)
@@ -130,24 +132,29 @@ void Sample3DSceneRenderer::Render()
 		0
 		);
 
-	context->PSSetShaderResources(
-		0,
-		1,
-		&m_texture
-	);
-
 	context->PSSetSamplers(
 		0,
 		1,
 		&m_sampler
 	);
 
-	// Draw the objects.
-	context->DrawIndexed(
-		m_indexCount,
-		0,
-		0
+	for (auto sprite : m_sprites)
+	{
+		// Bind each sprite's individual texture.
+		ID3D11ShaderResourceView* texture = sprite->GetTexture();
+		context->PSSetShaderResources(
+			0,
+			1,
+			&texture
 		);
+
+		// Draw the objects.
+		context->DrawIndexed(
+			m_indexCount,
+			0,
+			0
+		);
+	}
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -157,7 +164,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	auto loadPSTask = DX::ReadDataAsync(L"SamplePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
-	auto createVSTask = loadVSTask.then([this](const std::vector<byte>& fileData) {
+	auto createVSTask = loadVSTask.then([this](const vector<byte>& fileData) {
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateVertexShader(
 				&fileData[0],
@@ -185,7 +192,7 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 	});
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
-	auto createPSTask = loadPSTask.then([this](const std::vector<byte>& fileData) {
+	auto createPSTask = loadPSTask.then([this](const vector<byte>& fileData) {
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreatePixelShader(
 				&fileData[0],
@@ -256,8 +263,6 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				)
 			);
 
-		HRESULT result = CreateDDSTextureFromFile(m_deviceResources->GetD3DDevice(), L"Assets/NES - Final Fantasy - Castle Corneria.dds", nullptr, &m_texture);
-
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 
@@ -306,4 +311,9 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	m_constantBuffer.Reset();
 	m_vertexBuffer.Reset();
 	m_indexBuffer.Reset();
+}
+
+void Sample3DSceneRenderer::AddSprite(shared_ptr<hosTile::hosTileSprite> sprite)
+{
+	m_sprites.push_back(sprite);
 }

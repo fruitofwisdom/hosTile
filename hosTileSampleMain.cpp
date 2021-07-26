@@ -20,6 +20,10 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 
 	//m_fpsTextRenderer = std::unique_ptr<SampleFpsTextRenderer>(new SampleFpsTextRenderer(m_deviceResources));
 
+	m_sceneRenderer->AddSprite(
+		std::shared_ptr<hosTile::hosTileSprite>(new hosTile::hosTileSprite(m_deviceResources, "Assets/NES - Final Fantasy - Castle Corneria.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)))
+		);
+
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
 	/*

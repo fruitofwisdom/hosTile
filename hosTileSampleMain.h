@@ -1,9 +1,10 @@
 ﻿#pragma once
 
+//#include "Common\SampleFpsTextRenderer.h"
 #include "Common\StepTimer.h"
 #include "hosTile\DeviceResources.h"
+#include "hosTile\hosTileSprite.h"
 #include "hosTile\Sample3DSceneRenderer.h"
-//#include "Content\SampleFpsTextRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace hosTileSample
