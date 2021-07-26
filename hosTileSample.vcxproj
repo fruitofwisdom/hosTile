@@ -144,11 +144,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="Common\SampleFpsTextRenderer.h" />
-    <ClInclude Include="Common\StepTimer.h" />
-    <ClInclude Include="hosTile\DDSTextureLoader11.h" />
-    <ClInclude Include="hosTile\DeviceResources.h" />
-    <ClInclude Include="hosTile\DirectXHelper.h" />
+    <ClInclude Include="DirectX\DDSTextureLoader11.h" />
+    <ClInclude Include="DirectX\DeviceResources.h" />
+    <ClInclude Include="DirectX\DirectXHelper.h" />
+    <ClInclude Include="DirectX\StepTimer.h" />
     <ClInclude Include="hosTile\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
@@ -160,9 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Common\SampleFpsTextRenderer.cpp" />
-    <ClCompile Include="hosTile\DDSTextureLoader11.cpp" />
-    <ClCompile Include="hosTile\DeviceResources.cpp" />
+    <ClCompile Include="DirectX\DDSTextureLoader11.cpp" />
+    <ClCompile Include="DirectX\DeviceResources.cpp" />
     <ClCompile Include="hosTile\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>

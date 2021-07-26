@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-//#include "Common\SampleFpsTextRenderer.h"
 #include "Common\StepTimer.h"
 #include "hosTile\DeviceResources.h"
 #include "hosTile\hosTileSprite.h"
@@ -28,7 +27,6 @@ namespace hosTileSample
 
 		// TODO: Replace with your own content renderers.
 		std::unique_ptr<hosTile::Sample3DSceneRenderer> m_sceneRenderer;
-		//std::unique_ptr<SampleFpsTextRenderer> m_fpsTextRenderer;
 
 		// Game loop timer.
 		DX::StepTimer m_timer;
