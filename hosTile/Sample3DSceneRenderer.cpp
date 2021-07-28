@@ -151,6 +151,10 @@ void Sample3DSceneRenderer::Render()
 		);
 	}
 
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	UINT sampleMask = 0xffffffff;
+	context->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
+
 	// Draw the objects.
 	context->DrawIndexed(
 		m_indexCount,
@@ -271,6 +275,20 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 				&m_sampler
 			)
 		);
+
+		D3D11_BLEND_DESC blendState;
+		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
+		blendState.RenderTarget[0].BlendEnable = TRUE;
+		blendState.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		blendState.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		blendState.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		blendState.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		blendState.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+		blendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState)
+		);
 	});
 
 	// Once all tasks have finished, we are ready to render.
@@ -287,6 +305,7 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	m_pixelShader.Reset();
 	m_constantBuffer.Reset();
 	m_indexBuffer.Reset();
+	m_blendState.Reset();
 }
 
 void Sample3DSceneRenderer::AddSprite(shared_ptr<hosTile::hosTileSprite> sprite)

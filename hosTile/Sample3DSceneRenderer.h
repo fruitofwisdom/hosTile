@@ -31,6 +31,7 @@ namespace hosTile
 		Microsoft::WRL::ComPtr<ID3D11VertexShader>	m_vertexShader;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_constantBuffer;
+		Microsoft::WRL::ComPtr<ID3D11BlendState>	m_blendState;
 
 		std::vector<std::shared_ptr<hosTile::hosTileSprite>> m_sprites;
 		ID3D11SamplerState* m_sampler;
