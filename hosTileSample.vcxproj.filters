@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>f3e9dbd2-35ea-4c41-a500-5527cd950e86</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\NES - Final Fantasy - Warrior.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Filter Include="hosTile">
+      <UniqueIdentifier>51f3e198-4e78-4726-bea3-df273ceedbb3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="DirectX\DDSTextureLoader11.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX\DeviceResources.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hosTile.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hosTileSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\Sample3DSceneRenderer.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTileSampleMain.cpp" />
+    <ClCompile Include="pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="DirectX\DDSTextureLoader11.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\DeviceResources.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\DirectXHelper.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX\StepTimer.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hosTile.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hosTileShaderStructures.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hosTileSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\Sample3DSceneRenderer.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTileSampleMain.h" />
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="hosTile\SamplePixelShader.hlsl">
+      <Filter>hosTile</Filter>
+    </FxCompile>
+    <FxCompile Include="hosTile\SampleVertexShader.hlsl">
+      <Filter>hosTile</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
