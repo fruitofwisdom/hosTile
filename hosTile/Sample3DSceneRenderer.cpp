@@ -12,7 +12,6 @@ using namespace Windows::Foundation;
 // Loads vertex and pixel shaders from files and instantiates the geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer(const shared_ptr<DX::DeviceResources>& deviceResources) :
 	m_loadingComplete(false),
-	m_indexCount(0),
 	m_deviceResources(deviceResources)
 {
 	CreateDeviceDependentResources();
@@ -86,20 +85,33 @@ void Sample3DSceneRenderer::Render()
 		0
 		);
 
-	// Each vertex is one instance of the VertexPositionTex struct.
-	UINT stride = sizeof(VertexPositionTex);
-	UINT offset = 0;
+	// Copy each sprite's vertices into the vertex buffer data.
+	UINT numSprites = 0;
 	for (auto sprite : m_sprites)
 	{
-		ID3D11Buffer* vertexBuffer = sprite->GetVertexBuffer();
-		context->IASetVertexBuffers(
-			0,
-			1,
-			&vertexBuffer,
-			&stride,
-			&offset
-		);
+		const VertexPositionTex* vertexData = sprite->GetVertices();
+		memcpy(&m_vertexBufferData[numSprites * 4], vertexData, sizeof(VertexPositionTex) * 4);
+		numSprites++;
 	}
+
+	// Map the vertex buffer data into the actual vertex buffer.
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
+	auto deviceContext = m_deviceResources->GetD3DDeviceContext();
+	deviceContext->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	size_t vertexBufferDataSize = numSprites * sizeof(VertexPositionTex) * 4;
+	memcpy(mappedResource.pData, m_vertexBufferData, vertexBufferDataSize);
+	deviceContext->Unmap(m_vertexBuffer.Get(), 0);
+
+	UINT stride = sizeof(VertexPositionTex);
+	UINT offset = 0;
+	context->IASetVertexBuffers(
+		0,
+		1,
+		m_vertexBuffer.GetAddressOf(),
+		&stride,
+		&offset
+	);
 
 	context->IASetIndexBuffer(
 		m_indexBuffer.Get(),
@@ -140,6 +152,12 @@ void Sample3DSceneRenderer::Render()
 		&m_sampler
 	);
 
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	UINT sampleMask = 0xffffffff;
+	context->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
+
+	// Draw the objects.
+	UINT i = 0;
 	for (auto sprite : m_sprites)
 	{
 		// Bind each sprite's individual texture.
@@ -149,18 +167,14 @@ void Sample3DSceneRenderer::Render()
 			1,
 			&texture
 		);
+
+		context->DrawIndexed(
+			6,
+			i * 6,
+			0
+		);
+		i++;
 	}
-
-	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	UINT sampleMask = 0xffffffff;
-	context->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
-
-	// Draw the objects.
-	context->DrawIndexed(
-		m_indexCount,
-		0,
-		0
-	);
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
@@ -220,22 +234,43 @@ void Sample3DSceneRenderer::CreateDeviceDependentResources()
 
 	// Once both shaders are loaded, create the mesh, index buffer, and sampler.
 	auto finishSetupTask = (createPSTask && createVSTask).then([this] () {
-		// Load mesh indices. Each trio of indices represents
-		// a triangle to be rendered on the screen. Note the
-		// clockwise winding order.
-		static const unsigned short meshIndices [] =
+		// Pre-allocate room for 1,024 sprites-worth of vertex data and index data.
+		m_vertexBufferData = new VertexPositionTex[1024 * 4];
+		m_indexBufferData = new unsigned short[1024 * 6];
+		for (int i = 0; i < 1024; ++i)
 		{
-			0,2,1,
-			0,3,2
-		};
+			ZeroMemory(&m_vertexBufferData[i], sizeof(VertexPositionTex) * 4);
+			// Load mesh indices. Each trio of indices represents
+			// a triangle to be rendered on the screen. Note the
+			// clockwise winding order.
+			m_indexBufferData[i * 6] =     0 + i * 4;
+			m_indexBufferData[i * 6 + 1] = 2 + i * 4;
+			m_indexBufferData[i * 6 + 2] = 1 + i * 4;
+			m_indexBufferData[i * 6 + 3] = 0 + i * 4;
+			m_indexBufferData[i * 6 + 4] = 3 + i * 4;
+			m_indexBufferData[i * 6 + 5] = 2 + i * 4;
+		}
 
-		m_indexCount = ARRAYSIZE(meshIndices);
+		D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
+		vertexBufferData.pSysMem = m_vertexBufferData;
+		vertexBufferData.SysMemPitch = 0;
+		vertexBufferData.SysMemSlicePitch = 0;
+		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionTex) * 1024 * 4, D3D11_BIND_VERTEX_BUFFER);
+		vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+		vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateBuffer(
+				&vertexBufferDesc,
+				&vertexBufferData,
+				&m_vertexBuffer
+			)
+		);
 
 		D3D11_SUBRESOURCE_DATA indexBufferData = {0};
-		indexBufferData.pSysMem = meshIndices;
+		indexBufferData.pSysMem = m_indexBufferData;
 		indexBufferData.SysMemPitch = 0;
 		indexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(meshIndices), D3D11_BIND_INDEX_BUFFER);
+		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * 1024 * 6, D3D11_BIND_INDEX_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&indexBufferDesc,
@@ -304,8 +339,12 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	m_inputLayout.Reset();
 	m_pixelShader.Reset();
 	m_constantBuffer.Reset();
+	m_vertexBuffer.Reset();
 	m_indexBuffer.Reset();
 	m_blendState.Reset();
+
+	delete m_vertexBufferData;
+	delete m_indexBufferData;
 }
 
 void Sample3DSceneRenderer::AddSprite(shared_ptr<hosTile::hosTileSprite> sprite)

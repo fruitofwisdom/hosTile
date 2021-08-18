@@ -8,9 +8,11 @@
 
 using namespace DirectX;
 using namespace hosTile;
+using namespace std;
 
-hosTileSprite::hosTileSprite(const std::shared_ptr<DX::DeviceResources>& deviceResources, std::wstring spriteFilename, XMFLOAT3 position)
+hosTileSprite::hosTileSprite(const shared_ptr<DX::DeviceResources>& deviceResources, wstring spriteFilename, XMFLOAT3 position)
 :	m_deviceResources(deviceResources),
+	m_spriteFilename(spriteFilename),
 	m_position(position)
 {
 	DX::ThrowIfFailed(
@@ -29,49 +31,31 @@ hosTileSprite::hosTileSprite(const std::shared_ptr<DX::DeviceResources>& deviceR
 	resource->Release();
 
 	UpdateVertices();
-
-	CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(m_vertices), D3D11_BIND_VERTEX_BUFFER);
-	vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
-	vertexBufferData.pSysMem = m_vertices;
-	vertexBufferData.SysMemPitch = 0;
-	vertexBufferData.SysMemSlicePitch = 0;
-	DX::ThrowIfFailed(
-		m_deviceResources->GetD3DDevice()->CreateBuffer(
-			&vertexBufferDesc,
-			&vertexBufferData,
-			&m_vertexBuffer
-		)
-	);
 }
 
 hosTileSprite::~hosTileSprite()
 {
-	m_vertexBuffer->Release();
 	m_texture->Release();
 }
 
 void hosTileSprite::Update()
 {
 	UpdateVertices();
-
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
-	auto deviceContext = m_deviceResources->GetD3DDeviceContext();
-	deviceContext->Map(m_vertexBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	memcpy(mappedResource.pData, m_vertices, sizeof(m_vertices));
-	deviceContext->Unmap(m_vertexBuffer, 0);
 }
 
-ID3D11Buffer* hosTileSprite::GetVertexBuffer() const
+const wstring hosTileSprite::GetSpriteFilename() const
 {
-	return m_vertexBuffer;
+	return m_spriteFilename;
 }
 
 ID3D11ShaderResourceView* hosTileSprite::GetTexture() const
 {
 	return m_texture;
+}
+
+const VertexPositionTex* hosTileSprite::GetVertices() const
+{
+	return m_vertices;
 }
 
 void hosTileSprite::UpdateVertices()

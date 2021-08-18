@@ -14,8 +14,10 @@ namespace hosTile
 
 		void Update();
 
-		ID3D11Buffer* GetVertexBuffer() const;
+		const std::wstring GetSpriteFilename() const;
 		ID3D11ShaderResourceView* GetTexture() const;
+
+		const VertexPositionTex* GetVertices() const;
 
 	private:
 		void UpdateVertices();
@@ -23,11 +25,11 @@ namespace hosTile
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
+		const std::wstring m_spriteFilename;
 		ID3D11ShaderResourceView* m_texture;
 		DirectX::XMFLOAT2 m_dimensions;
 
 		DirectX::XMFLOAT3 m_position;
 		VertexPositionTex m_vertices[4];
-		ID3D11Buffer* m_vertexBuffer;
 	};
 }
