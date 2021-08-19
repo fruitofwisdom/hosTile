@@ -19,6 +19,7 @@ namespace hosTile
 		void Update();
 		void Render();
 
+		std::shared_ptr<hosTile::hosTileSprite> CreateSprite(std::wstring spriteFilename) const;
 		void AddSprite(std::shared_ptr<hosTile::hosTileSprite> sprite);
 
 	private:

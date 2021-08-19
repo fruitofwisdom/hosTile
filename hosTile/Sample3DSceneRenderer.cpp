@@ -347,7 +347,12 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	delete m_indexBufferData;
 }
 
-void Sample3DSceneRenderer::AddSprite(shared_ptr<hosTile::hosTileSprite> sprite)
+shared_ptr<hosTileSprite> Sample3DSceneRenderer::CreateSprite(wstring spriteFilename) const
+{
+	return shared_ptr<hosTileSprite>(new hosTileSprite(m_deviceResources, spriteFilename));
+}
+
+void Sample3DSceneRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)
 {
 	m_sprites.push_back(sprite);
 }
