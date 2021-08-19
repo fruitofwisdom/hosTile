@@ -38,6 +38,9 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -58,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -87,6 +93,9 @@
     </ClInclude>
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

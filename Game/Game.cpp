@@ -1,0 +1,42 @@
+#include "pch.h"
+#include "Game.h"
+
+#include "hosTile\hosTileSprite.h"
+
+using namespace hosTileSample;
+
+Game::Game(const std::shared_ptr<hosTile::Sample3DSceneRenderer> sceneRenderer)
+:	m_sceneRenderer(sceneRenderer)
+{
+	/*
+	// Old way of adding sprites?
+	m_sceneRenderer->AddSprite(
+		std::shared_ptr<hosTileSprite>(new hosTileSprite(
+			m_deviceResources, L"Assets/NES - Final Fantasy - Castle Corneria.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)
+		))
+	);
+	m_sceneRenderer->AddSprite(
+		std::shared_ptr<hosTileSprite>(new hosTileSprite(
+			m_deviceResources, L"Assets/NES - Final Fantasy - Warrior.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f)
+		))
+	);
+
+	// New way of adding sprites?
+	auto map = m_sceneRenderer->CreateSprite(L"Assets/NES - Final Fantasy - Castle Corneria.dds");
+	map->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+	m_sceneRenderer->AddSprite(map);
+	auto player = m_sceneRenderer->CreateSprite(L"Assets/NES - Final Fantasy - Warrior.dds");
+	player->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f);
+	m_sceneRenderer->AddSprite(player);
+	*/
+}
+
+Game::~Game()
+{
+	;
+}
+
+void Game::Update(DX::StepTimer const& timer)
+{
+	;
+}

@@ -4,7 +4,6 @@
 #include "DirectX\DirectXHelper.h"
 
 using namespace Concurrency;
-using namespace hosTile;
 using namespace hosTileSample;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
@@ -16,19 +15,7 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_sceneRenderer = std::unique_ptr<Sample3DSceneRenderer>(new Sample3DSceneRenderer(m_deviceResources));
-
-	// TODO: Replace this with your app's content initialization.
-	m_sceneRenderer->AddSprite(
-		std::shared_ptr<hosTileSprite>(new hosTileSprite(
-			m_deviceResources, L"Assets/NES - Final Fantasy - Castle Corneria.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)
-		))
-	);
-	m_sceneRenderer->AddSprite(
-		std::shared_ptr<hosTileSprite>(new hosTileSprite(
-			m_deviceResources, L"Assets/NES - Final Fantasy - Warrior.dds", DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f)
-		))
-	);
+	m_sceneRenderer = std::shared_ptr<hosTile::Sample3DSceneRenderer>(new hosTile::Sample3DSceneRenderer(m_deviceResources));
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -36,6 +23,8 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	m_timer.SetFixedTimeStep(true);
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
+
+	m_game = std::unique_ptr<Game>(new Game(m_sceneRenderer));
 }
 
 hosTileSampleMain::~hosTileSampleMain()
@@ -57,9 +46,8 @@ void hosTileSampleMain::Update()
 	// Update scene objects.
 	m_timer.Tick([&]()
 	{
-		// TODO: Replace this with your app's content update functions.
+		m_game->Update(m_timer);
 		m_sceneRenderer->Update();
-		//m_fpsTextRenderer->Update(m_timer);
 	});
 }
 
@@ -88,9 +76,7 @@ bool hosTileSampleMain::Render()
 	context->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	// Render the scene objects.
-	// TODO: Replace this with your app's content rendering functions.
 	m_sceneRenderer->Render();
-	//m_fpsTextRenderer->Render();
 
 	return true;
 }
@@ -99,13 +85,11 @@ bool hosTileSampleMain::Render()
 void hosTileSampleMain::OnDeviceLost()
 {
 	m_sceneRenderer->ReleaseDeviceDependentResources();
-	//m_fpsTextRenderer->ReleaseDeviceDependentResources();
 }
 
 // Notifies renderers that device resources may now be recreated.
 void hosTileSampleMain::OnDeviceRestored()
 {
 	m_sceneRenderer->CreateDeviceDependentResources();
-	//m_fpsTextRenderer->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
