@@ -140,7 +140,9 @@
     </Image>
     <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds" />
     <Image Include="Assets\NES - Final Fantasy - Warrior.dds" />
-    <Image Include="Assets\SplashScreen.scale-200.png" />
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\SplashScreen.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
