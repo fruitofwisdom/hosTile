@@ -152,10 +152,10 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="hosTile\SamplePixelShader.hlsl">
+    <FxCompile Include="hosTile\hosTilePixelShader.hlsl">
       <Filter>hosTile</Filter>
     </FxCompile>
-    <FxCompile Include="hosTile\SampleVertexShader.hlsl">
+    <FxCompile Include="hosTile\hosTileVertexShader.hlsl">
       <Filter>hosTile</Filter>
     </FxCompile>
   </ItemGroup>

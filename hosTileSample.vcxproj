@@ -247,10 +247,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="hosTile\SamplePixelShader.hlsl">
+    <FxCompile Include="hosTile\hosTilePixelShader.hlsl">
       <ShaderType>Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="hosTile\SampleVertexShader.hlsl">
+    <FxCompile Include="hosTile\hosTileVertexShader.hlsl">
       <ShaderType>Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
-Texture2D shaderTexture;
-SamplerState SampleType;
+Texture2D inputTexture : register(t0);
+SamplerState inputSampler : register(s0);
 
 struct PixelShaderInput
 {
@@ -12,7 +12,7 @@ float4 main(PixelShaderInput input) : SV_TARGET
 	float4 textureColor;
 
 	// Sample the pixel color from the texture using the sampler at this texture coordinate location.
-	textureColor = shaderTexture.Sample(SampleType, input.tex);
+	textureColor = inputTexture.Sample(inputSampler, input.tex);
 
 	return textureColor;
 }

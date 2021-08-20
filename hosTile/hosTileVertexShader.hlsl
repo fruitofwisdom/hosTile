@@ -27,7 +27,7 @@ PixelShaderInput main(VertexShaderInput input)
 	pos = mul(pos, projection);
 	output.pos = pos;
 
-	// Store the texture coordinates for the pixel shader.
+	// Pass along the texture coordinates to the pixel shader.
 	output.tex = input.tex;
 
 	return output;
