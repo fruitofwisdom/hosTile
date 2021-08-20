@@ -219,7 +219,7 @@
     </ClInclude>
     <ClInclude Include="hosTile\hosTileShaderStructures.h" />
     <ClInclude Include="hosTile\hosTileSprite.h" />
-    <ClInclude Include="hosTile\Sample3DSceneRenderer.h" />
+    <ClInclude Include="hosTile\hosTileRenderer.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -231,8 +231,8 @@
     <ClCompile Include="hosTile\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="hosTile\hosTileRenderer.cpp" />
     <ClCompile Include="hosTile\hosTileSprite.cpp" />
-    <ClCompile Include="hosTile\Sample3DSceneRenderer.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

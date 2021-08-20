@@ -15,7 +15,7 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_sceneRenderer = std::shared_ptr<hosTile::Sample3DSceneRenderer>(new hosTile::Sample3DSceneRenderer(m_deviceResources));
+	m_renderer = std::shared_ptr<hosTile::hosTileRenderer>(new hosTile::hosTileRenderer(m_deviceResources));
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -24,7 +24,7 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
 
-	m_game = std::unique_ptr<Game>(new Game(m_sceneRenderer));
+	m_game = std::unique_ptr<Game>(new Game(m_renderer));
 }
 
 hosTileSampleMain::~hosTileSampleMain()
@@ -36,8 +36,7 @@ hosTileSampleMain::~hosTileSampleMain()
 // Updates application state when the window size changes (e.g. device orientation change)
 void hosTileSampleMain::CreateWindowSizeDependentResources() 
 {
-	// TODO: Replace this with the size-dependent initialization of your app's content.
-	m_sceneRenderer->CreateWindowSizeDependentResources();
+	m_renderer->CreateWindowSizeDependentResources();
 }
 
 // Updates the application state once per frame.
@@ -47,7 +46,7 @@ void hosTileSampleMain::Update()
 	m_timer.Tick([&]()
 	{
 		m_game->Update(m_timer);
-		m_sceneRenderer->Update();
+		m_renderer->Update();
 	});
 }
 
@@ -76,7 +75,7 @@ bool hosTileSampleMain::Render()
 	context->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	// Render the scene objects.
-	m_sceneRenderer->Render();
+	m_renderer->Render();
 
 	return true;
 }
@@ -84,12 +83,12 @@ bool hosTileSampleMain::Render()
 // Notifies renderers that device resources need to be released.
 void hosTileSampleMain::OnDeviceLost()
 {
-	m_sceneRenderer->ReleaseDeviceDependentResources();
+	m_renderer->ReleaseDeviceDependentResources();
 }
 
 // Notifies renderers that device resources may now be recreated.
 void hosTileSampleMain::OnDeviceRestored()
 {
-	m_sceneRenderer->CreateDeviceDependentResources();
+	m_renderer->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }

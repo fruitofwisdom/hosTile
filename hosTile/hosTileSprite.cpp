@@ -4,7 +4,6 @@
 #include "DirectX/DDSTextureLoader11.h"
 #include "DirectX/DirectXHelper.h"
 #include "hosTileShaderStructures.h"
-#include "Sample3DSceneRenderer.h"
 
 using namespace DirectX;
 using namespace hosTile;

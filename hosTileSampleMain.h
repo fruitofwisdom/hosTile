@@ -3,7 +3,7 @@
 #include "DirectX\DeviceResources.h"
 #include "DirectX\StepTimer.h"
 #include "Game\Game.h"
-#include "hosTile\Sample3DSceneRenderer.h"
+#include "hosTile\hosTileRenderer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace hosTileSample
@@ -27,8 +27,8 @@ namespace hosTileSample
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
-		// TODO: Replace with your own content renderers.
-		std::shared_ptr<hosTile::Sample3DSceneRenderer> m_sceneRenderer;
+		// The hosTile renderer.
+		std::shared_ptr<hosTile::hosTileRenderer> m_renderer;
 
 		// Game loop timer.
 		DX::StepTimer m_timer;

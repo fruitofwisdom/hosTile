@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DirectX\StepTimer.h"
-#include "hosTile\Sample3DSceneRenderer.h"
+#include "hosTile\hosTileRenderer.h"
 
 // The game instance.
 namespace hosTileSample
@@ -9,13 +9,13 @@ namespace hosTileSample
 	class Game
 	{
 	public:
-		Game(const std::shared_ptr<hosTile::Sample3DSceneRenderer> sceneRenderer);
+		Game(const std::shared_ptr<hosTile::hosTileRenderer> renderer);
 		~Game();
 
 		void Update(DX::StepTimer const& timer);
 
 	private:
 		// TODO: Replace with your own content renderers.
-		std::shared_ptr<hosTile::Sample3DSceneRenderer> m_sceneRenderer;
+		std::shared_ptr<hosTile::hosTileRenderer> m_renderer;
 	};
 }
