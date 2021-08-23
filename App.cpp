@@ -11,6 +11,7 @@ using namespace Windows::ApplicationModel::Core;
 using namespace Windows::ApplicationModel::Activation;
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Input;
+using namespace Windows::UI::ViewManagement;
 using namespace Windows::System;
 using namespace Windows::Foundation;
 using namespace Windows::Graphics::Display;
@@ -29,10 +30,16 @@ IFrameworkView^ Direct3DApplicationSource::CreateView()
 	return ref new App();
 }
 
-App::App() :
-	m_windowClosed(false),
+// The default (preferred) size is 2x the NES's resolution.
+const float App::PreferredWidth = 512.0f;
+const float App::PreferredHeight = 480.0f;
+
+App::App()
+:	m_windowClosed(false),
 	m_windowVisible(true)
 {
+	ApplicationView::PreferredLaunchViewSize = Size(PreferredWidth, PreferredHeight);
+	ApplicationView::PreferredLaunchWindowingMode = ApplicationViewWindowingMode::PreferredLaunchViewSize;
 }
 
 // The first method called when the IFrameworkView is being created.
