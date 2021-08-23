@@ -15,7 +15,7 @@ hosTileSprite::hosTileSprite(const shared_ptr<DX::DeviceResources>& deviceResour
 {
 	DX::ThrowIfFailed(
 		CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), spriteFilename.c_str(), nullptr, &m_texture)
-	);
+		);
 
 	// Store the width and height from the texture description.
 	ID3D11Resource* resource = nullptr;
@@ -61,23 +61,23 @@ const VertexPositionTex* hosTileSprite::GetVertices() const
 // Update the vertices' data after the position has changed.
 void hosTileSprite::UpdateVertices()
 {
-	// 0, bottom-left
-	m_vertices[0] = {
+	m_vertices[0] =		// 0, bottom-left
+	{
 		XMFLOAT3(m_width / 2.0f * -1.0f + m_position.x, m_height / 2.0f * -1.0f + m_position.y, m_position.z),
 		XMFLOAT2(0.0f, 1.0f)
 	};
-	// 1, bottom-right
-	m_vertices[1] = {
+	m_vertices[1] =		// 1, bottom-right
+	{
 		XMFLOAT3(m_width / 2.0f + m_position.x, m_height / 2.0f * -1.0f + m_position.y, m_position.z),
 		XMFLOAT2(1.0f, 1.0f)
 	};
-	// 2, top-right
-	m_vertices[2] = {
+	m_vertices[2] =		// 2, top-right
+	{
 		XMFLOAT3(m_width / 2.0f + m_position.x, m_height / 2.0f + m_position.y, m_position.z),
 		XMFLOAT2(1.0f, 0.0f)
 	};
-	// 3, top-left
-	m_vertices[3] = {
+	m_vertices[3] =		// 3, top-left
+	{
 		XMFLOAT3(m_width / 2.0f * -1.0f + m_position.x, m_height / 2.0f + m_position.y, m_position.z),
 		XMFLOAT2(0.0f, 0.0f)
 	};

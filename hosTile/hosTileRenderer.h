@@ -27,6 +27,9 @@ namespace hosTile
 		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
 
 	private:
+		// Copy each sprite's vertices into the vertex buffer.
+		void FillVertexBuffer();
+
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 		// Direct3D resources for the geometry.

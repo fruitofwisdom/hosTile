@@ -25,22 +25,23 @@ void hosTileRenderer::CreateDeviceDependentResources()
 	auto loadPSTask = DX::ReadDataAsync(L"hosTilePixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
-	auto createVSTask = loadVSTask.then([this](const vector<byte>& fileData) {
+	auto createVSTask = loadVSTask.then([this](const vector<byte>& fileData)
+	{
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateVertexShader(
 				&fileData[0],
 				fileData.size(),
 				nullptr,
 				&m_vertexShader
-			)
-		);
+				)
+			);
 
+		// Create the input-layout object.
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 		{
 			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
-
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateInputLayout(
 				vertexDesc,
@@ -48,20 +49,21 @@ void hosTileRenderer::CreateDeviceDependentResources()
 				&fileData[0],
 				fileData.size(),
 				&m_inputLayout
-			)
-		);
-		});
+				)
+			);
+	});
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
-	auto createPSTask = loadPSTask.then([this](const vector<byte>& fileData) {
+	auto createPSTask = loadPSTask.then([this](const vector<byte>& fileData)
+	{
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreatePixelShader(
 				&fileData[0],
 				fileData.size(),
 				nullptr,
 				&m_pixelShader
-			)
-		);
+				)
+			);
 
 		CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
 		DX::ThrowIfFailed(
@@ -69,21 +71,21 @@ void hosTileRenderer::CreateDeviceDependentResources()
 				&constantBufferDesc,
 				nullptr,
 				&m_constantBuffer
-			)
-		);
-		});
+				)
+			);
+	});
 
-	// Once both shaders are loaded, create the mesh, index buffer, and sampler.
-	auto finishSetupTask = (createPSTask && createVSTask).then([this]() {
+	// Once both shaders are loaded, create the input buffers, sampler state, and blend state.
+	auto finishSetupTask = (createPSTask && createVSTask).then([this]()
+	{
 		// Pre-allocate room for MaxSprites-worth of vertex data and index data.
 		m_vertexBufferData = new VertexPositionTex[MaxSprites * 4];
 		m_indexBufferData = new unsigned short[MaxSprites * 6];
 		for (int i = 0; i < MaxSprites; ++i)
 		{
 			ZeroMemory(&m_vertexBufferData[i], sizeof(VertexPositionTex) * 4);
-			// Load mesh indices. Each trio of indices represents
-			// a triangle to be rendered on the screen. Note the
-			// clockwise winding order.
+			// Load mesh indices. Each trio of indices represents a triangle to be rendered on the
+			// screen. Note the clockwise winding order.
 			m_indexBufferData[i * 6] = 0 + i * 4;
 			m_indexBufferData[i * 6 + 1] = 2 + i * 4;
 			m_indexBufferData[i * 6 + 2] = 1 + i * 4;
@@ -92,6 +94,7 @@ void hosTileRenderer::CreateDeviceDependentResources()
 			m_indexBufferData[i * 6 + 5] = 2 + i * 4;
 		}
 
+		// Create the vertex buffer.
 		D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
 		vertexBufferData.pSysMem = m_vertexBufferData;
 		vertexBufferData.SysMemPitch = 0;
@@ -104,9 +107,10 @@ void hosTileRenderer::CreateDeviceDependentResources()
 				&vertexBufferDesc,
 				&vertexBufferData,
 				&m_vertexBuffer
-			)
-		);
+				)
+			);
 
+		// Create the index buffer.
 		D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
 		indexBufferData.pSysMem = m_indexBufferData;
 		indexBufferData.SysMemPitch = 0;
@@ -117,40 +121,29 @@ void hosTileRenderer::CreateDeviceDependentResources()
 				&indexBufferDesc,
 				&indexBufferData,
 				&m_indexBuffer
-			)
-		);
+				)
+			);
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-
-		// The sampler does not use anisotropic filtering, so this parameter is ignored.
 		samplerDesc.MaxAnisotropy = 0;
-
-		// Specify how texture coordinates outside of the range 0..1 are resolved.
 		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-
-		// Use no special MIP clamping or bias.
 		samplerDesc.MipLODBias = 0.0f;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-		// Don't use a comparison function.
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-
-		// Border address mode is not used, so this parameter is ignored.
 		samplerDesc.BorderColor[0] = 0.0f;
 		samplerDesc.BorderColor[1] = 0.0f;
 		samplerDesc.BorderColor[2] = 0.0f;
 		samplerDesc.BorderColor[3] = 0.0f;
-
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateSamplerState(
 				&samplerDesc,
 				&m_samplerState
-			)
-		);
+				)
+			);
 
 		D3D11_BLEND_DESC blendState;
 		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
@@ -164,13 +157,13 @@ void hosTileRenderer::CreateDeviceDependentResources()
 		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState)
-		);
-		});
+			);
+	});
 
 	// Once all tasks have finished, we are ready to render.
 	finishSetupTask.then([this]() {
 		m_loadingComplete = true;
-		});
+	});
 }
 
 // Initializes view parameters when the window size changes.
@@ -194,11 +187,8 @@ void hosTileRenderer::CreateWindowSizeDependentResources()
 	// this transform should not be applied.
 
 	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
-
 	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
-
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
-
 	XMStoreFloat4x4(
 		&m_constantBufferData.projection,
 		XMMatrixTranspose(orthoMatrix * orientationMatrix)
@@ -207,7 +197,6 @@ void hosTileRenderer::CreateWindowSizeDependentResources()
 	static const XMVECTORF32 eye = { 0.0f, 0.0f, -1.0f, 0.0f };
 	static const XMVECTORF32 at = { 0.0f, 0.0f, 1.0f, 0.0f };
 	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
-
 	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtLH(eye, at, up)));
 }
 
@@ -243,10 +232,11 @@ void hosTileRenderer::Render()
 		return;
 	}
 
-	auto context = m_deviceResources->GetD3DDeviceContext();
+	// TODO: Upgrade this to ID3D11DeviceContext4.
+	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
 
 	// Prepare the constant buffer to send it to the graphics device.
-	context->UpdateSubresource1(
+	deviceContext->UpdateSubresource1(
 		m_constantBuffer.Get(),
 		0,
 		NULL,
@@ -256,53 +246,42 @@ void hosTileRenderer::Render()
 		0
 		);
 
-	// Copy each sprite's vertices into the vertex buffer data.
-	UINT numSprites = 0;
-	for (auto sprite : m_sprites)
-	{
-		const VertexPositionTex* vertexData = sprite->GetVertices();
-		memcpy(&m_vertexBufferData[numSprites * 4], vertexData, sizeof(VertexPositionTex) * 4);
-		numSprites++;
-	}
+	// Copy each sprite's vertices into the vertex buffer.
+	FillVertexBuffer();
 
-	// Map the vertex buffer data into the actual vertex buffer.
-	D3D11_MAPPED_SUBRESOURCE mappedResource;
-	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
-	auto deviceContext = m_deviceResources->GetD3DDeviceContext();
-	deviceContext->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	size_t vertexBufferDataSize = numSprites * sizeof(VertexPositionTex) * 4;
-	memcpy(mappedResource.pData, m_vertexBufferData, vertexBufferDataSize);
-	deviceContext->Unmap(m_vertexBuffer.Get(), 0);
-
+	// Bind the vertex buffer to the IA stage.
 	UINT stride = sizeof(VertexPositionTex);
 	UINT offset = 0;
-	context->IASetVertexBuffers(
+	deviceContext->IASetVertexBuffers(
 		0,
 		1,
 		m_vertexBuffer.GetAddressOf(),
 		&stride,
 		&offset
-	);
+		);
 
-	context->IASetIndexBuffer(
+	// Bind the index buffer to the IA stage.
+	deviceContext->IASetIndexBuffer(
 		m_indexBuffer.Get(),
 		DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
 		0
 		);
 
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// Set the input layout.
+	deviceContext->IASetInputLayout(m_inputLayout.Get());
 
-	context->IASetInputLayout(m_inputLayout.Get());
+	// Set the primitive topology.
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Attach our vertex shader.
-	context->VSSetShader(
+	deviceContext->VSSetShader(
 		m_vertexShader.Get(),
 		nullptr,
 		0
 		);
 
 	// Send the constant buffer to the graphics device.
-	context->VSSetConstantBuffers1(
+	deviceContext->VSSetConstantBuffers1(
 		0,
 		1,
 		m_constantBuffer.GetAddressOf(),
@@ -311,40 +290,41 @@ void hosTileRenderer::Render()
 		);
 
 	// Attach our pixel shader.
-	context->PSSetShader(
+	deviceContext->PSSetShader(
 		m_pixelShader.Get(),
 		nullptr,
 		0
 		);
 
-	context->PSSetSamplers(
+	deviceContext->PSSetSamplers(
 		0,
 		1,
 		m_samplerState.GetAddressOf()
-	);
+		);
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	UINT sampleMask = 0xffffffff;
-	context->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
+	deviceContext->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
 
-	// Draw the objects.
-	UINT i = 0;
+	// Draw the sprites.
+	UINT numSprites = 0;
 	for (auto sprite : m_sprites)
 	{
 		// Bind each sprite's individual texture.
 		ID3D11ShaderResourceView* texture = sprite->GetTexture();
-		context->PSSetShaderResources(
+		deviceContext->PSSetShaderResources(
 			0,
 			1,
 			&texture
-		);
+			);
 
-		context->DrawIndexed(
+		deviceContext->DrawIndexed(
 			6,
-			i * 6,
+			numSprites * 6,
 			0
-		);
-		i++;
+			);
+
+		numSprites++;
 	}
 }
 
@@ -356,4 +336,28 @@ shared_ptr<hosTileSprite> hosTileRenderer::CreateSprite(wstring spriteFilename) 
 void hosTileRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)
 {
 	m_sprites.push_back(sprite);
+}
+
+// Copy each sprite's vertices into the vertex buffer.
+void hosTileRenderer::FillVertexBuffer()
+{
+	// TODO: Upgrade this to ID3D11DeviceContext4.
+	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
+
+	// Copy each sprite's vertices into the data for the vertex buffer.
+	UINT numSprites = 0;
+	for (auto sprite : m_sprites)
+	{
+		const VertexPositionTex* vertexData = sprite->GetVertices();
+		memcpy(&m_vertexBufferData[numSprites * 4], vertexData, sizeof(VertexPositionTex) * 4);
+		numSprites++;
+	}
+
+	// Map the data for the vertex buffer into the actual vertex buffer.
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
+	deviceContext->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	size_t vertexBufferDataSize = numSprites * sizeof(VertexPositionTex) * 4;
+	memcpy(mappedResource.pData, m_vertexBufferData, vertexBufferDataSize);
+	deviceContext->Unmap(m_vertexBuffer.Get(), 0);
 }
