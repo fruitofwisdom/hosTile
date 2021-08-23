@@ -7,7 +7,8 @@
 
 namespace hosTile
 {
-	// This sample renderer instantiates a basic rendering pipeline.
+	// The hosTile 2D graphics engine main renderer component. Manages the creation and rendering
+	// of sprites and interfacing with the DirectX hardware.
 	class hosTileRenderer
 	{
 	public:
@@ -20,8 +21,10 @@ namespace hosTile
 		void Update();
 		void Render();
 
-		std::shared_ptr<hosTile::hosTileSprite> CreateSprite(std::wstring spriteFilename) const;
-		void AddSprite(std::shared_ptr<hosTile::hosTileSprite> sprite);
+		// CreateSprite will return a new hosTileSprite that game classes can use and manage.
+		// These sprites will then need to be added to the renderer with AddSprite.
+		std::shared_ptr<hosTileSprite> CreateSprite(std::wstring spriteFilename) const;
+		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
 
 	private:
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
@@ -41,9 +44,10 @@ namespace hosTile
 		unsigned short* m_indexBufferData;
 		ModelViewProjectionConstantBuffer m_constantBufferData;
 
-		// Variables used with the rendering loop.
 		bool m_loadingComplete;
 
-		std::vector<std::shared_ptr<hosTile::hosTileSprite>> m_sprites;
+		// TODO: Can this be a not-fixed number?
+		static const int MaxSprites = 1024;
+		std::vector<std::shared_ptr<hosTileSprite>> m_sprites;
 	};
 }

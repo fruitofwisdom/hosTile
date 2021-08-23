@@ -9,7 +9,6 @@ using namespace hosTile;
 using namespace std;
 using namespace Windows::Foundation;
 
-// Loads vertex and pixel shaders from files and instantiates the geometry.
 hosTileRenderer::hosTileRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false)
@@ -18,6 +17,7 @@ hosTileRenderer::hosTileRenderer(const shared_ptr<DX::DeviceResources>& deviceRe
 	CreateWindowSizeDependentResources();
 }
 
+// Load the shaders and create all resources and data that rely on the DirectX device.
 void hosTileRenderer::CreateDeviceDependentResources()
 {
 	// Load shaders asynchronously.
@@ -75,10 +75,10 @@ void hosTileRenderer::CreateDeviceDependentResources()
 
 	// Once both shaders are loaded, create the mesh, index buffer, and sampler.
 	auto finishSetupTask = (createPSTask && createVSTask).then([this]() {
-		// Pre-allocate room for 1,024 sprites-worth of vertex data and index data.
-		m_vertexBufferData = new VertexPositionTex[1024 * 4];
-		m_indexBufferData = new unsigned short[1024 * 6];
-		for (int i = 0; i < 1024; ++i)
+		// Pre-allocate room for MaxSprites-worth of vertex data and index data.
+		m_vertexBufferData = new VertexPositionTex[MaxSprites * 4];
+		m_indexBufferData = new unsigned short[MaxSprites * 6];
+		for (int i = 0; i < MaxSprites; ++i)
 		{
 			ZeroMemory(&m_vertexBufferData[i], sizeof(VertexPositionTex) * 4);
 			// Load mesh indices. Each trio of indices represents
@@ -96,7 +96,7 @@ void hosTileRenderer::CreateDeviceDependentResources()
 		vertexBufferData.pSysMem = m_vertexBufferData;
 		vertexBufferData.SysMemPitch = 0;
 		vertexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionTex) * 1024 * 4, D3D11_BIND_VERTEX_BUFFER);
+		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionTex) * MaxSprites * 4, D3D11_BIND_VERTEX_BUFFER);
 		vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 		vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		DX::ThrowIfFailed(
@@ -111,7 +111,7 @@ void hosTileRenderer::CreateDeviceDependentResources()
 		indexBufferData.pSysMem = m_indexBufferData;
 		indexBufferData.SysMemPitch = 0;
 		indexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * 1024 * 6, D3D11_BIND_INDEX_BUFFER);
+		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * MaxSprites * 6, D3D11_BIND_INDEX_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&indexBufferDesc,
