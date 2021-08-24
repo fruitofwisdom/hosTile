@@ -132,6 +132,8 @@ void App::OnActivated(CoreApplicationView^ applicationView, IActivatedEventArgs^
 {
 	// Run() won't start until the CoreWindow is activated.
 	CoreWindow::GetForCurrentThread()->Activate();
+
+	ApplicationView::GetForCurrentView()->TryResizeView(Size(PreferredWidth, PreferredHeight));
 }
 
 void App::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
@@ -166,7 +168,11 @@ void App::OnResuming(Platform::Object^ sender, Platform::Object^ args)
 void App::OnWindowSizeChanged(CoreWindow^ sender, WindowSizeChangedEventArgs^ args)
 {
 	m_deviceResources->SetLogicalSize(Size(sender->Bounds.Width, sender->Bounds.Height));
-	m_main->CreateWindowSizeDependentResources();
+	
+	if (m_main != nullptr)
+	{
+		m_main->CreateWindowSizeDependentResources();
+	}
 }
 
 void App::OnVisibilityChanged(CoreWindow^ sender, VisibilityChangedEventArgs^ args)
