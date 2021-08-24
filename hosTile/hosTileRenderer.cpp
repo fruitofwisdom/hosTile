@@ -169,7 +169,9 @@ void hosTileRenderer::CreateDeviceDependentResources()
 // Initializes view parameters when the window size changes.
 void hosTileRenderer::CreateWindowSizeDependentResources()
 {
-	Size outputSize = m_deviceResources->GetOutputSize();
+	// For the sake of our orthographic camera, we don't want the size to take into account a high
+	// resolution display's render scaling (where output size is larger than logical size).
+	Size outputSize = m_deviceResources->GetLogicalSize();
 	float aspectRatio = outputSize.Width / outputSize.Height;
 	float fovAngleY = 70.0f * XM_PI / 180.0f;
 
