@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hosTileRenderer.h"
 
-#include "DirectX/DDSTextureLoader11.h"
+#include "DDSTextureLoader.h"
 #include "DirectX/DirectXHelper.h"
 
 using namespace DirectX;

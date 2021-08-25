@@ -95,9 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="DirectX\DDSTextureLoader11.cpp">
-      <Filter>DirectX</Filter>
-    </ClCompile>
     <ClCompile Include="DirectX\DeviceResources.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
@@ -118,9 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="DirectX\DDSTextureLoader11.h">
-      <Filter>DirectX</Filter>
-    </ClInclude>
     <ClInclude Include="DirectX\DeviceResources.h">
       <Filter>DirectX</Filter>
     </ClInclude>
@@ -158,5 +152,8 @@
     <FxCompile Include="hosTile\hosTileVertexShader.hlsl">
       <Filter>hosTile</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

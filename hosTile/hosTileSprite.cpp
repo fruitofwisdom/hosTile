@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "hosTileSprite.h"
 
-#include "DirectX/DDSTextureLoader11.h"
+#include "DDSTextureLoader.h"
 #include "DirectX/DirectXHelper.h"
 #include "hosTileShaderStructures.h"
 
