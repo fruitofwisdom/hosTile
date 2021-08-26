@@ -37,7 +37,7 @@ hosTileSprite::~hosTileSprite()
 	m_texture->Release();
 }
 
-const wstring hosTileSprite::GetSpriteFilename() const
+wstring hosTileSprite::GetSpriteFilename() const
 {
 	return m_spriteFilename;
 }
@@ -45,6 +45,11 @@ const wstring hosTileSprite::GetSpriteFilename() const
 ID3D11ShaderResourceView* hosTileSprite::GetTexture() const
 {
 	return m_texture;
+}
+
+XMFLOAT3 hosTileSprite::GetPosition() const
+{
+	return m_position;
 }
 
 void hosTileSprite::SetPosition(XMFLOAT3 position)

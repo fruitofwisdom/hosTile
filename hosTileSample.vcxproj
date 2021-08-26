@@ -213,6 +213,7 @@
     <ClInclude Include="DirectX\DirectXHelper.h" />
     <ClInclude Include="DirectX\StepTimer.h" />
     <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\Player.h" />
     <ClInclude Include="hosTile\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
@@ -226,6 +227,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="DirectX\DeviceResources.cpp" />
     <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="hosTile\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>

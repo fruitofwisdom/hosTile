@@ -2,6 +2,7 @@
 
 #include "DirectX\StepTimer.h"
 #include "hosTile\hosTileRenderer.h"
+#include "Player.h"
 
 // The game instance.
 namespace hosTileSample
@@ -9,13 +10,12 @@ namespace hosTileSample
 	class Game
 	{
 	public:
-		Game(const std::shared_ptr<hosTile::hosTileRenderer> renderer);
-		~Game();
+		Game(std::shared_ptr<hosTile::hosTileRenderer> renderer);
+		virtual ~Game() {}
 
-		void Update(DX::StepTimer const& timer);
+		void Update(const DX::StepTimer& timer);
 
 	private:
-		// TODO: Replace with your own content renderers.
-		std::shared_ptr<hosTile::hosTileRenderer> m_renderer;
+		std::unique_ptr<Player> m_player;
 	};
 }

@@ -13,11 +13,12 @@ namespace hosTile
 		hosTileSprite(
 			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::wstring spriteFilename,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
-		~hosTileSprite();
+		virtual ~hosTileSprite();
 
-		const std::wstring GetSpriteFilename() const;
+		std::wstring GetSpriteFilename() const;
 		ID3D11ShaderResourceView* GetTexture() const;
 
+		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);
 		const VertexPositionTex* GetVertices() const;
 

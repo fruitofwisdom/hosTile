@@ -112,6 +112,9 @@
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -139,6 +142,9 @@
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
