@@ -14,6 +14,8 @@ namespace hosTileSample
 		void Update(const DX::StepTimer& timer);
 
 	private:
+		static const float MovementSpeed;		// pixels-per-second
+
 		std::shared_ptr<hosTile::hosTileSprite> m_sprite;
 	};
 }
