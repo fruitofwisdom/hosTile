@@ -23,7 +23,10 @@ namespace hosTile
 
 		// CreateSprite will return a new hosTileSprite that game classes can use and manage.
 		// These sprites will then need to be added to the renderer with AddSprite.
-		std::shared_ptr<hosTileSprite> CreateSprite(std::wstring spriteFilename) const;
+		std::shared_ptr<hosTileSprite> CreateSprite(
+			std::wstring spriteFilename,
+			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1
+			) const;
 		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
 
 	private:

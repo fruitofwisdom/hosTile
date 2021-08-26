@@ -330,9 +330,16 @@ void hosTileRenderer::Render()
 	}
 }
 
-shared_ptr<hosTileSprite> hosTileRenderer::CreateSprite(wstring spriteFilename) const
+shared_ptr<hosTileSprite> hosTileRenderer::CreateSprite(
+	wstring spriteFilename,
+	unsigned int currentSubSprite, unsigned int numSubSprites
+	) const
 {
-	return shared_ptr<hosTileSprite>(new hosTileSprite(m_deviceResources, spriteFilename));
+	return std::make_shared<hosTileSprite>(
+		m_deviceResources, spriteFilename,
+		XMFLOAT3(0.0f, 0.0f, 0.0f),
+		currentSubSprite, numSubSprites
+		);
 }
 
 void hosTileRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)

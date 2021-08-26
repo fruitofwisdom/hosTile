@@ -12,8 +12,9 @@ Game::Game(std::shared_ptr<hosTile::hosTileRenderer> renderer)
 	map->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
 	renderer->AddSprite(map);
 
-	auto playerSprite = renderer->CreateSprite(L"Assets/NES - Final Fantasy - Warrior.dds");
-	m_player = std::make_unique<Player>(playerSprite, DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f));
+	auto playerSprite = renderer->CreateSprite(L"Assets/NES - Final Fantasy - Warrior.dds", 0, 4);
+	playerSprite->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f));
+	m_player = std::make_unique<Player>(playerSprite);
 	renderer->AddSprite(playerSprite);
 }
 

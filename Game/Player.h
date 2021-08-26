@@ -8,7 +8,7 @@ namespace hosTileSample
 	class Player
 	{
 	public:
-		Player(std::shared_ptr<hosTile::hosTileSprite> sprite, DirectX::XMFLOAT3 position);
+		Player(std::shared_ptr<hosTile::hosTileSprite> sprite);
 		virtual ~Player() {}
 
 		void Update(const DX::StepTimer& timer);
