@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "pch.h"
 #include "hosTileSampleMain.h"
+#include "Keyboard.h"
 
 namespace hosTileSample
 {
@@ -40,6 +40,10 @@ namespace hosTileSample
 
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 		std::unique_ptr<hosTileSampleMain> m_main;
+
+		std::unique_ptr<DirectX::Keyboard> m_keyboard;
+		DirectX::Keyboard::KeyboardStateTracker m_keyboardTracker;
+
 		bool m_windowClosed;
 		bool m_windowVisible;
 	};

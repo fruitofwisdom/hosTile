@@ -9,13 +9,13 @@ using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 
 // Loads and initializes application assets when the application is loaded.
-hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-	m_deviceResources(deviceResources)
+hosTileSampleMain::hosTileSampleMain(std::shared_ptr<DX::DeviceResources> deviceResources)
+:	m_deviceResources(deviceResources)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_renderer = std::shared_ptr<hosTile::hosTileRenderer>(new hosTile::hosTileRenderer(m_deviceResources));
+	m_renderer = std::make_shared<hosTile::hosTileRenderer>(m_deviceResources);
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -24,7 +24,7 @@ hosTileSampleMain::hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>&
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
 
-	m_game = std::unique_ptr<Game>(new Game(m_renderer));
+	m_game = std::make_unique<Game>(m_renderer);
 }
 
 hosTileSampleMain::~hosTileSampleMain()

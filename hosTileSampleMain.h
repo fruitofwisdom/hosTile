@@ -11,7 +11,7 @@ namespace hosTileSample
 	class hosTileSampleMain : public DX::IDeviceNotify
 	{
 	public:
-		hosTileSampleMain(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		hosTileSampleMain(std::shared_ptr<DX::DeviceResources> deviceResources);
 		~hosTileSampleMain();
 
 		void CreateWindowSizeDependentResources();
