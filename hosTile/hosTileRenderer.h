@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include <vector>
 #include "DirectX/DeviceResources.h"
 #include "hosTileShaderStructures.h"
 #include "hosTileSprite.h"
+#include <vector>
 
 namespace hosTile
 {
@@ -29,9 +29,15 @@ namespace hosTile
 			) const;
 		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
 
+		DirectX::XMFLOAT3 GetCameraPosition() const;
+		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
+
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
 		void FillVertexBuffer();
+
+		// Update the constant buffer based on the camera's position, focus, and up vectors.
+		void UpdateConstantBuffer();
 
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
@@ -55,5 +61,9 @@ namespace hosTile
 		// TODO: Can this be a not-fixed number?
 		static const int MaxSprites = 1024;
 		std::vector<std::shared_ptr<hosTileSprite>> m_sprites;
+
+		DirectX::XMVECTORF32 m_cameraPosition;
+		DirectX::XMVECTORF32 m_cameraFocus;
+		DirectX::XMVECTORF32 m_cameraUp;
 	};
 }

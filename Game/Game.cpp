@@ -14,11 +14,14 @@ Game::Game(std::shared_ptr<hosTile::hosTileRenderer> renderer)
 
 	auto playerSprite = renderer->CreateSprite(L"Assets/NES - Final Fantasy - Warrior.dds", 0, 4);
 	playerSprite->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f));
-	m_player = std::make_unique<Player>(playerSprite);
+	m_player = std::make_shared<Player>(playerSprite);
 	renderer->AddSprite(playerSprite);
+
+	m_camera = std::make_unique<Camera>(renderer, m_player);
 }
 
 void Game::Update(const DX::StepTimer& timer)
 {
 	m_player->Update(timer);
+	m_camera->Update();
 }

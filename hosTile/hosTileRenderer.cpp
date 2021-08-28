@@ -13,6 +13,10 @@ hosTileRenderer::hosTileRenderer(const shared_ptr<DX::DeviceResources>& deviceRe
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false)
 {
+	m_cameraPosition = { 0.0f, 0.0f, -1.0f, 0.0f };
+	m_cameraFocus = { 0.0f, 0.0f, 1.0f, 0.0f };
+	m_cameraUp = { 0.0f, 1.0f, 0.0f, 0.0f };
+
 	CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 }
@@ -169,37 +173,7 @@ void hosTileRenderer::CreateDeviceDependentResources()
 // Initializes view parameters when the window size changes.
 void hosTileRenderer::CreateWindowSizeDependentResources()
 {
-	// For the sake of our orthographic camera, we don't want the size to take into account a high
-	// resolution display's render scaling (where output size is larger than logical size).
-	Size outputSize = m_deviceResources->GetLogicalSize();
-	float aspectRatio = outputSize.Width / outputSize.Height;
-	float fovAngleY = 70.0f * XM_PI / 180.0f;
-
-	// This is a simple example of change that can be made when the app is in
-	// portrait or snapped view.
-	if (aspectRatio < 1.0f)
-	{
-		fovAngleY *= 2.0f;
-	}
-
-	// Note that the OrientationTransform3D matrix is post-multiplied here
-	// in order to correctly orient the scene to match the display orientation.
-	// This post-multiplication step is required for any draw calls that are
-	// made to the swap chain render target. For draw calls to other targets,
-	// this transform should not be applied.
-
-	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
-	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
-	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
-	XMStoreFloat4x4(
-		&m_constantBufferData.projection,
-		XMMatrixTranspose(orthoMatrix * orientationMatrix)
-		);
-
-	static const XMVECTORF32 eye = { 0.0f, 0.0f, -1.0f, 0.0f };
-	static const XMVECTORF32 at = { 0.0f, 0.0f, 1.0f, 0.0f };
-	static const XMVECTORF32 up = { 0.0f, 1.0f, 0.0f, 0.0f };
-	XMStoreFloat4x4(&m_constantBufferData.view, XMMatrixTranspose(XMMatrixLookAtLH(eye, at, up)));
+	UpdateConstantBuffer();
 }
 
 void hosTileRenderer::ReleaseDeviceDependentResources()
@@ -347,6 +321,20 @@ void hosTileRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)
 	m_sprites.push_back(sprite);
 }
 
+XMFLOAT3 hosTileRenderer::GetCameraPosition() const
+{
+	XMFLOAT3 cameraPosition = { m_cameraPosition[0], m_cameraPosition[1], m_cameraPosition[2] };
+	return cameraPosition;
+}
+
+void hosTileRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
+{
+	m_cameraPosition = { cameraPosition.x, cameraPosition.y, cameraPosition.z };
+	// The camera's focus needs to remain straight ahead and move with the camera itself.
+	m_cameraFocus = { cameraPosition.x, cameraPosition.y, m_cameraFocus[2] };
+	UpdateConstantBuffer();
+}
+
 // Copy each sprite's vertices into the vertex buffer.
 void hosTileRenderer::FillVertexBuffer()
 {
@@ -369,4 +357,26 @@ void hosTileRenderer::FillVertexBuffer()
 	size_t vertexBufferDataSize = numSprites * sizeof(VertexPositionTex) * 4;
 	memcpy(mappedResource.pData, m_vertexBufferData, vertexBufferDataSize);
 	deviceContext->Unmap(m_vertexBuffer.Get(), 0);
+}
+
+// Update the constant buffer based on the camera's position, focus, and up vectors.
+void hosTileRenderer::UpdateConstantBuffer()
+{
+	// Note that the OrientationTransform3D matrix is post-multiplied here in order to correctly
+	// orient the scene to match the display orientation. This post-multiplication step is
+	// required for any draw calls that are made to the swap chain render target. For draw calls
+	// to other targets, this transform should not be applied. Additionally, for the sake of our
+	// orthographic camera, we don't want the size to take into account a high resolution
+	// display's render scaling (where output size is larger than logical size).
+	Size outputSize = m_deviceResources->GetLogicalSize();
+	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
+	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
+	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
+	XMStoreFloat4x4(
+		&m_constantBufferData.projection,
+		XMMatrixTranspose(orthoMatrix * orientationMatrix)
+	);
+
+	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
+	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
 }
