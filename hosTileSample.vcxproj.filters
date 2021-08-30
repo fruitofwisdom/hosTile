@@ -5,11 +5,81 @@
       <UniqueIdentifier>f3e9dbd2-35ea-4c41-a500-5527cd950e86</UniqueIdentifier>
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
-    <Image Include="Assets\BadgeLogo.scale-200.png">
-      <Filter>Assets</Filter>
+    <Filter Include="Assets\App">
+      <UniqueIdentifier>{7916499a-796f-46d9-b8f0-68d122085cfe}</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\App\BadgeLogo.scale-200.png">
+      <Filter>Assets\App</Filter>
     </Image>
-    <Image Include="Assets\BadgeLogo.scale-400.png">
-      <Filter>Assets</Filter>
+    <Image Include="Assets\App\BadgeLogo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-48.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-48_altform-unplated.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-256.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-256_altform-unplated.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
     </Image>
     <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds">
       <Filter>Assets</Filter>
@@ -17,80 +87,14 @@
     <Image Include="Assets\NES - Final Fantasy - Warrior.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\SplashScreen.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\SplashScreen.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square150x150Logo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square150x150Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square150x150Logo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square310x310Logo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square310x310Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square310x310Logo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.targetsize-256.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.targetsize-256_altform-unplated.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.targetsize-48.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square71x71Logo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square71x71Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Square71x71Logo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\StoreLogo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Wide310x150Logo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Wide310x150Logo.scale-200.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\Wide310x150Logo.scale-400.png">
-      <Filter>Assets</Filter>
-    </Image>
-    <Filter Include="hosTile">
-      <UniqueIdentifier>51f3e198-4e78-4726-bea3-df273ceedbb3</UniqueIdentifier>
-    </Filter>
     <Filter Include="DirectX">
       <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile">
+      <UniqueIdentifier>51f3e198-4e78-4726-bea3-df273ceedbb3</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -98,17 +102,6 @@
     <ClCompile Include="DirectX\DeviceResources.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTile.cpp">
-      <Filter>hosTile</Filter>
-    </ClCompile>
-    <ClCompile Include="hosTile\hosTileRenderer.cpp">
-      <Filter>hosTile</Filter>
-    </ClCompile>
-    <ClCompile Include="hosTile\hosTileSprite.cpp">
-      <Filter>hosTile</Filter>
-    </ClCompile>
-    <ClCompile Include="hosTileSampleMain.cpp" />
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -121,6 +114,17 @@
     <ClCompile Include="Game\GameObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="hosTile\hosTile.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hosTileRenderer.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hosTileSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTileSampleMain.cpp" />
+    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -132,6 +136,18 @@
     </ClInclude>
     <ClInclude Include="DirectX\StepTimer.h">
       <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject.h">
+      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hosTile.h">
       <Filter>hosTile</Filter>
@@ -147,18 +163,6 @@
     </ClInclude>
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Game\Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject.h">
-      <Filter>Game</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
