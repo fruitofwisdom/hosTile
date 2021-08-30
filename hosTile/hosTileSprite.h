@@ -26,7 +26,7 @@ namespace hosTile
 		const VertexPositionTex* GetVertices() const;
 
 		void SetCurrentSubSprite(unsigned int currentSubSprite);
-
+		void SetScale(float scale);
 		void SetXFlip(bool xFlip);
 		void SetYFlip(bool yFlip);
 
@@ -44,7 +44,8 @@ namespace hosTile
 		// A sprite may be a "sheet" or atlas of sprites of which we render only a part.
 		unsigned int m_currentSubSprite;
 		unsigned int m_numSubSprites;
-
+		// The scale of a sprite only applies to its width and height, not depth.
+		float m_scale;
 		bool m_xFlip;
 		bool m_yFlip;
 	};

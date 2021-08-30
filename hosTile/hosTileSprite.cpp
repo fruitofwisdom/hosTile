@@ -18,6 +18,7 @@ hosTileSprite::hosTileSprite(
 	m_position(position),
 	m_currentSubSprite(currentSubSprite),
 	m_numSubSprites(numSubSprites),
+	m_scale(1.0f),
 	m_xFlip(false),
 	m_yFlip(false)
 {
@@ -69,16 +70,25 @@ const VertexPositionTex* hosTileSprite::GetVertices() const
 void hosTileSprite::SetCurrentSubSprite(unsigned int currentSubSprite)
 {
 	m_currentSubSprite = currentSubSprite;
+	UpdateVertices();
+}
+
+void hosTileSprite::SetScale(float scale)
+{
+	m_scale = scale;
+	UpdateVertices();
 }
 
 void hosTileSprite::SetXFlip(bool xFlip)
 {
 	m_xFlip = xFlip;
+	UpdateVertices();
 }
 
 void hosTileSprite::SetYFlip(bool yFlip)
 {
 	m_yFlip = yFlip;
+	UpdateVertices();
 }
 
 // Update the vertices' data after the position has changed.
@@ -94,22 +104,38 @@ void hosTileSprite::UpdateVertices()
 
 	m_vertices[0] =		// 0, bottom-left
 	{
-		XMFLOAT3(m_width / 2.0f * -1.0f + m_position.x, m_height / 2.0f * -1.0f + m_position.y, m_position.z),
+		XMFLOAT3(
+			(m_width / 2.0f * -1.0f) * m_scale + m_position.x,
+			(m_height / 2.0f * -1.0f) * m_scale + m_position.y,
+			m_position.z
+			),
 		XMFLOAT2(uvLeft, uvBottom)
 	};
 	m_vertices[1] =		// 1, bottom-right
 	{
-		XMFLOAT3(m_width / 2.0f + m_position.x, m_height / 2.0f * -1.0f + m_position.y, m_position.z),
+		XMFLOAT3(
+			(m_width / 2.0f) * m_scale + m_position.x,
+			(m_height / 2.0f * -1.0f) * m_scale + m_position.y,
+			m_position.z
+			),
 		XMFLOAT2(uvRight, uvBottom)
 	};
 	m_vertices[2] =		// 2, top-right
 	{
-		XMFLOAT3(m_width / 2.0f + m_position.x, m_height / 2.0f + m_position.y, m_position.z),
+		XMFLOAT3(
+			(m_width / 2.0f) * m_scale + m_position.x,
+			(m_height / 2.0f) * m_scale + m_position.y,
+			m_position.z
+			),
 		XMFLOAT2(uvRight, uvTop)
 	};
 	m_vertices[3] =		// 3, top-left
 	{
-		XMFLOAT3(m_width / 2.0f * -1.0f + m_position.x, m_height / 2.0f + m_position.y, m_position.z),
+		XMFLOAT3(
+			(m_width / 2.0f * -1.0f) * m_scale + m_position.x,
+			(m_height / 2.0f) * m_scale + m_position.y,
+			m_position.z
+			),
 		XMFLOAT2(uvLeft, uvTop)
 	};
 }
