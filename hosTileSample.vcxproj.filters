@@ -81,10 +81,10 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <Filter>Assets\App</Filter>
     </Image>
-    <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds">
+    <Image Include="Assets\map.dds">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\NES - Final Fantasy - Warrior.dds">
+    <Image Include="Assets\player.dds">
       <Filter>Assets</Filter>
     </Image>
     <Filter Include="DirectX">

@@ -204,8 +204,8 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
-    <Image Include="Assets\NES - Final Fantasy - Castle Corneria.dds" />
-    <Image Include="Assets\NES - Final Fantasy - Warrior.dds" />
+    <Image Include="Assets\map.dds" />
+    <Image Include="Assets\player.dds" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
