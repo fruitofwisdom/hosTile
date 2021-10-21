@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DirectX\StepTimer.h"
 #include "hosTile\hosTileSprite.h"
+#include "Other\StepTimer.h"
 
 namespace hosTileSample
 {

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "DirectX\DeviceResources.h"
-#include "DirectX\StepTimer.h"
 #include "Game\Game.h"
 #include "hosTile\hosTileRenderer.h"
+#include "Other\DeviceResources.h"
+#include "Other\StepTimer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace hosTileSample

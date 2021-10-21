@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "DirectX/DeviceResources.h"
+#include "Other/DeviceResources.h"
 #include "hosTileShaderStructures.h"
 
 // An instance of a sprite which contains a texture, position, and the vertices to render it. A

@@ -81,27 +81,21 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <Filter>Assets\App</Filter>
     </Image>
-    <Image Include="Assets\map.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Image Include="Assets\player.dds">
-      <Filter>Assets</Filter>
-    </Image>
-    <Filter Include="DirectX">
-      <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
     </Filter>
     <Filter Include="hosTile">
       <UniqueIdentifier>51f3e198-4e78-4726-bea3-df273ceedbb3</UniqueIdentifier>
     </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Futile">
+      <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="DirectX\DeviceResources.cpp">
-      <Filter>DirectX</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -123,20 +117,14 @@
     <ClCompile Include="hosTile\hosTileSprite.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
+    <ClCompile Include="Other\DeviceResources.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="DirectX\DeviceResources.h">
-      <Filter>DirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectX\DirectXHelper.h">
-      <Filter>DirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectX\StepTimer.h">
-      <Filter>DirectX</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Game.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -161,6 +149,18 @@
     <ClInclude Include="hosTile\hosTileRenderer.h">
       <Filter>hosTile</Filter>
     </ClInclude>
+    <ClInclude Include="Other\DeviceResources.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\DirectXHelper.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\json.hpp">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\StepTimer.h">
+      <Filter>Other</Filter>
+    </ClInclude>
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -177,5 +177,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\futile_map.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #include "hosTileSprite.h"
 
 #include "DDSTextureLoader.h"
-#include "DirectX/DirectXHelper.h"
+#include "Other/DirectXHelper.h"
 #include "hosTileShaderStructures.h"
 
 using namespace DirectX;

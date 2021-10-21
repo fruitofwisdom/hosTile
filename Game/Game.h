@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Camera.h"
-#include "DirectX\StepTimer.h"
 #include "hosTile\hosTileRenderer.h"
+#include "Other\StepTimer.h"
 #include "Player.h"
 
 // The game instance.
