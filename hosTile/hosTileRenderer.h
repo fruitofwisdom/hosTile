@@ -4,6 +4,7 @@
 #include "Other/DeviceResources.h"
 #include "hosTileShaderStructures.h"
 #include "hosTileSprite.h"
+#include "hosTileTileset.h"
 
 namespace hosTile
 {
@@ -21,14 +22,10 @@ namespace hosTile
 		void Update();
 		void Render();
 
-		// CreateSprite will return a new hosTileSprite that game classes can use and manage.
-		// These sprites will then need to be added to the renderer with AddSprite.
-		std::shared_ptr<hosTileSprite> CreateSprite(
-			std::string spriteFilename,
-			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1) const;
-		std::shared_ptr<hosTileSprite> CreateSprite(
-			std::wstring spriteFilename,
-			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1) const;
+		const std::shared_ptr<DX::DeviceResources>& GetDeviceResources() const;
+
+		// Once a hosTileSprite or hosTileTileSprite has been created, it needs to be added to the
+		// renderer with AddSprite.
 		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;

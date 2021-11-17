@@ -1,8 +1,6 @@
 ﻿#include "pch.h"
 #include "hosTileRenderer.h"
 
-#include <codecvt>
-#include <locale>
 #include "DDSTextureLoader.h"
 #include "Other/DirectXHelper.h"
 
@@ -306,24 +304,9 @@ void hosTileRenderer::Render()
 	}
 }
 
-shared_ptr<hosTileSprite> hosTileRenderer::CreateSprite(
-	string spriteFilename,
-	unsigned int currentSubSprite, unsigned int numSubSprites) const
+const shared_ptr<DX::DeviceResources>& hosTileRenderer::GetDeviceResources() const
 {
-	wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
-	wstring wideSpriteFilename = converter.from_bytes(spriteFilename);
-	return CreateSprite(wideSpriteFilename, currentSubSprite, numSubSprites);
-}
-
-shared_ptr<hosTileSprite> hosTileRenderer::CreateSprite(
-	wstring spriteFilename,
-	unsigned int currentSubSprite, unsigned int numSubSprites) const
-{
-	return std::make_shared<hosTileSprite>(
-		m_deviceResources, spriteFilename,
-		XMFLOAT3(0.0f, 0.0f, 0.0f),
-		currentSubSprite, numSubSprites
-		);
+	return m_deviceResources;
 }
 
 void hosTileRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)

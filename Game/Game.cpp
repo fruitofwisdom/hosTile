@@ -3,12 +3,15 @@
 
 #include <fstream>
 #include "hosTile\hosTileSprite.h"
+#include "hosTile\hosTileTileset.h"
+#include "hosTile\hosTileTileSprite.h"
 #include "Other\json.hpp"
 
+using namespace hosTile;
 using namespace hosTileSample;
 using namespace std;
 
-Game::Game(std::shared_ptr<hosTile::hosTileRenderer> renderer)
+Game::Game(std::shared_ptr<hosTileRenderer> renderer)
 {
 	ifstream mapFile("futile_map.json");
 	nlohmann::json mapJson;
@@ -17,25 +20,28 @@ Game::Game(std::shared_ptr<hosTile::hosTileRenderer> renderer)
 	// the tileset is kept internally as a .tsx file, but exported as a .json
 	tilesetSource.replace(tilesetSource.find(".tsx"), string(".tsx").length(), ".json");
 
-	ifstream tilesetFile(tilesetSource);
-	nlohmann::json tilesetJson;
-	tilesetFile >> tilesetJson;
-	string tilesetImage = tilesetJson["image"];
-	// the image is kept internally as a .png file, but exported as a .dds
-	tilesetImage.replace(tilesetImage.find(".png"), string(".png").length(), ".dds");
+	auto deviceResources = renderer->GetDeviceResources();
+
+	auto tileset = make_shared<hosTileTileset>(deviceResources, tilesetSource);
 
 	// TODO: Create a proper map class.
-	auto map = renderer->CreateSprite(tilesetImage);
-	map->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	auto map = make_shared<hosTileSprite>(deviceResources, tileset->GetImageFilename());
 	map->SetScale(2.0f);
 	renderer->AddSprite(map);
 
+	/*
 	// TODO: Handle tiles in a simple way instead of "sub-sprites"?
-	auto playerSprite = renderer->CreateSprite(tilesetImage, 0, 4);
-	playerSprite->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f));
-	playerSprite->SetScale(2.0f);
-	m_player = std::make_shared<Player>(playerSprite);
-	renderer->AddSprite(playerSprite);
+	auto playerSprite = make_shared<hosTile::hosTileSprite>(
+		deviceResources, tileset->GetImageFilename(),
+		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f),
+		0, 4);
+	*/
+	auto playerSprite = make_shared<hosTileTileSprite>(
+		tileset, 0,
+		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	//playerSprite->SetScale(2.0f);
+	//m_player = std::make_shared<Player>(playerSprite);
+	//renderer->AddSprite(playerSprite);
 
 	// TODO: Add actual tile support.
 

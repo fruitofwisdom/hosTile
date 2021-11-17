@@ -12,13 +12,12 @@ namespace hosTile
 	{
 	public:
 		hosTileSprite(
-			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::wstring spriteFilename,
+			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::string spriteFilename,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f },
-			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1
-			);
+			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1);
 		virtual ~hosTileSprite() {}
 
-		const std::wstring GetSpriteFilename() const;
+		const std::string GetSpriteFilename() const;
 		ID3D11ShaderResourceView* GetTexture() const;
 
 		DirectX::XMFLOAT3 GetPosition() const;
@@ -34,7 +33,7 @@ namespace hosTile
 		// Update the vertices' data after the position has changed.
 		void UpdateVertices();
 
-		const std::wstring m_spriteFilename;
+		const std::string m_spriteFilename;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 		UINT m_width, m_height;
 

@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "hosTileSprite.h"
 
+#include <codecvt>
+#include <locale>
 #include "DDSTextureLoader.h"
 #include "Other/DirectXHelper.h"
-#include "hosTileShaderStructures.h"
 
 using namespace DirectX;
 using namespace hosTile;
 using namespace std;
 
 hosTileSprite::hosTileSprite(
-	const shared_ptr<DX::DeviceResources>& deviceResources, wstring spriteFilename,
+	const shared_ptr<DX::DeviceResources>& deviceResources, string spriteFilename,
 	XMFLOAT3 position,
-	unsigned int currentSubSprite, unsigned int numSubSprites
-	)
+	unsigned int currentSubSprite, unsigned int numSubSprites)
 :	m_spriteFilename(spriteFilename),
 	m_position(position),
 	m_currentSubSprite(currentSubSprite),
@@ -22,8 +22,10 @@ hosTileSprite::hosTileSprite(
 	m_xFlip(false),
 	m_yFlip(false)
 {
+	wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+	wstring wideSpriteFilename = converter.from_bytes(spriteFilename);
 	DX::ThrowIfFailed(
-		CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), spriteFilename.c_str(), nullptr, &m_texture)
+		CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), wideSpriteFilename.c_str(), nullptr, &m_texture)
 		);
 
 	// Store the width and height from the texture description.
@@ -41,7 +43,7 @@ hosTileSprite::hosTileSprite(
 	UpdateVertices();
 }
 
-const wstring hosTileSprite::GetSpriteFilename() const
+const string hosTileSprite::GetSpriteFilename() const
 {
 	return m_spriteFilename;
 }

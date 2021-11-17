@@ -224,6 +224,8 @@
     <ClInclude Include="hosTile\hosTileShaderStructures.h" />
     <ClInclude Include="hosTile\hosTileSprite.h" />
     <ClInclude Include="hosTile\hosTileRenderer.h" />
+    <ClInclude Include="hosTile\hosTileTileset.h" />
+    <ClInclude Include="hosTile\hosTileTileSprite.h" />
     <ClInclude Include="Other\DeviceResources.h" />
     <ClInclude Include="Other\DirectXHelper.h" />
     <ClInclude Include="Other\json.hpp" />
@@ -242,6 +244,8 @@
     </ClCompile>
     <ClCompile Include="hosTile\hosTileRenderer.cpp" />
     <ClCompile Include="hosTile\hosTileSprite.cpp" />
+    <ClCompile Include="hosTile\hosTileTileset.cpp" />
+    <ClCompile Include="hosTile\hosTileTileSprite.cpp" />
     <ClCompile Include="Other\DeviceResources.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp">
