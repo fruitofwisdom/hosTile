@@ -26,6 +26,12 @@ hosTileTileset::hosTileTileset(
 	DX::ThrowIfFailed(
 		DirectX::CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), wideTilesetFilename.c_str(), nullptr, &m_texture)
 	);
+
+	m_imageWidth = tilesetJson["imagewidth"];
+	m_imageHeight = tilesetJson["imageheight"];
+	m_tileCount = tilesetJson["tilecount"];
+	m_tileWidth = tilesetJson["tilewidth"];
+	m_tileHeight = tilesetJson["tileheight"];
 }
 
 const string hosTileTileset::GetImageFilename() const
@@ -36,4 +42,42 @@ const string hosTileTileset::GetImageFilename() const
 ID3D11ShaderResourceView* hosTileTileset::GetTexture() const
 {
 	return m_texture.Get();
+}
+
+unsigned int hosTileTileset::GetImageWidth() const
+{
+	return m_imageWidth;
+}
+
+unsigned int hosTileTileset::GetImageHeight() const
+{
+	return m_imageHeight;
+}
+
+unsigned int hosTileTileset::GetTileCount() const
+{
+	return m_tileCount;
+}
+
+unsigned int hosTileTileset::GetTileWidth() const
+{
+	return m_tileWidth;
+}
+
+unsigned int hosTileTileset::GetTileHeight() const
+{
+	return m_tileHeight;
+}
+
+// Returns the offset into the tileset for the provided tile in pixels.
+unsigned int hosTileTileset::GetTileXOffset(unsigned int tileNum) const
+{
+	unsigned int tilesWide = m_imageWidth / m_tileWidth;
+	return (tileNum % tilesWide) * m_tileWidth;
+}
+
+unsigned int hosTileTileset::GetTileYOffset(unsigned int tileNum) const
+{
+	unsigned int tilesWide = m_imageWidth / m_tileWidth;
+	return (tileNum / tilesWide) * m_tileHeight;
 }

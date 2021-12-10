@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "hosTileSprite.h"
+#include "hTSimpleSprite.h"
 
 #include <codecvt>
 #include <locale>
@@ -10,17 +10,11 @@ using namespace DirectX;
 using namespace hosTile;
 using namespace std;
 
-hosTileSprite::hosTileSprite(
+hTSimpleSprite::hTSimpleSprite(
 	const shared_ptr<DX::DeviceResources>& deviceResources, string spriteFilename,
-	XMFLOAT3 position,
-	unsigned int currentSubSprite, unsigned int numSubSprites)
-:	m_spriteFilename(spriteFilename),
-	m_position(position),
-	m_currentSubSprite(currentSubSprite),
-	m_numSubSprites(numSubSprites),
-	m_scale(1.0f),
-	m_xFlip(false),
-	m_yFlip(false)
+	XMFLOAT3 position)
+:	hTSprite(position),
+	m_spriteFilename(spriteFilename)
 {
 	wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
 	wstring wideSpriteFilename = converter.from_bytes(spriteFilename);
@@ -35,7 +29,7 @@ hosTileSprite::hosTileSprite(
 	DX::ThrowIfFailed(resource->QueryInterface(&texture2D));
 	D3D11_TEXTURE2D_DESC textureDescription;
 	texture2D->GetDesc(&textureDescription);
-	m_width = textureDescription.Width / m_numSubSprites;
+	m_width = textureDescription.Width;
 	m_height = textureDescription.Height;
 	texture2D->Release();
 	resource->Release();
@@ -43,64 +37,27 @@ hosTileSprite::hosTileSprite(
 	UpdateVertices();
 }
 
-const string hosTileSprite::GetSpriteFilename() const
+void hTSimpleSprite::Update()
 {
-	return m_spriteFilename;
+	UpdateVertices();
 }
 
-ID3D11ShaderResourceView* hosTileSprite::GetTexture() const
+ID3D11ShaderResourceView* hTSimpleSprite::GetTexture() const
 {
 	return m_texture.Get();
 }
 
-XMFLOAT3 hosTileSprite::GetPosition() const
-{
-	return m_position;
-}
-
-void hosTileSprite::SetPosition(XMFLOAT3 position)
-{
-	m_position = position;
-	UpdateVertices();
-}
-
-const VertexPositionTex* hosTileSprite::GetVertices() const
+const VertexPositionTex* hTSimpleSprite::GetVertices() const
 {
 	return m_vertices;
 }
 
-void hosTileSprite::SetCurrentSubSprite(unsigned int currentSubSprite)
-{
-	m_currentSubSprite = currentSubSprite;
-	UpdateVertices();
-}
-
-void hosTileSprite::SetScale(float scale)
-{
-	m_scale = scale;
-	UpdateVertices();
-}
-
-void hosTileSprite::SetXFlip(bool xFlip)
-{
-	m_xFlip = xFlip;
-	UpdateVertices();
-}
-
-void hosTileSprite::SetYFlip(bool yFlip)
-{
-	m_yFlip = yFlip;
-	UpdateVertices();
-}
-
 // Update the vertices' data after the position has changed.
-void hosTileSprite::UpdateVertices()
+void hTSimpleSprite::UpdateVertices()
 {
-	// Calculate UV-coordinates for sub-sprites as well as applying x- or y-flip.
-	float uvWidth = (1.0f / (float)m_numSubSprites);
-	float uvOffset = uvWidth * m_currentSubSprite;
-	float uvLeft = m_xFlip ? uvOffset + uvWidth : uvOffset;
-	float uvRight = m_xFlip ? uvOffset : uvOffset + uvWidth;
+	// Calculate UV-coordinates and apply x-flip, y-flip, and scale.
+	float uvLeft = m_xFlip ? 1.0f : 0.0f;
+	float uvRight = m_xFlip ? 0.0f : 1.0f;
 	float uvBottom = m_yFlip ? 0.0f : 1.0f;
 	float uvTop = m_yFlip ? 1.0f : 0.0f;
 

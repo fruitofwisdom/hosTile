@@ -1,19 +1,20 @@
 #pragma once
 
-#include "hosTileShaderStructures.h"
 #include "hosTileTileset.h"
+#include "htSprite.h"
 
 namespace hosTile
 {
-	class hosTileTileSprite
+	class hosTileTileSprite : public hTSprite
 	{
 	public:
 		hosTileTileSprite(
 			const std::shared_ptr<hosTileTileset>& tileset, int tileNum,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		ID3D11ShaderResourceView* GetTexture() const;
+		void Update();
 
+		ID3D11ShaderResourceView* GetTexture() const;
 		const VertexPositionTex* GetVertices() const;
 
 	private:
@@ -23,7 +24,6 @@ namespace hosTile
 		const std::shared_ptr<hosTileTileset> m_tileset;
 		int m_tileNum;
 
-		DirectX::XMFLOAT3 m_position;
 		VertexPositionTex m_vertices[4];
 	};
 }

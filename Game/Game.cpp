@@ -2,9 +2,8 @@
 #include "Game.h"
 
 #include <fstream>
-#include "hosTile\hosTileSprite.h"
 #include "hosTile\hosTileTileset.h"
-#include "hosTile\hosTileTileSprite.h"
+#include "hosTile\hTSimpleSprite.h"
 #include "Other\json.hpp"
 
 using namespace hosTile;
@@ -25,25 +24,19 @@ Game::Game(std::shared_ptr<hosTileRenderer> renderer)
 	auto tileset = make_shared<hosTileTileset>(deviceResources, tilesetSource);
 
 	// TODO: Create a proper map class.
-	auto map = make_shared<hosTileSprite>(deviceResources, tileset->GetImageFilename());
+	auto map = make_shared<hTSimpleSprite>(deviceResources, tileset->GetImageFilename());
 	map->SetScale(2.0f);
+	map->Update();
 	renderer->AddSprite(map);
 
-	/*
-	// TODO: Handle tiles in a simple way instead of "sub-sprites"?
-	auto playerSprite = make_shared<hosTile::hosTileSprite>(
-		deviceResources, tileset->GetImageFilename(),
-		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f),
-		0, 4);
-	*/
+	// TODO: Assumes the first object is the player. Go find the object "player".
+	unsigned int playerTileNum = mapJson["layers"][1]["objects"][0]["gid"] - 1;
 	auto playerSprite = make_shared<hosTileTileSprite>(
-		tileset, 0,
+		tileset, playerTileNum,
 		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
-	//playerSprite->SetScale(2.0f);
-	//m_player = std::make_shared<Player>(playerSprite);
-	//renderer->AddSprite(playerSprite);
-
-	// TODO: Add actual tile support.
+	playerSprite->SetScale(2.0f);
+	m_player = std::make_shared<Player>(playerSprite);
+	renderer->AddSprite(playerSprite);
 
 	m_camera = std::make_unique<Camera>(renderer, m_player);
 }

@@ -7,9 +7,17 @@ using namespace hosTile;
 hosTileTileSprite::hosTileTileSprite(
 	const std::shared_ptr<hosTileTileset>& tileset, int tileNum,
 	DirectX::XMFLOAT3 position)
-:	m_tileset(tileset),
-	m_tileNum(tileNum),
-	m_position(position)
+:	hTSprite(position),
+	m_tileset(tileset),
+	m_tileNum(tileNum)
+{
+	m_width = m_tileset->GetTileWidth();
+	m_height = m_tileset->GetTileHeight();
+
+	UpdateVertices();
+}
+
+void hosTileTileSprite::Update()
 {
 	UpdateVertices();
 }
@@ -27,14 +35,15 @@ const VertexPositionTex* hosTileTileSprite::GetVertices() const
 // Update the vertices' data after the position has changed.
 void hosTileTileSprite::UpdateVertices()
 {
-	// TODO: Calculate UV-coordinates for tiles, etc.
-	/*
-	float uvWidth = (1.0f / (float)m_tileset->NumTiles());
-	float uvOffset = uvWidth * m_tileNum;
-	float uvLeft = m_xFlip ? uvOffset + uvWidth : uvOffset;
-	float uvRight = m_xFlip ? uvOffset : uvOffset + uvWidth;
-	float uvBottom = m_yFlip ? 0.0f : 1.0f;
-	float uvTop = m_yFlip ? 1.0f : 0.0f;
+	// Calculate UV-coordinates and apply x-flip, y-flip, and scale.
+	float uvTileWidth = (float)m_width / m_tileset->GetImageWidth();
+	float uvTileHeight = (float)m_height / m_tileset->GetImageHeight();
+	float uvXOffset = (float)m_tileset->GetTileXOffset(m_tileNum) / m_tileset->GetImageWidth();
+	float uvYOffset = (float)m_tileset->GetTileYOffset(m_tileNum) / m_tileset->GetImageHeight();
+	float uvLeft = m_xFlip ? uvXOffset + uvTileWidth : uvXOffset;
+	float uvRight = m_xFlip ? uvXOffset : uvXOffset + uvTileWidth;
+	float uvBottom = m_yFlip ? uvYOffset : uvYOffset + uvTileHeight;
+	float uvTop = m_yFlip ? uvYOffset + uvTileHeight : uvYOffset;
 
 	m_vertices[0] =		// 0, bottom-left
 	{
@@ -71,27 +80,5 @@ void hosTileTileSprite::UpdateVertices()
 			m_position.z
 			),
 		XMFLOAT2(uvLeft, uvTop)
-	};
-	*/
-
-	m_vertices[0] =		// 0, bottom-left
-	{
-		XMFLOAT3(-8.0f, -8.0f, m_position.z),
-		XMFLOAT2(0.0f, 1.0f)
-	};
-	m_vertices[1] =		// 1, bottom-right
-	{
-		XMFLOAT3(8.0f, -8.0f, m_position.z),
-		XMFLOAT2(1.0f, 1.0f)
-	};
-	m_vertices[2] =		// 2, top-right
-	{
-		XMFLOAT3(8.0f, 8.0f, m_position.z),
-		XMFLOAT2(1.0f, 0.0f)
-	};
-	m_vertices[3] =		// 3, top-left
-	{
-		XMFLOAT3(-8.0f, 8.0f, m_position.z),
-		XMFLOAT2(0.0f, 0.0f)
 	};
 }

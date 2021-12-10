@@ -309,7 +309,7 @@ const shared_ptr<DX::DeviceResources>& hosTileRenderer::GetDeviceResources() con
 	return m_deviceResources;
 }
 
-void hosTileRenderer::AddSprite(shared_ptr<hosTileSprite> sprite)
+void hosTileRenderer::AddSprite(shared_ptr<hTSprite> sprite)
 {
 	m_sprites.push_back(sprite);
 }

@@ -3,8 +3,8 @@
 #include <vector>
 #include "Other/DeviceResources.h"
 #include "hosTileShaderStructures.h"
-#include "hosTileSprite.h"
 #include "hosTileTileset.h"
+#include "htSprite.h"
 
 namespace hosTile
 {
@@ -24,9 +24,9 @@ namespace hosTile
 
 		const std::shared_ptr<DX::DeviceResources>& GetDeviceResources() const;
 
-		// Once a hosTileSprite or hosTileTileSprite has been created, it needs to be added to the
+		// Once a sprite derived from hTSprite has been created, it needs to be added to the
 		// renderer with AddSprite.
-		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
+		void AddSprite(std::shared_ptr<hTSprite> sprite);
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
@@ -59,7 +59,7 @@ namespace hosTile
 
 		// TODO: Can this be a not-fixed number?
 		static const int MaxSprites = 1024;
-		std::vector<std::shared_ptr<hosTileSprite>> m_sprites;
+		std::vector<std::shared_ptr<hTSprite>> m_sprites;
 
 		DirectX::XMVECTORF32 m_cameraPosition;
 		DirectX::XMVECTORF32 m_cameraFocus;
