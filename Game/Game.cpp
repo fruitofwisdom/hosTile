@@ -10,7 +10,7 @@ using namespace hosTile;
 using namespace hosTileSample;
 using namespace std;
 
-Game::Game(std::shared_ptr<hosTileRenderer> renderer)
+Game::Game(std::shared_ptr<hTRenderer> renderer)
 {
 	ifstream mapFile("futile_map.json");
 	nlohmann::json mapJson;

@@ -111,7 +111,7 @@
     <ClCompile Include="hosTile\hosTile.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTileRenderer.cpp">
+    <ClCompile Include="hosTile\hTRenderer.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTSimpleSprite.cpp">
@@ -149,10 +149,10 @@
     <ClInclude Include="hosTile\hosTile.h">
       <Filter>hosTile</Filter>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileRenderer.h">
+    <ClInclude Include="hosTile\hTRenderer.h">
       <Filter>hosTile</Filter>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileShaderStructures.h">
+    <ClInclude Include="hosTile\hTShaderStructures.h">
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTSimpleSprite.h">

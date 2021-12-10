@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Game\Game.h"
-#include "hosTile\hosTileRenderer.h"
+#include "hosTile\hTRenderer.h"
 #include "Other\DeviceResources.h"
 #include "Other\StepTimer.h"
 
@@ -28,7 +28,7 @@ namespace hosTileSample
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 		// The hosTile renderer.
-		std::shared_ptr<hosTile::hosTileRenderer> m_renderer;
+		std::shared_ptr<hosTile::hTRenderer> m_renderer;
 
 		// Game loop timer.
 		DX::StepTimer m_timer;

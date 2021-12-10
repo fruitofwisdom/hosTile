@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hosTileShaderStructures.h"
+#include "hTShaderStructures.h"
 
 // UPDATE THIS
 // An instance of a sprite which contains a texture, position, and the vertices to render it. A
@@ -16,7 +16,7 @@ namespace hosTile
 		// Game engines should use this to update vertices or other per-frame operations.
 		virtual void Update() {}
 
-		// hosTileRenderer uses these to actually render the sprite.
+		// hTRenderer uses these to actually render the sprite.
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;
 		virtual const VertexPositionTex* GetVertices() const = 0;
 

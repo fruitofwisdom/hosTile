@@ -221,8 +221,8 @@
     <ClInclude Include="hosTile\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileRenderer.h" />
-    <ClInclude Include="hosTile\hosTileShaderStructures.h" />
+    <ClInclude Include="hosTile\hTRenderer.h" />
+    <ClInclude Include="hosTile\hTShaderStructures.h" />
     <ClInclude Include="hosTile\hTSimpleSprite.h" />
     <ClInclude Include="hosTile\hTSprite.h" />
     <ClInclude Include="hosTile\hTTileset.h" />
@@ -243,7 +243,7 @@
     <ClCompile Include="hosTile\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTileRenderer.cpp" />
+    <ClCompile Include="hosTile\hTRenderer.cpp" />
     <ClCompile Include="hosTile\hTSimpleSprite.cpp" />
     <ClCompile Include="hosTile\hTSprite.cpp" />
     <ClCompile Include="hosTile\hTTileset.cpp" />

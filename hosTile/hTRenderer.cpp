@@ -1,5 +1,5 @@
 ﻿#include "pch.h"
-#include "hosTileRenderer.h"
+#include "hTRenderer.h"
 
 #include "DDSTextureLoader.h"
 #include "Other/DirectXHelper.h"
@@ -9,7 +9,7 @@ using namespace hosTile;
 using namespace std;
 using namespace Windows::Foundation;
 
-hosTileRenderer::hosTileRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
+hTRenderer::hTRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false)
 {
@@ -22,7 +22,7 @@ hosTileRenderer::hosTileRenderer(const shared_ptr<DX::DeviceResources>& deviceRe
 }
 
 // Load the shaders and create all resources and data that rely on the DirectX device.
-void hosTileRenderer::CreateDeviceDependentResources()
+void hTRenderer::CreateDeviceDependentResources()
 {
 	// Load shaders asynchronously.
 	auto loadVSTask = DX::ReadDataAsync(L"hosTileVertexShader.cso");
@@ -171,12 +171,12 @@ void hosTileRenderer::CreateDeviceDependentResources()
 }
 
 // Initializes view parameters when the window size changes.
-void hosTileRenderer::CreateWindowSizeDependentResources()
+void hTRenderer::CreateWindowSizeDependentResources()
 {
 	UpdateConstantBuffer();
 }
 
-void hosTileRenderer::ReleaseDeviceDependentResources()
+void hTRenderer::ReleaseDeviceDependentResources()
 {
 	m_loadingComplete = false;
 	m_vertexShader.Reset();
@@ -193,14 +193,14 @@ void hosTileRenderer::ReleaseDeviceDependentResources()
 }
 
 // Called once per frame, calculate the model and view matrices.
-void hosTileRenderer::Update()
+void hTRenderer::Update()
 {
 	// Prepare to pass the updated model matrix to the shader
 	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
 }
 
 // Renders one frame using the vertex and pixel shaders.
-void hosTileRenderer::Render()
+void hTRenderer::Render()
 {
 	// Loading is asynchronous. Only draw geometry after it's loaded.
 	if (!m_loadingComplete)
@@ -304,23 +304,23 @@ void hosTileRenderer::Render()
 	}
 }
 
-const shared_ptr<DX::DeviceResources>& hosTileRenderer::GetDeviceResources() const
+const shared_ptr<DX::DeviceResources>& hTRenderer::GetDeviceResources() const
 {
 	return m_deviceResources;
 }
 
-void hosTileRenderer::AddSprite(shared_ptr<hTSprite> sprite)
+void hTRenderer::AddSprite(shared_ptr<hTSprite> sprite)
 {
 	m_sprites.push_back(sprite);
 }
 
-XMFLOAT3 hosTileRenderer::GetCameraPosition() const
+XMFLOAT3 hTRenderer::GetCameraPosition() const
 {
 	XMFLOAT3 cameraPosition = { m_cameraPosition[0], m_cameraPosition[1], m_cameraPosition[2] };
 	return cameraPosition;
 }
 
-void hosTileRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
+void hTRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
 {
 	m_cameraPosition = { cameraPosition.x, cameraPosition.y, cameraPosition.z };
 	// The camera's focus needs to remain straight ahead and move with the camera itself.
@@ -329,7 +329,7 @@ void hosTileRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
 }
 
 // Copy each sprite's vertices into the vertex buffer.
-void hosTileRenderer::FillVertexBuffer()
+void hTRenderer::FillVertexBuffer()
 {
 	// TODO: Upgrade this to ID3D11DeviceContext4.
 	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
@@ -353,7 +353,7 @@ void hosTileRenderer::FillVertexBuffer()
 }
 
 // Update the constant buffer based on the camera's position, focus, and up vectors.
-void hosTileRenderer::UpdateConstantBuffer()
+void hTRenderer::UpdateConstantBuffer()
 {
 	// Note that the OrientationTransform3D matrix is post-multiplied here in order to correctly
 	// orient the scene to match the display orientation. This post-multiplication step is

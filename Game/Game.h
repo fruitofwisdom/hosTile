@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Camera.h"
-#include "hosTile\hosTileRenderer.h"
+#include "hosTile\hTRenderer.h"
 #include "Other\StepTimer.h"
 #include "Player.h"
 
@@ -11,7 +11,7 @@ namespace hosTileSample
 	class Game final
 	{
 	public:
-		Game(std::shared_ptr<hosTile::hosTileRenderer> renderer);
+		Game(std::shared_ptr<hosTile::hTRenderer> renderer);
 
 		void Update(const DX::StepTimer& timer);
 

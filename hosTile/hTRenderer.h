@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Other/DeviceResources.h"
-#include "hosTileShaderStructures.h"
+#include "hTShaderStructures.h"
 #include "hTSprite.h"
 #include "hTTileset.h"
 
@@ -10,10 +10,10 @@ namespace hosTile
 {
 	// The hosTile 2D graphics engine main renderer component. Manages the creation and rendering
 	// of sprites and interfacing with the DirectX hardware.
-	class hosTileRenderer
+	class hTRenderer
 	{
 	public:
-		hosTileRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		hTRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
