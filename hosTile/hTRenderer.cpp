@@ -25,8 +25,8 @@ hTRenderer::hTRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
 void hTRenderer::CreateDeviceDependentResources()
 {
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"hosTileVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"hosTilePixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"hTVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"hTPixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const vector<byte>& fileData)

@@ -93,6 +93,12 @@
     <Filter Include="Assets\Futile">
       <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="hosTile\Original">
+      <UniqueIdentifier>{88570717-d824-4836-bb78-4e9a5289b3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile\Shaders">
+      <UniqueIdentifier>{06f0e48c-26c9-46b9-83c3-642bf488ad50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -108,8 +114,8 @@
     <ClCompile Include="Game\GameObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTile.cpp">
-      <Filter>hosTile</Filter>
+    <ClCompile Include="hosTile\Original\hosTile.cpp">
+      <Filter>hosTile\Original</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTRenderer.cpp">
       <Filter>hosTile</Filter>
@@ -146,8 +152,8 @@
     <ClInclude Include="Game\GameObject.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTile.h">
-      <Filter>hosTile</Filter>
+    <ClInclude Include="hosTile\Original\hosTile.h">
+      <Filter>hosTile\Original</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTRenderer.h">
       <Filter>hosTile</Filter>
@@ -186,11 +192,11 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="hosTile\hosTilePixelShader.hlsl">
-      <Filter>hosTile</Filter>
+    <FxCompile Include="hosTile\Shaders\hTPixelShader.hlsl">
+      <Filter>hosTile\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="hosTile\hosTileVertexShader.hlsl">
-      <Filter>hosTile</Filter>
+    <FxCompile Include="hosTile\Shaders\hTVertexShader.hlsl">
+      <Filter>hosTile\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
