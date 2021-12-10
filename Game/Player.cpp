@@ -7,7 +7,7 @@ using namespace hosTileSample;
 
 const float Player::MovementSpeed = 64.0f;		// pixels-per-second
 
-Player::Player(std::shared_ptr<hosTile::hosTileTileSprite> sprite)
+Player::Player(std::shared_ptr<hosTile::hTTileSprite> sprite)
 :	GameObject(sprite)
 {
 	;

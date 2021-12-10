@@ -3,8 +3,8 @@
 #include <vector>
 #include "Other/DeviceResources.h"
 #include "hosTileShaderStructures.h"
-#include "hosTileTileset.h"
-#include "htSprite.h"
+#include "hTSprite.h"
+#include "hTTileset.h"
 
 namespace hosTile
 {

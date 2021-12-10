@@ -221,12 +221,12 @@
     <ClInclude Include="hosTile\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileShaderStructures.h" />
     <ClInclude Include="hosTile\hosTileRenderer.h" />
-    <ClInclude Include="hosTile\hosTileTileset.h" />
-    <ClInclude Include="hosTile\hosTileTileSprite.h" />
+    <ClInclude Include="hosTile\hosTileShaderStructures.h" />
     <ClInclude Include="hosTile\hTSimpleSprite.h" />
     <ClInclude Include="hosTile\hTSprite.h" />
+    <ClInclude Include="hosTile\hTTileset.h" />
+    <ClInclude Include="hosTile\hTTileSprite.h" />
     <ClInclude Include="Other\DeviceResources.h" />
     <ClInclude Include="Other\DirectXHelper.h" />
     <ClInclude Include="Other\json.hpp" />
@@ -244,10 +244,10 @@
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="hosTile\hosTileRenderer.cpp" />
-    <ClCompile Include="hosTile\hosTileTileset.cpp" />
-    <ClCompile Include="hosTile\hosTileTileSprite.cpp" />
     <ClCompile Include="hosTile\hTSimpleSprite.cpp" />
     <ClCompile Include="hosTile\hTSprite.cpp" />
+    <ClCompile Include="hosTile\hTTileset.cpp" />
+    <ClCompile Include="hosTile\hTTileSprite.cpp" />
     <ClCompile Include="Other\DeviceResources.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp">

@@ -1,11 +1,11 @@
 #include "pch.h"
-#include "hosTileTileSprite.h"
+#include "hTTileSprite.h"
 
 using namespace DirectX;
 using namespace hosTile;
 
-hosTileTileSprite::hosTileTileSprite(
-	const std::shared_ptr<hosTileTileset>& tileset, int tileNum,
+hTTileSprite::hTTileSprite(
+	const std::shared_ptr<hTTileset>& tileset, int tileNum,
 	DirectX::XMFLOAT3 position)
 :	hTSprite(position),
 	m_tileset(tileset),
@@ -17,23 +17,23 @@ hosTileTileSprite::hosTileTileSprite(
 	UpdateVertices();
 }
 
-void hosTileTileSprite::Update()
+void hTTileSprite::Update()
 {
 	UpdateVertices();
 }
 
-ID3D11ShaderResourceView* hosTileTileSprite::GetTexture() const
+ID3D11ShaderResourceView* hTTileSprite::GetTexture() const
 {
 	return m_tileset->GetTexture();
 }
 
-const VertexPositionTex* hosTileTileSprite::GetVertices() const
+const VertexPositionTex* hTTileSprite::GetVertices() const
 {
 	return m_vertices;
 }
 
 // Update the vertices' data after the position has changed.
-void hosTileTileSprite::UpdateVertices()
+void hTTileSprite::UpdateVertices()
 {
 	// Calculate UV-coordinates and apply x-flip, y-flip, and scale.
 	float uvTileWidth = (float)m_width / m_tileset->GetImageWidth();

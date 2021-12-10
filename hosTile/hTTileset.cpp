@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "hosTileTileset.h"
+#include "hTTileset.h"
 
 #include <codecvt>
 #include <fstream>
@@ -11,7 +11,7 @@
 using namespace hosTile;
 using namespace std;
 
-hosTileTileset::hosTileTileset(
+hTTileset::hTTileset(
 	const shared_ptr<DX::DeviceResources>& deviceResources, string tilesetSource)
 {
 	ifstream tilesetFile(tilesetSource);
@@ -34,49 +34,49 @@ hosTileTileset::hosTileTileset(
 	m_tileHeight = tilesetJson["tileheight"];
 }
 
-const string hosTileTileset::GetImageFilename() const
+const string hTTileset::GetImageFilename() const
 {
 	return m_imageFilename;
 }
 
-ID3D11ShaderResourceView* hosTileTileset::GetTexture() const
+ID3D11ShaderResourceView* hTTileset::GetTexture() const
 {
 	return m_texture.Get();
 }
 
-unsigned int hosTileTileset::GetImageWidth() const
+unsigned int hTTileset::GetImageWidth() const
 {
 	return m_imageWidth;
 }
 
-unsigned int hosTileTileset::GetImageHeight() const
+unsigned int hTTileset::GetImageHeight() const
 {
 	return m_imageHeight;
 }
 
-unsigned int hosTileTileset::GetTileCount() const
+unsigned int hTTileset::GetTileCount() const
 {
 	return m_tileCount;
 }
 
-unsigned int hosTileTileset::GetTileWidth() const
+unsigned int hTTileset::GetTileWidth() const
 {
 	return m_tileWidth;
 }
 
-unsigned int hosTileTileset::GetTileHeight() const
+unsigned int hTTileset::GetTileHeight() const
 {
 	return m_tileHeight;
 }
 
 // Returns the offset into the tileset for the provided tile in pixels.
-unsigned int hosTileTileset::GetTileXOffset(unsigned int tileNum) const
+unsigned int hTTileset::GetTileXOffset(unsigned int tileNum) const
 {
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum % tilesWide) * m_tileWidth;
 }
 
-unsigned int hosTileTileset::GetTileYOffset(unsigned int tileNum) const
+unsigned int hTTileset::GetTileYOffset(unsigned int tileNum) const
 {
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum / tilesWide) * m_tileHeight;

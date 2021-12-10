@@ -114,16 +114,16 @@
     <ClCompile Include="hosTile\hosTileRenderer.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTileTileset.cpp">
-      <Filter>hosTile</Filter>
-    </ClCompile>
-    <ClCompile Include="hosTile\hosTileTileSprite.cpp">
-      <Filter>hosTile</Filter>
-    </ClCompile>
     <ClCompile Include="hosTile\hTSimpleSprite.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hTTileset.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hTTileSprite.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="Other\DeviceResources.cpp">
@@ -155,16 +155,16 @@
     <ClInclude Include="hosTile\hosTileShaderStructures.h">
       <Filter>hosTile</Filter>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileTileset.h">
-      <Filter>hosTile</Filter>
-    </ClInclude>
-    <ClInclude Include="hosTile\hosTileTileSprite.h">
-      <Filter>hosTile</Filter>
-    </ClInclude>
     <ClInclude Include="hosTile\hTSimpleSprite.h">
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hTTileset.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hTTileSprite.h">
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="Other\DeviceResources.h">

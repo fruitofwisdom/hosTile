@@ -5,10 +5,10 @@
 
 namespace hosTile
 {
-	class hosTileTileset
+	class hTTileset
 	{
 	public:
-		hosTileTileset(
+		hTTileset(
 			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::string tilesetSource);
 
 		const std::string GetImageFilename() const;

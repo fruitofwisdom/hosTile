@@ -2,8 +2,8 @@
 #include "Game.h"
 
 #include <fstream>
-#include "hosTile\hosTileTileset.h"
 #include "hosTile\hTSimpleSprite.h"
+#include "hosTile\hTTileset.h"
 #include "Other\json.hpp"
 
 using namespace hosTile;
@@ -21,7 +21,7 @@ Game::Game(std::shared_ptr<hosTileRenderer> renderer)
 
 	auto deviceResources = renderer->GetDeviceResources();
 
-	auto tileset = make_shared<hosTileTileset>(deviceResources, tilesetSource);
+	auto tileset = make_shared<hTTileset>(deviceResources, tilesetSource);
 
 	// TODO: Create a proper map class.
 	auto map = make_shared<hTSimpleSprite>(deviceResources, tileset->GetImageFilename());
@@ -31,7 +31,7 @@ Game::Game(std::shared_ptr<hosTileRenderer> renderer)
 
 	// TODO: Assumes the first object is the player. Go find the object "player".
 	unsigned int playerTileNum = mapJson["layers"][1]["objects"][0]["gid"] - 1;
-	auto playerSprite = make_shared<hosTileTileSprite>(
+	auto playerSprite = make_shared<hTTileSprite>(
 		tileset, playerTileNum,
 		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
 	playerSprite->SetScale(2.0f);

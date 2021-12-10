@@ -1,15 +1,15 @@
 #pragma once
 
-#include "hosTileTileset.h"
-#include "htSprite.h"
+#include "hTSprite.h"
+#include "hTTileset.h"
 
 namespace hosTile
 {
-	class hosTileTileSprite : public hTSprite
+	class hTTileSprite : public hTSprite
 	{
 	public:
-		hosTileTileSprite(
-			const std::shared_ptr<hosTileTileset>& tileset, int tileNum,
+		hTTileSprite(
+			const std::shared_ptr<hTTileset>& tileset, int tileNum,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Update();
@@ -21,7 +21,7 @@ namespace hosTile
 		// Update the vertices' data after the position has changed.
 		void UpdateVertices();
 
-		const std::shared_ptr<hosTileTileset> m_tileset;
+		const std::shared_ptr<hTTileset> m_tileset;
 		int m_tileNum;
 
 		VertexPositionTex m_vertices[4];
