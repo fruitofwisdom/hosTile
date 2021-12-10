@@ -1,18 +1,19 @@
 ﻿#pragma once
 
-#include "DirectX/DeviceResources.h"
-#include "hosTileShaderStructures.h"
-#include "hosTileSprite.h"
 #include <vector>
+#include "Other/DeviceResources.h"
+#include "hTShaderStructures.h"
+#include "hTSprite.h"
+#include "hTTileset.h"
 
 namespace hosTile
 {
 	// The hosTile 2D graphics engine main renderer component. Manages the creation and rendering
 	// of sprites and interfacing with the DirectX hardware.
-	class hosTileRenderer
+	class hTRenderer
 	{
 	public:
-		hosTileRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		hTRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
 
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
@@ -21,13 +22,11 @@ namespace hosTile
 		void Update();
 		void Render();
 
-		// CreateSprite will return a new hosTileSprite that game classes can use and manage.
-		// These sprites will then need to be added to the renderer with AddSprite.
-		std::shared_ptr<hosTileSprite> CreateSprite(
-			std::wstring spriteFilename,
-			unsigned int currentSubSprite = 0, unsigned int numSubSprites = 1
-			) const;
-		void AddSprite(std::shared_ptr<hosTileSprite> sprite);
+		const std::shared_ptr<DX::DeviceResources>& GetDeviceResources() const;
+
+		// Once a sprite derived from hTSprite has been created, it needs to be added to the
+		// renderer with AddSprite.
+		void AddSprite(std::shared_ptr<hTSprite> sprite);
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
@@ -60,7 +59,7 @@ namespace hosTile
 
 		// TODO: Can this be a not-fixed number?
 		static const int MaxSprites = 1024;
-		std::vector<std::shared_ptr<hosTileSprite>> m_sprites;
+		std::vector<std::shared_ptr<hTSprite>> m_sprites;
 
 		DirectX::XMVECTORF32 m_cameraPosition;
 		DirectX::XMVECTORF32 m_cameraFocus;

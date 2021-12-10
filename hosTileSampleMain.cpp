@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hosTileSampleMain.h"
 
-#include "DirectX\DirectXHelper.h"
+#include "Other\DirectXHelper.h"
 
 using namespace Concurrency;
 using namespace hosTileSample;
@@ -15,7 +15,7 @@ hosTileSampleMain::hosTileSampleMain(std::shared_ptr<DX::DeviceResources> device
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_renderer = std::make_shared<hosTile::hosTileRenderer>(m_deviceResources);
+	m_renderer = std::make_shared<hosTile::hTRenderer>(m_deviceResources);
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:

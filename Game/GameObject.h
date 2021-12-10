@@ -1,22 +1,22 @@
 #pragma once
 
-#include "DirectX\StepTimer.h"
-#include "hosTile\hosTileSprite.h"
+#include "hosTile\hTSprite.h"
+#include "Other\StepTimer.h"
 
 namespace hosTileSample
 {
 	class GameObject
 	{
 	public:
-		GameObject(std::shared_ptr<hosTile::hosTileSprite> sprite);
+		GameObject(std::shared_ptr<hosTile::hTSprite> sprite);
 		virtual ~GameObject() {}
 
 		virtual void Update(const DX::StepTimer& timer) {}
 
 		DirectX::XMFLOAT3 GetPosition() const;
-		std::shared_ptr<hosTile::hosTileSprite> GetSprite() const;
+		std::shared_ptr<hosTile::hTSprite> GetSprite() const;
 
 	protected:
-		std::shared_ptr<hosTile::hosTileSprite> m_sprite;
+		std::shared_ptr<hosTile::hTSprite> m_sprite;
 	};
 }

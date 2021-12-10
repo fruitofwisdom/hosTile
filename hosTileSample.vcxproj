@@ -204,39 +204,51 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
-    <Image Include="Assets\map.dds" />
-    <Image Include="Assets\player.dds" />
+    <CopyFileToFolders Include="Assets\Futile\futile_map.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.dds" />
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="DirectX\DeviceResources.h" />
-    <ClInclude Include="DirectX\DirectXHelper.h" />
-    <ClInclude Include="DirectX\StepTimer.h" />
     <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\Player.h" />
-    <ClInclude Include="hosTile\hosTile.h">
+    <ClInclude Include="hosTile\Original\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="hosTile\hosTileShaderStructures.h" />
-    <ClInclude Include="hosTile\hosTileSprite.h" />
-    <ClInclude Include="hosTile\hosTileRenderer.h" />
+    <ClInclude Include="hosTile\hTRenderer.h" />
+    <ClInclude Include="hosTile\hTShaderStructures.h" />
+    <ClInclude Include="hosTile\hTSimpleSprite.h" />
+    <ClInclude Include="hosTile\hTSprite.h" />
+    <ClInclude Include="hosTile\hTTileset.h" />
+    <ClInclude Include="hosTile\hTTileSprite.h" />
+    <ClInclude Include="Other\DeviceResources.h" />
+    <ClInclude Include="Other\DirectXHelper.h" />
+    <ClInclude Include="Other\json.hpp" />
+    <ClInclude Include="Other\StepTimer.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="DirectX\DeviceResources.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameObject.cpp" />
     <ClCompile Include="Game\Player.cpp" />
-    <ClCompile Include="hosTile\hosTile.cpp">
+    <ClCompile Include="hosTile\Original\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="hosTile\hosTileRenderer.cpp" />
-    <ClCompile Include="hosTile\hosTileSprite.cpp" />
+    <ClCompile Include="hosTile\hTRenderer.cpp" />
+    <ClCompile Include="hosTile\hTSimpleSprite.cpp" />
+    <ClCompile Include="hosTile\hTSprite.cpp" />
+    <ClCompile Include="hosTile\hTTileset.cpp" />
+    <ClCompile Include="hosTile\hTTileSprite.cpp" />
+    <ClCompile Include="Other\DeviceResources.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -251,10 +263,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="hosTile\hosTilePixelShader.hlsl">
+    <FxCompile Include="hosTile\Shaders\hTPixelShader.hlsl">
       <ShaderType>Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="hosTile\hosTileVertexShader.hlsl">
+    <FxCompile Include="hosTile\Shaders\hTVertexShader.hlsl">
       <ShaderType>Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>

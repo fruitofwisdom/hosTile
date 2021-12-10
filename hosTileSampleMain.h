@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "DirectX\DeviceResources.h"
-#include "DirectX\StepTimer.h"
 #include "Game\Game.h"
-#include "hosTile\hosTileRenderer.h"
+#include "hosTile\hTRenderer.h"
+#include "Other\DeviceResources.h"
+#include "Other\StepTimer.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace hosTileSample
@@ -28,7 +28,7 @@ namespace hosTileSample
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
 
 		// The hosTile renderer.
-		std::shared_ptr<hosTile::hosTileRenderer> m_renderer;
+		std::shared_ptr<hosTile::hTRenderer> m_renderer;
 
 		// Game loop timer.
 		DX::StepTimer m_timer;

@@ -1,0 +1,15 @@
+{ "columns":14,
+ "image":"futile_tileset.png",
+ "imageheight":80,
+ "imagewidth":112,
+ "margin":0,
+ "name":"futile_tileset",
+ "spacing":0,
+ "tilecount":140,
+ "tiledversion":"1.7.2",
+ "tileheight":8,
+ "tilewidth":8,
+ "transparentcolor":"#003039",
+ "type":"tileset",
+ "version":"1.6"
+}

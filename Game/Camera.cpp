@@ -3,7 +3,7 @@
 
 using namespace hosTileSample;
 
-Camera::Camera(std::shared_ptr<hosTile::hosTileRenderer> renderer, std::shared_ptr<GameObject> focus)
+Camera::Camera(std::shared_ptr<hosTile::hTRenderer> renderer, std::shared_ptr<GameObject> focus)
 :	m_renderer(renderer),
 	m_focus(focus)
 {

@@ -1,20 +1,39 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "hosTile\hosTileSprite.h"
+#include <fstream>
+#include "hosTile\hTSimpleSprite.h"
+#include "hosTile\hTTileset.h"
+#include "Other\json.hpp"
 
+using namespace hosTile;
 using namespace hosTileSample;
+using namespace std;
 
-Game::Game(std::shared_ptr<hosTile::hosTileRenderer> renderer)
+Game::Game(std::shared_ptr<hTRenderer> renderer)
 {
-	// TODO: Create a proper map class?
-	auto map = renderer->CreateSprite(L"Assets/map.dds");
-	map->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
+	ifstream mapFile("futile_map.json");
+	nlohmann::json mapJson;
+	mapFile >> mapJson;
+	string tilesetSource = mapJson["tilesets"][0]["source"];
+	// the tileset is kept internally as a .tsx file, but exported as a .json
+	tilesetSource.replace(tilesetSource.find(".tsx"), string(".tsx").length(), ".json");
+
+	auto deviceResources = renderer->GetDeviceResources();
+
+	auto tileset = make_shared<hTTileset>(deviceResources, tilesetSource);
+
+	// TODO: Create a proper map class.
+	auto map = make_shared<hTSimpleSprite>(deviceResources, tileset->GetImageFilename());
 	map->SetScale(2.0f);
+	map->Update();
 	renderer->AddSprite(map);
 
-	auto playerSprite = renderer->CreateSprite(L"Assets/player.dds", 0, 4);
-	playerSprite->SetPosition(DirectX::XMFLOAT3(0.0f, 0.0f, 0.1f));
+	// TODO: Assumes the first object is the player. Go find the object "player".
+	unsigned int playerTileNum = mapJson["layers"][1]["objects"][0]["gid"] - 1;
+	auto playerSprite = make_shared<hTTileSprite>(
+		tileset, playerTileNum,
+		DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f));
 	playerSprite->SetScale(2.0f);
 	m_player = std::make_shared<Player>(playerSprite);
 	renderer->AddSprite(playerSprite);
