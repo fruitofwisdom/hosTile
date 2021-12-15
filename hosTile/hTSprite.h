@@ -18,6 +18,7 @@ namespace hosTile
 
 		// hTRenderer uses these to actually render the sprite.
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;
+		virtual unsigned int GetNumVertices() const = 0;
 		virtual const VertexPositionTex* GetVertices() const = 0;
 
 		DirectX::XMFLOAT3 GetPosition() const;
@@ -30,8 +31,8 @@ namespace hosTile
 	protected:
 		DirectX::XMFLOAT3 m_position;
 
-		unsigned int m_width;
-		unsigned int m_height;
+		unsigned int m_width;		// in pixels
+		unsigned int m_height;		// in pixels
 
 		// The scale of a sprite only applies to its width and height, not depth.
 		float m_scale;

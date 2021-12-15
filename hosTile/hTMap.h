@@ -1,15 +1,18 @@
 #pragma once
 
+#include <string>
+#include "Other/json_fwd.hpp"
 #include "hTSprite.h"
 #include "hTTileset.h"
 
+// A map, which consists of a tileset and json description of the map.
 namespace hosTile
 {
-	class hTTileSprite : public hTSprite
+	class hTMap : public hTSprite
 	{
 	public:
-		hTTileSprite(
-			const std::shared_ptr<hTTileset>& tileset, int tileNum,
+		hTMap(
+			const std::shared_ptr<hTTileset>& tileset, const nlohmann::json& mapJson,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Update();
@@ -23,8 +26,11 @@ namespace hosTile
 		void UpdateVertices();
 
 		const std::shared_ptr<hTTileset> m_tileset;
-		int m_tileNum;
 
-		VertexPositionTex m_vertices[4];
+		std::vector<unsigned int> m_mapData;
+		unsigned int m_mapWidth;		// in tiles
+		unsigned int m_mapHeight;		// in tiles
+
+		std::vector<VertexPositionTex> m_vertices;
 	};
 }

@@ -221,6 +221,8 @@
     <ClInclude Include="hosTile\Original\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="hosTile\hTException.h" />
+    <ClInclude Include="hosTile\hTMap.h" />
     <ClInclude Include="hosTile\hTRenderer.h" />
     <ClInclude Include="hosTile\hTShaderStructures.h" />
     <ClInclude Include="hosTile\hTSimpleSprite.h" />
@@ -230,6 +232,7 @@
     <ClInclude Include="Other\DeviceResources.h" />
     <ClInclude Include="Other\DirectXHelper.h" />
     <ClInclude Include="Other\json.hpp" />
+    <ClInclude Include="Other\json_fwd.hpp" />
     <ClInclude Include="Other\StepTimer.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
@@ -243,6 +246,7 @@
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="hosTile\hTMap.cpp" />
     <ClCompile Include="hosTile\hTRenderer.cpp" />
     <ClCompile Include="hosTile\hTSimpleSprite.cpp" />
     <ClCompile Include="hosTile\hTSprite.cpp" />

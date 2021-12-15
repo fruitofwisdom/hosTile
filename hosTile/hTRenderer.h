@@ -57,7 +57,6 @@ namespace hosTile
 
 		bool m_loadingComplete;
 
-		// TODO: Can this be a not-fixed number?
 		static const int MaxSprites = 1024;
 		std::vector<std::shared_ptr<hTSprite>> m_sprites;
 

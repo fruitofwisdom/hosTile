@@ -27,6 +27,11 @@ ID3D11ShaderResourceView* hTTileSprite::GetTexture() const
 	return m_tileset->GetTexture();
 }
 
+unsigned int hTTileSprite::GetNumVertices() const
+{
+	return sizeof(m_vertices) / sizeof(m_vertices[0]);
+}
+
 const VertexPositionTex* hTTileSprite::GetVertices() const
 {
 	return m_vertices;

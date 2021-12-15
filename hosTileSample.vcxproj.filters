@@ -117,6 +117,9 @@
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <Filter>hosTile\Original</Filter>
     </ClCompile>
+    <ClCompile Include="hosTile\hTMap.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
     <ClCompile Include="hosTile\hTRenderer.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
@@ -155,6 +158,12 @@
     <ClInclude Include="hosTile\Original\hosTile.h">
       <Filter>hosTile\Original</Filter>
     </ClInclude>
+    <ClInclude Include="hosTile\hTException.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hTMap.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
     <ClInclude Include="hosTile\hTRenderer.h">
       <Filter>hosTile</Filter>
     </ClInclude>
@@ -180,6 +189,9 @@
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="Other\json.hpp">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\json_fwd.hpp">
       <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="Other\StepTimer.h">

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <locale>
 #include "DDSTextureLoader.h"
+#include "hosTile/hTException.h"
 #include "Other/DirectXHelper.h"
 #include "Other/json.hpp"
 
@@ -72,12 +73,26 @@ unsigned int hTTileset::GetTileHeight() const
 // Returns the offset into the tileset for the provided tile in pixels.
 unsigned int hTTileset::GetTileXOffset(unsigned int tileNum) const
 {
+	if (tileNum >= m_tileCount)
+	{
+		stringstream message;
+		message << "Tile number " << tileNum << " is out of range. Tile count is " << m_tileCount << ".";
+		throw hTException(message.str());
+	}
+
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum % tilesWide) * m_tileWidth;
 }
 
 unsigned int hTTileset::GetTileYOffset(unsigned int tileNum) const
 {
+	if (tileNum >= m_tileCount)
+	{
+		stringstream message;
+		message << "Tile number " << tileNum << " is out of range. Tile count is " << m_tileCount << ".";
+		throw hTException(message.str());
+	}
+
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum / tilesWide) * m_tileHeight;
 }
