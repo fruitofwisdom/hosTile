@@ -24,6 +24,9 @@ namespace hosTile
 		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);
 
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
+
 		void SetScale(float scale);
 		void SetXFlip(bool xFlip);
 		void SetYFlip(bool yFlip);

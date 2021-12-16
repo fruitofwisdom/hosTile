@@ -25,6 +25,16 @@ void hTSprite::SetPosition(XMFLOAT3 position)
 	m_position = position;
 }
 
+unsigned int hTSprite::GetWidth() const
+{
+	return m_width;
+}
+
+unsigned int hTSprite::GetHeight() const
+{
+	return m_height;
+}
+
 void hTSprite::SetScale(float scale)
 {
 	m_scale = scale;
