@@ -5,14 +5,18 @@ using namespace DirectX;
 using namespace hosTile;
 
 hTTileSprite::hTTileSprite(
-	const std::shared_ptr<hTTileset>& tileset, int tileNum,
+	const std::shared_ptr<hTTileset>& tileset, unsigned int tileNum,
 	DirectX::XMFLOAT3 position)
 :	hTSprite(position),
-	m_tileset(tileset),
-	m_tileNum(tileNum)
+	m_tileset(tileset)
 {
 	m_width = m_tileset->GetTileWidth();
 	m_height = m_tileset->GetTileHeight();
+
+	// The top three bits are for flipping flags and the tiles are 1-indexed.
+	m_tileNum = (tileNum & 0x1FFFFFFF) - 1;
+	m_xFlip = tileNum & 0x80000000;
+	m_yFlip = tileNum & 0x40000000;
 
 	UpdateVertices();
 }
@@ -40,15 +44,15 @@ const VertexPositionTex* hTTileSprite::GetVertices() const
 // Update the vertices' data after the position has changed.
 void hTTileSprite::UpdateVertices()
 {
-	// Calculate UV-coordinates and apply x-flip, y-flip, and scale.
+	// Calculate UV-coordinates.
 	float uvTileWidth = (float)m_width / m_tileset->GetImageWidth();
 	float uvTileHeight = (float)m_height / m_tileset->GetImageHeight();
 	float uvXOffset = (float)m_tileset->GetTileXOffset(m_tileNum) / m_tileset->GetImageWidth();
 	float uvYOffset = (float)m_tileset->GetTileYOffset(m_tileNum) / m_tileset->GetImageHeight();
-	float uvLeft = m_xFlip ? uvXOffset + uvTileWidth : uvXOffset;
-	float uvRight = m_xFlip ? uvXOffset : uvXOffset + uvTileWidth;
-	float uvBottom = m_yFlip ? uvYOffset : uvYOffset + uvTileHeight;
-	float uvTop = m_yFlip ? uvYOffset + uvTileHeight : uvYOffset;
+	float uvLeft = uvXOffset;
+	float uvRight = uvXOffset + uvTileWidth;
+	float uvBottom = uvYOffset + uvTileHeight;
+	float uvTop = uvYOffset;
 
 	m_vertices[0] =		// 0, bottom-left
 	{
@@ -86,4 +90,16 @@ void hTTileSprite::UpdateVertices()
 			),
 		XMFLOAT2(uvLeft, uvTop)
 	};
+
+	// Apply x-flip and y-flip.
+	if (m_xFlip)
+	{
+		swapUVs(m_vertices[0].tex, m_vertices[1].tex);
+		swapUVs(m_vertices[2].tex, m_vertices[3].tex);
+	}
+	if (m_yFlip)
+	{
+		swapUVs(m_vertices[0].tex, m_vertices[3].tex);
+		swapUVs(m_vertices[1].tex, m_vertices[2].tex);
+	}
 }

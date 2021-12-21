@@ -49,3 +49,11 @@ void hTSprite::SetYFlip(bool yFlip)
 {
 	m_yFlip = yFlip;
 }
+
+// Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
+void hTSprite::swapUVs(XMFLOAT2& uv1, XMFLOAT2& uv2) const
+{
+	XMFLOAT2 temp = uv1;
+	uv1 = uv2;
+	uv2 = temp;
+}

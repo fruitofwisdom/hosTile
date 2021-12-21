@@ -32,6 +32,9 @@ namespace hosTile
 		void SetYFlip(bool yFlip);
 
 	protected:
+		// Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
+		void swapUVs(DirectX::XMFLOAT2& uv1, DirectX::XMFLOAT2& uv2) const;
+
 		DirectX::XMFLOAT3 m_position;
 
 		unsigned int m_width;		// in pixels

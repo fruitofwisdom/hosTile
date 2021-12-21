@@ -40,7 +40,7 @@ ID3D11ShaderResourceView* hTMap::GetTexture() const
 
 unsigned int hTMap::GetNumVertices() const
 {
-	return m_mapData.size() * 4;
+	return (unsigned int)m_mapData.size() * 4;
 }
 
 const VertexPositionTex* hTMap::GetVertices() const
@@ -50,37 +50,42 @@ const VertexPositionTex* hTMap::GetVertices() const
 
 void hTMap::UpdateVertices()
 {
-	for (int y = 0; y < m_mapHeight; ++y)
+	for (unsigned int y = 0; y < m_mapHeight; ++y)
 	{
-		for (int x = 0; x < m_mapWidth; ++x)
+		for (unsigned int x = 0; x < m_mapWidth; ++x)
 		{
 			unsigned int gid = m_mapData[y * m_mapWidth + x];
+
 			// The top three bits are for flipping flags and the tiles are 1-indexed.
-			gid &= 0x1FFFFFFF;
-			gid--;
-			float xPosition = (float)x * m_tileset->GetTileWidth()
+			unsigned int tileNum = (gid & 0x1FFFFFFF) - 1;
+			float tileXPosition = (float)x * m_tileset->GetTileWidth()
 				+ m_tileset->GetTileWidth() / 2
 				- (m_mapWidth * m_tileset->GetTileWidth() / 2);
-			float yPosition = (float)y * m_tileset->GetTileHeight() * -1.0f
+			float tileYPosition = (float)y * m_tileset->GetTileHeight() * -1.0f
 				- m_tileset->GetTileHeight() / 2
 				+ (m_mapHeight * m_tileset->GetTileHeight() / 2);
+			bool tileXFlip = gid & 0x80000000;
+			bool tileYFlip = gid & 0x40000000;
+			bool tileDiagonalFlip = gid & 0x20000000;
 
-			// Calculate UV-coordinates and apply x-flip, y-flip, and scale.
+			// Calculate UV-coordinates.
 			float uvTileWidth = (float)m_tileset->GetTileWidth() / m_tileset->GetImageWidth();
 			float uvTileHeight = (float)m_tileset->GetTileHeight() / m_tileset->GetImageHeight();
-			float uvXOffset = (float)m_tileset->GetTileXOffset(gid) / m_tileset->GetImageWidth();
-			float uvYOffset = (float)m_tileset->GetTileYOffset(gid) / m_tileset->GetImageHeight();
-			float uvLeft = m_xFlip ? uvXOffset + uvTileWidth : uvXOffset;
-			float uvRight = m_xFlip ? uvXOffset : uvXOffset + uvTileWidth;
-			float uvBottom = m_yFlip ? uvYOffset : uvYOffset + uvTileHeight;
-			float uvTop = m_yFlip ? uvYOffset + uvTileHeight : uvYOffset;
+			float uvXOffset = (float)m_tileset->GetTileXOffset(tileNum) / m_tileset->GetImageWidth();
+			float uvYOffset = (float)m_tileset->GetTileYOffset(tileNum) / m_tileset->GetImageHeight();
+			float uvLeft = uvXOffset;
+			float uvRight = uvXOffset + uvTileWidth;
+			float uvBottom = uvYOffset + uvTileHeight;
+			float uvTop = uvYOffset;
 
 			unsigned int vertexOffset = (y * m_mapWidth + x) * 4;
 			m_vertices[vertexOffset] =		// 0, bottom-left
 			{
 				XMFLOAT3(
-					(m_tileset->GetTileWidth() / 2.0f * -1.0f + xPosition) * m_scale + m_position.x,
-					(m_tileset->GetTileHeight() / 2.0f * -1.0f + yPosition) * m_scale + m_position.y,
+					(m_tileset->GetTileWidth() / 2.0f * -1.0f + tileXPosition)
+						* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+					(m_tileset->GetTileHeight() / 2.0f * -1.0f + tileYPosition)
+						* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 					m_position.z
 					),
 				XMFLOAT2(uvLeft, uvBottom)
@@ -88,8 +93,10 @@ void hTMap::UpdateVertices()
 			m_vertices[vertexOffset + 1] =		// 1, bottom-right
 			{
 				XMFLOAT3(
-					(m_tileset->GetTileWidth() / 2.0f + xPosition) * m_scale + m_position.x,
-					(m_tileset->GetTileHeight() / 2.0f * -1.0f + yPosition) * m_scale + m_position.y,
+					(m_tileset->GetTileWidth() / 2.0f + tileXPosition)
+						* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+					(m_tileset->GetTileHeight() / 2.0f * -1.0f + tileYPosition)
+						* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 					m_position.z
 					),
 				XMFLOAT2(uvRight, uvBottom)
@@ -97,8 +104,10 @@ void hTMap::UpdateVertices()
 			m_vertices[vertexOffset + 2] =		// 2, top-right
 			{
 				XMFLOAT3(
-					(m_tileset->GetTileWidth() / 2.0f + xPosition) * m_scale + m_position.x,
-					(m_tileset->GetTileHeight() / 2.0f + yPosition) * m_scale + m_position.y,
+					(m_tileset->GetTileWidth() / 2.0f + tileXPosition)
+						* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+					(m_tileset->GetTileHeight() / 2.0f + tileYPosition)
+						* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 					m_position.z
 					),
 				XMFLOAT2(uvRight, uvTop)
@@ -106,12 +115,30 @@ void hTMap::UpdateVertices()
 			m_vertices[vertexOffset + 3] =		// 3, top-left
 			{
 				XMFLOAT3(
-					(m_tileset->GetTileWidth() / 2.0f * -1.0f + xPosition) * m_scale + m_position.x,
-					(m_tileset->GetTileHeight() / 2.0f + yPosition) * m_scale + m_position.y,
+					(m_tileset->GetTileWidth() / 2.0f * -1.0f + tileXPosition)
+						* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+					(m_tileset->GetTileHeight() / 2.0f + tileYPosition)
+						* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 					m_position.z
 					),
 				XMFLOAT2(uvLeft, uvTop)
 			};
+
+			// Apply diagonal-flip, x-flip, and y-flip.
+			if (tileDiagonalFlip)
+			{
+				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 2].tex);
+			}
+			if (tileXFlip)
+			{
+				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 1].tex);
+				swapUVs(m_vertices[vertexOffset + 2].tex, m_vertices[vertexOffset + 3].tex);
+			}
+			if (tileYFlip)
+			{
+				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 3].tex);
+				swapUVs(m_vertices[vertexOffset + 1].tex, m_vertices[vertexOffset + 2].tex);
+			}
 		}
 	}
 }

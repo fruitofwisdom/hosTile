@@ -9,7 +9,7 @@ namespace hosTile
 	{
 	public:
 		hTTileSprite(
-			const std::shared_ptr<hTTileset>& tileset, int tileNum,
+			const std::shared_ptr<hTTileset>& tileset, unsigned int tileNum,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Update();

@@ -38,13 +38,12 @@ Game::Game(std::shared_ptr<hTRenderer> renderer)
 		{
 			if (object["name"] == "player")
 			{
-				unsigned int playerTileNum = object["gid"] - 1;
 				// Objects are placed in Tiled based on their bottom-left corner from the top-left
 				// corner of the map. Translate that to an absolute position in our game's space.
 				float x = (m_map->GetPosition().x - m_map->GetWidth() / 2 + object["x"] + tileset->GetTileWidth() / 2) * Scale;
 				float y = (m_map->GetPosition().y + m_map->GetHeight() / 2 - object["y"] + tileset->GetTileHeight() / 2) * Scale;
 				auto playerSprite = make_shared<hTTileSprite>(
-					tileset, playerTileNum, DirectX::XMFLOAT3(x, y, 0.0f));
+					tileset, object["gid"], DirectX::XMFLOAT3(x, y, 0.0f));
 				playerSprite->SetScale(Scale);
 				m_player = std::make_shared<Player>(playerSprite);
 				renderer->AddSprite(playerSprite);
