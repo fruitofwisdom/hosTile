@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "Other/json_fwd.hpp"
+#include "hosTile/Other/json_fwd.hpp"
 #include "hTSprite.h"
 #include "hTTileset.h"
 

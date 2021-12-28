@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hosTileSampleMain.h"
 
-#include "Other\DirectXHelper.h"
+#include "hosTile\Other\DirectXHelper.h"
 
 using namespace Concurrency;
 using namespace hosTileSample;

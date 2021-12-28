@@ -114,14 +114,14 @@
     <Filter Include="hosTile">
       <UniqueIdentifier>51f3e198-4e78-4726-bea3-df273ceedbb3</UniqueIdentifier>
     </Filter>
-    <Filter Include="Other">
-      <UniqueIdentifier>458a7844-2175-4b08-bf2e-99f689284127</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets\Futile">
       <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
     </Filter>
     <Filter Include="hosTile\Original">
       <UniqueIdentifier>{88570717-d824-4836-bb78-4e9a5289b3c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile\Other">
+      <UniqueIdentifier>{045d7bbe-e6aa-4773-ac15-15ed59ec8519}</UniqueIdentifier>
     </Filter>
     <Filter Include="hosTile\Shaders">
       <UniqueIdentifier>{06f0e48c-26c9-46b9-83c3-642bf488ad50}</UniqueIdentifier>
@@ -144,6 +144,9 @@
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <Filter>hosTile\Original</Filter>
     </ClCompile>
+    <ClCompile Include="hosTile\Other\DeviceResources.cpp">
+      <Filter>hosTile\Other</Filter>
+    </ClCompile>
     <ClCompile Include="hosTile\hTMap.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
@@ -162,9 +165,6 @@
     <ClCompile Include="hosTile\hTTileSprite.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
-    <ClCompile Include="Other\DeviceResources.cpp">
-      <Filter>Other</Filter>
-    </ClCompile>
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
@@ -182,8 +182,23 @@
     <ClInclude Include="Game\GameObject.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\StepTimer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
     <ClInclude Include="hosTile\Original\hosTile.h">
       <Filter>hosTile\Original</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\Other\DeviceResources.h">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\Other\DirectXHelper.h">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\Other\json.hpp">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\Other\json_fwd.hpp">
+      <Filter>hosTile\Other</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTException.h">
       <Filter>hosTile</Filter>
@@ -208,21 +223,6 @@
     </ClInclude>
     <ClInclude Include="hosTile\hTTileSprite.h">
       <Filter>hosTile</Filter>
-    </ClInclude>
-    <ClInclude Include="Other\DeviceResources.h">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Other\DirectXHelper.h">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Other\json.hpp">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Other\json_fwd.hpp">
-      <Filter>Other</Filter>
-    </ClInclude>
-    <ClInclude Include="Other\StepTimer.h">
-      <Filter>Other</Filter>
     </ClInclude>
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />

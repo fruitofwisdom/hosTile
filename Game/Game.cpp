@@ -4,7 +4,7 @@
 #include <fstream>
 #include "hosTile\hTException.h"
 #include "hosTile\hTTileset.h"
-#include "Other\json.hpp"
+#include "hosTile\Other\json.hpp"
 
 using namespace hosTile;
 using namespace hosTileSample;

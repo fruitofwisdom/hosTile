@@ -6,8 +6,8 @@
 #include <locale>
 #include "DDSTextureLoader.h"
 #include "hosTile/hTException.h"
-#include "Other/DirectXHelper.h"
-#include "Other/json.hpp"
+#include "hosTile/Other/DirectXHelper.h"
+#include "hosTile/Other/json.hpp"
 
 using namespace hosTile;
 using namespace std;

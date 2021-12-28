@@ -3,8 +3,8 @@
 #include "Camera.h"
 #include "hosTile\hTMap.h"
 #include "hosTile\hTRenderer.h"
-#include "Other\StepTimer.h"
 #include "Player.h"
+#include "StepTimer.h"
 
 // The game instance.
 namespace hosTileSample
