@@ -13,7 +13,7 @@ namespace hosTile
 	class hTRenderer
 	{
 	public:
-		hTRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources);
+		hTRenderer(DX::DeviceResources* deviceResources);
 
 		void CreateDeviceDependentResources();
 		void CreateWindowSizeDependentResources();
@@ -22,7 +22,7 @@ namespace hosTile
 		void Update();
 		void Render();
 
-		const std::shared_ptr<DX::DeviceResources>& GetDeviceResources() const;
+		DX::DeviceResources* GetDeviceResources() const;
 
 		// Once a sprite derived from hTSprite has been created, it needs to be added to the
 		// renderer with AddSprite.
@@ -38,7 +38,7 @@ namespace hosTile
 		// Update the constant buffer based on the camera's position, focus, and up vectors.
 		void UpdateConstantBuffer();
 
-		std::shared_ptr<DX::DeviceResources> m_deviceResources;
+		DX::DeviceResources* m_deviceResources;
 
 		// Direct3D resources for the geometry.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;

@@ -11,7 +11,7 @@ namespace hosTileSample
 	class hosTileSampleMain : public DX::IDeviceNotify
 	{
 	public:
-		hosTileSampleMain(std::shared_ptr<DX::DeviceResources> deviceResources);
+		hosTileSampleMain(DX::DeviceResources* deviceResources);
 		~hosTileSampleMain();
 
 		void CreateWindowSizeDependentResources();
@@ -25,10 +25,10 @@ namespace hosTileSample
 
 	private:
 		// Cached pointer to device resources.
-		std::shared_ptr<DX::DeviceResources> m_deviceResources;
+		DX::DeviceResources* m_deviceResources;
 
 		// The hosTile renderer.
-		std::shared_ptr<hosTile::hTRenderer> m_renderer;
+		std::unique_ptr<hosTile::hTRenderer> m_renderer;
 
 		// Game loop timer.
 		DX::StepTimer m_timer;

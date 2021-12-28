@@ -58,8 +58,7 @@ void App::Initialize(CoreApplicationView^ applicationView)
 
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
-	m_deviceResources = std::make_shared<DX::DeviceResources>();
-
+	m_deviceResources = std::make_unique<DX::DeviceResources>();
 	m_keyboard = std::make_unique<DirectX::Keyboard>();
 }
 
@@ -95,7 +94,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = std::make_unique<hosTileSampleMain>(m_deviceResources);
+		m_main = std::make_unique<hosTileSampleMain>(m_deviceResources.get());
 	}
 }
 
@@ -169,7 +168,7 @@ void App::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)
 
 	create_task([this, deferral]()
 	{
-        m_deviceResources->Trim();
+		m_deviceResources->Trim();
 
 		// Insert your code here.
 

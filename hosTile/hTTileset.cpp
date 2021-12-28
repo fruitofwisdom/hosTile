@@ -12,8 +12,7 @@
 using namespace hosTile;
 using namespace std;
 
-hTTileset::hTTileset(
-	const shared_ptr<DX::DeviceResources>& deviceResources, string tilesetSource)
+hTTileset::hTTileset(const DX::DeviceResources* deviceResources, string tilesetSource)
 {
 	ifstream tilesetFile(tilesetSource);
 	nlohmann::json tilesetJson;

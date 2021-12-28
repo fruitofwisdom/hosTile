@@ -9,7 +9,7 @@ using namespace hosTile;
 using namespace std;
 using namespace Windows::Foundation;
 
-hTRenderer::hTRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
+hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false)
 {
@@ -295,7 +295,7 @@ void hTRenderer::Render()
 	}
 }
 
-const shared_ptr<DX::DeviceResources>& hTRenderer::GetDeviceResources() const
+DX::DeviceResources* hTRenderer::GetDeviceResources() const
 {
 	return m_deviceResources;
 }

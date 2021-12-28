@@ -13,7 +13,7 @@ using namespace std;
 
 const float Game::Scale = 2.0f;
 
-Game::Game(std::shared_ptr<hTRenderer> renderer)
+Game::Game(hTRenderer* renderer)
 {
 	ifstream mapFile("futile_map.json");
 	json mapJson;
@@ -45,17 +45,17 @@ Game::Game(std::shared_ptr<hTRenderer> renderer)
 				auto playerSprite = make_shared<hTTileSprite>(
 					tileset, object["gid"], DirectX::XMFLOAT3(x, y, 0.0f));
 				playerSprite->SetScale(Scale);
-				m_player = std::make_shared<Player>(playerSprite);
+				m_player = std::make_unique<Player>(playerSprite);
 				renderer->AddSprite(playerSprite);
 			}
 		}
 	}
-	catch (hTException& exception)
+	catch (hTException&)
 	{
 		// TODO: Exception handling.
 	}
 
-	m_camera = std::make_unique<Camera>(renderer, m_player);
+	m_camera = std::make_unique<Camera>(renderer, m_player.get());
 }
 
 void Game::Update(const DX::StepTimer& timer)
