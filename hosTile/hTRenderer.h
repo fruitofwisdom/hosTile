@@ -26,7 +26,7 @@ namespace hosTile
 
 		// Once a sprite derived from hTSprite has been created, it needs to be added to the
 		// renderer with AddSprite.
-		void AddSprite(std::shared_ptr<hTSprite> sprite);
+		void AddSprite(const hTSprite* sprite);
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
@@ -58,7 +58,7 @@ namespace hosTile
 		bool m_loadingComplete;
 
 		static const int MaxSprites = 1024;
-		std::vector<std::shared_ptr<hTSprite>> m_sprites;
+		std::vector<const hTSprite*> m_sprites;
 
 		DirectX::XMVECTORF32 m_cameraPosition;
 		DirectX::XMVECTORF32 m_cameraFocus;

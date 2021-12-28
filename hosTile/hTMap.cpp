@@ -7,7 +7,7 @@ using namespace DirectX;
 using namespace hosTile;
 
 hTMap::hTMap(
-	const std::shared_ptr<hTTileset>& tileset, const nlohmann::json& mapJson,
+	const hTTileset* tileset, const nlohmann::json& mapJson,
 	DirectX::XMFLOAT3 position)
 :	hTSprite(position),
 	m_tileset(tileset)

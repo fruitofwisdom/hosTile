@@ -12,7 +12,7 @@ namespace hosTile
 	{
 	public:
 		hTSimpleSprite(
-			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::string spriteFilename,
+			const DX::DeviceResources* deviceResources, std::string spriteFilename,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Update();

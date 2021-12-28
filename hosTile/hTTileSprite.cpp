@@ -5,7 +5,7 @@ using namespace DirectX;
 using namespace hosTile;
 
 hTTileSprite::hTTileSprite(
-	const std::shared_ptr<hTTileset>& tileset, unsigned int tileNum,
+	const hTTileset* tileset, unsigned int tileNum,
 	DirectX::XMFLOAT3 position)
 :	hTSprite(position),
 	m_tileset(tileset)

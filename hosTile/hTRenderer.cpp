@@ -300,7 +300,7 @@ DX::DeviceResources* hTRenderer::GetDeviceResources() const
 	return m_deviceResources;
 }
 
-void hTRenderer::AddSprite(shared_ptr<hTSprite> sprite)
+void hTRenderer::AddSprite(const hTSprite* sprite)
 {
 	m_sprites.push_back(sprite);
 }

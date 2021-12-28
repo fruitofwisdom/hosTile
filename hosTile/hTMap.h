@@ -12,7 +12,7 @@ namespace hosTile
 	{
 	public:
 		hTMap(
-			const std::shared_ptr<hTTileset>& tileset, const nlohmann::json& mapJson,
+			const hTTileset* tileset, const nlohmann::json& mapJson,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Update();
@@ -25,7 +25,7 @@ namespace hosTile
 		// Update the vertices' data after the position has changed.
 		void UpdateVertices();
 
-		const std::shared_ptr<hTTileset> m_tileset;
+		const hTTileset* m_tileset;
 
 		std::vector<unsigned int> m_mapData;
 		unsigned int m_mapWidth;		// in tiles
