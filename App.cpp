@@ -4,6 +4,7 @@
 #include <ppltasks.h>
 
 using namespace hosTileSample;
+using namespace std;
 
 using namespace concurrency;
 using namespace Windows::ApplicationModel;
@@ -58,8 +59,8 @@ void App::Initialize(CoreApplicationView^ applicationView)
 
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
-	m_deviceResources = std::make_unique<DX::DeviceResources>();
-	m_keyboard = std::make_unique<DirectX::Keyboard>();
+	m_deviceResources = make_unique<DX::DeviceResources>();
+	m_keyboard = make_unique<DirectX::Keyboard>();
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -94,7 +95,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = std::make_unique<hosTileSampleMain>(m_deviceResources.get());
+		m_main = make_unique<hosTileSampleMain>(m_deviceResources.get());
 	}
 }
 

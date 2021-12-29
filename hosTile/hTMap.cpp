@@ -58,12 +58,12 @@ void hTMap::UpdateVertices()
 
 			// The top three bits are for flipping flags and the tiles are 1-indexed.
 			unsigned int tileNum = (gid & 0x1FFFFFFF) - 1;
-			float tileXPosition = (float)x * m_tileset->GetTileWidth()
-				+ m_tileset->GetTileWidth() / 2
-				- (m_mapWidth * m_tileset->GetTileWidth() / 2);
-			float tileYPosition = (float)y * m_tileset->GetTileHeight() * -1.0f
-				- m_tileset->GetTileHeight() / 2
-				+ (m_mapHeight * m_tileset->GetTileHeight() / 2);
+			float tileXPosition = x * m_tileset->GetTileWidth()
+				+ m_tileset->GetTileWidth() / 2.0f
+				- (m_mapWidth * m_tileset->GetTileWidth() / 2.0f);
+			float tileYPosition = y * m_tileset->GetTileHeight() * -1.0f
+				- m_tileset->GetTileHeight() / 2.0f
+				+ (m_mapHeight * m_tileset->GetTileHeight() / 2.0f);
 			bool tileXFlip = gid & 0x80000000;
 			bool tileYFlip = gid & 0x40000000;
 			bool tileDiagonalFlip = gid & 0x20000000;
