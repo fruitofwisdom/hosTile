@@ -11,7 +11,7 @@ using namespace hosTileSample;
 using namespace nlohmann;
 using namespace std;
 
-const float Game::Scale = 2.0f;
+const float Game::Scale = 5.0f;
 
 Game::Game(hTRenderer* renderer)
 {

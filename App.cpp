@@ -31,9 +31,9 @@ IFrameworkView^ Direct3DApplicationSource::CreateView()
 	return ref new App();
 }
 
-// The default (preferred) size is 2x the NES's resolution.
-const float App::PreferredWidth = 512.0f;
-const float App::PreferredHeight = 480.0f;
+// Default to a widescreen resolution that's generally lower than most monitor's.
+const float App::PreferredWidth = 1280.0f;
+const float App::PreferredHeight = 720.0f;
 
 App::App()
 :	m_windowClosed(false),

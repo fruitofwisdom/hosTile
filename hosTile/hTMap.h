@@ -32,5 +32,8 @@ namespace hosTile
 		unsigned int m_mapHeight;		// in tiles
 
 		std::vector<VertexPositionTex> m_vertices;
+
+		// Shrink the UVs a bit to prevent seams from showing.
+		static const float UVSeamSlack;
 	};
 }

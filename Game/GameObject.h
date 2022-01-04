@@ -14,6 +14,8 @@ namespace hosTileSample
 		virtual void Update(const DX::StepTimer& timer) {}
 
 		DirectX::XMFLOAT3 GetPosition() const;
+		void SetPosition(DirectX::XMFLOAT3 position);
+
 		hosTile::hTSprite* GetSprite() const;
 
 	protected:

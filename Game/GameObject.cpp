@@ -21,6 +21,14 @@ DirectX::XMFLOAT3 GameObject::GetPosition() const
 	return position;
 }
 
+void GameObject::SetPosition(DirectX::XMFLOAT3 position)
+{
+	if (m_sprite != nullptr)
+	{
+		m_sprite->SetPosition(position);
+	}
+}
+
 hosTile::hTSprite* GameObject::GetSprite() const
 {
 	return m_sprite.get();

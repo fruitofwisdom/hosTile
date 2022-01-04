@@ -6,6 +6,8 @@
 using namespace DirectX;
 using namespace hosTile;
 
+const float hTMap::UVSeamSlack = 0.00005f;
+
 hTMap::hTMap(
 	const hTTileset* tileset, const nlohmann::json& mapJson,
 	DirectX::XMFLOAT3 position)
@@ -73,10 +75,11 @@ void hTMap::UpdateVertices()
 			float uvTileHeight = (float)m_tileset->GetTileHeight() / m_tileset->GetImageHeight();
 			float uvXOffset = (float)m_tileset->GetTileXOffset(tileNum) / m_tileset->GetImageWidth();
 			float uvYOffset = (float)m_tileset->GetTileYOffset(tileNum) / m_tileset->GetImageHeight();
-			float uvLeft = uvXOffset;
-			float uvRight = uvXOffset + uvTileWidth;
-			float uvBottom = uvYOffset + uvTileHeight;
-			float uvTop = uvYOffset;
+			// Bring in the UV borders an imperceptible amount to prevent seams from showing.
+			float uvLeft = uvXOffset + UVSeamSlack;
+			float uvRight = uvXOffset + uvTileWidth - UVSeamSlack;
+			float uvBottom = uvYOffset + uvTileHeight - UVSeamSlack;
+			float uvTop = uvYOffset + UVSeamSlack;
 
 			unsigned int vertexOffset = (y * m_mapWidth + x) * 4;
 			m_vertices[vertexOffset] =		// 0, bottom-left
