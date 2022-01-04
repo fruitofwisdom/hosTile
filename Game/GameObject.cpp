@@ -3,8 +3,8 @@
 
 using namespace hosTileSample;
 
-GameObject::GameObject(std::shared_ptr<hosTile::hTSprite> sprite)
-:	m_sprite(sprite)
+GameObject::GameObject(std::unique_ptr<hosTile::hTSprite> sprite)
+:	m_sprite(std::move(sprite))
 {
 	;
 }
@@ -21,7 +21,15 @@ DirectX::XMFLOAT3 GameObject::GetPosition() const
 	return position;
 }
 
-std::shared_ptr<hosTile::hTSprite> GameObject::GetSprite() const
+void GameObject::SetPosition(DirectX::XMFLOAT3 position)
 {
-	return m_sprite;
+	if (m_sprite != nullptr)
+	{
+		m_sprite->SetPosition(position);
+	}
+}
+
+hosTile::hTSprite* GameObject::GetSprite() const
+{
+	return m_sprite.get();
 }

@@ -18,20 +18,27 @@ namespace hosTile
 
 		// hTRenderer uses these to actually render the sprite.
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;
+		virtual unsigned int GetNumVertices() const = 0;
 		virtual const VertexPositionTex* GetVertices() const = 0;
 
 		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);
+
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
 
 		void SetScale(float scale);
 		void SetXFlip(bool xFlip);
 		void SetYFlip(bool yFlip);
 
 	protected:
+		// Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
+		void swapUVs(DirectX::XMFLOAT2& uv1, DirectX::XMFLOAT2& uv2) const;
+
 		DirectX::XMFLOAT3 m_position;
 
-		unsigned int m_width;
-		unsigned int m_height;
+		unsigned int m_width;		// in pixels
+		unsigned int m_height;		// in pixels
 
 		// The scale of a sprite only applies to its width and height, not depth.
 		float m_scale;

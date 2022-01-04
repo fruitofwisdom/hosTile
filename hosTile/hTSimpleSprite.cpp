@@ -11,7 +11,7 @@ using namespace hosTile;
 using namespace std;
 
 hTSimpleSprite::hTSimpleSprite(
-	const shared_ptr<DX::DeviceResources>& deviceResources, string spriteFilename,
+	const DX::DeviceResources* deviceResources, string spriteFilename,
 	XMFLOAT3 position)
 :	hTSprite(position),
 	m_spriteFilename(spriteFilename)

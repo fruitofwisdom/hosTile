@@ -5,14 +5,14 @@
 #include <fstream>
 #include <locale>
 #include "DDSTextureLoader.h"
-#include "Other/DirectXHelper.h"
-#include "Other/json.hpp"
+#include "hosTile/hTException.h"
+#include "hosTile/Other/DirectXHelper.h"
+#include "hosTile/Other/json.hpp"
 
 using namespace hosTile;
 using namespace std;
 
-hTTileset::hTTileset(
-	const shared_ptr<DX::DeviceResources>& deviceResources, string tilesetSource)
+hTTileset::hTTileset(const DX::DeviceResources* deviceResources, string tilesetSource)
 {
 	ifstream tilesetFile(tilesetSource);
 	nlohmann::json tilesetJson;
@@ -72,12 +72,26 @@ unsigned int hTTileset::GetTileHeight() const
 // Returns the offset into the tileset for the provided tile in pixels.
 unsigned int hTTileset::GetTileXOffset(unsigned int tileNum) const
 {
+	if (tileNum >= m_tileCount)
+	{
+		stringstream message;
+		message << "Tile number " << tileNum << " is out of range. Tile count is " << m_tileCount << ".";
+		throw hTException(message.str());
+	}
+
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum % tilesWide) * m_tileWidth;
 }
 
 unsigned int hTTileset::GetTileYOffset(unsigned int tileNum) const
 {
+	if (tileNum >= m_tileCount)
+	{
+		stringstream message;
+		message << "Tile number " << tileNum << " is out of range. Tile count is " << m_tileCount << ".";
+		throw hTException(message.str());
+	}
+
 	unsigned int tilesWide = m_imageWidth / m_tileWidth;
 	return (tileNum / tilesWide) * m_tileHeight;
 }

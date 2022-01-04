@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hosTileSampleMain.h"
 
-#include "Other\DirectXHelper.h"
+#include "hosTile\Other\DirectXHelper.h"
 
 using namespace Concurrency;
 using namespace hosTileSample;
@@ -9,13 +9,13 @@ using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 
 // Loads and initializes application assets when the application is loaded.
-hosTileSampleMain::hosTileSampleMain(std::shared_ptr<DX::DeviceResources> deviceResources)
+hosTileSampleMain::hosTileSampleMain(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_renderer = std::make_shared<hosTile::hTRenderer>(m_deviceResources);
+	m_renderer = std::make_unique<hosTile::hTRenderer>(m_deviceResources);
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -24,7 +24,7 @@ hosTileSampleMain::hosTileSampleMain(std::shared_ptr<DX::DeviceResources> device
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
 
-	m_game = std::make_unique<Game>(m_renderer);
+	m_game = std::make_unique<Game>(m_renderer.get());
 }
 
 hosTileSampleMain::~hosTileSampleMain()

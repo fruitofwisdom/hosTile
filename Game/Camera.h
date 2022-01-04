@@ -8,13 +8,13 @@ namespace hosTileSample
 	class Camera
 	{
 	public:
-		Camera(std::shared_ptr<hosTile::hTRenderer> renderer, std::shared_ptr<GameObject> focus);
+		Camera(hosTile::hTRenderer* renderer, const GameObject* focus);
 		virtual ~Camera() {}
 
 		void Update();
 
 	private:
-		std::shared_ptr<hosTile::hTRenderer> m_renderer;
-		std::shared_ptr<GameObject> m_focus;
+		hosTile::hTRenderer* m_renderer;
+		const GameObject* m_focus;
 	};
 }

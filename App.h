@@ -38,7 +38,7 @@ namespace hosTileSample
 		static const float PreferredWidth;
 		static const float PreferredHeight;
 
-		std::shared_ptr<DX::DeviceResources> m_deviceResources;
+		std::unique_ptr<DX::DeviceResources> m_deviceResources;
 		std::unique_ptr<hosTileSampleMain> m_main;
 
 		std::unique_ptr<DirectX::Keyboard> m_keyboard;

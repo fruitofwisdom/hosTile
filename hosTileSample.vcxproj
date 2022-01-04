@@ -26,8 +26,8 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
-    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
   </PropertyGroup>
@@ -35,25 +35,25 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -132,10 +132,16 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="Assets\App\BadgeLogo.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\App\BadgeLogo.scale-200.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\BadgeLogo.scale-400.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\SplashScreen.scale-200.png">
@@ -162,6 +168,10 @@
     <Image Include="Assets\App\Square310x310Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Image Include="Assets\App\Square44x44Logo.altform-unplated_targetsize-16.png" />
     <Image Include="Assets\App\Square44x44Logo.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
@@ -169,6 +179,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\Square44x44Logo.scale-400.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-16.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\Square44x44Logo.targetsize-256.png">
@@ -190,6 +203,12 @@
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\Square71x71Logo.scale-400.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-200.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="Assets\App\StoreLogo.scale-400.png">
@@ -218,19 +237,22 @@
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\StepTimer.h" />
     <ClInclude Include="hosTile\Original\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="hosTile\Other\DeviceResources.h" />
+    <ClInclude Include="hosTile\Other\DirectXHelper.h" />
+    <ClInclude Include="hosTile\Other\json.hpp" />
+    <ClInclude Include="hosTile\Other\json_fwd.hpp" />
+    <ClInclude Include="hosTile\hTException.h" />
+    <ClInclude Include="hosTile\hTMap.h" />
     <ClInclude Include="hosTile\hTRenderer.h" />
     <ClInclude Include="hosTile\hTShaderStructures.h" />
     <ClInclude Include="hosTile\hTSimpleSprite.h" />
     <ClInclude Include="hosTile\hTSprite.h" />
     <ClInclude Include="hosTile\hTTileset.h" />
     <ClInclude Include="hosTile\hTTileSprite.h" />
-    <ClInclude Include="Other\DeviceResources.h" />
-    <ClInclude Include="Other\DirectXHelper.h" />
-    <ClInclude Include="Other\json.hpp" />
-    <ClInclude Include="Other\StepTimer.h" />
     <ClInclude Include="hosTileSampleMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -243,12 +265,13 @@
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="hosTile\Other\DeviceResources.cpp" />
+    <ClCompile Include="hosTile\hTMap.cpp" />
     <ClCompile Include="hosTile\hTRenderer.cpp" />
     <ClCompile Include="hosTile\hTSimpleSprite.cpp" />
     <ClCompile Include="hosTile\hTSprite.cpp" />
     <ClCompile Include="hosTile\hTTileset.cpp" />
     <ClCompile Include="hosTile\hTTileSprite.cpp" />
-    <ClCompile Include="Other\DeviceResources.cpp" />
     <ClCompile Include="hosTileSampleMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

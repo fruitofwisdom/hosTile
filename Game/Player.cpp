@@ -5,10 +5,10 @@
 
 using namespace hosTileSample;
 
-const float Player::MovementSpeed = 64.0f;		// pixels-per-second
+const float Player::MovementSpeed = 128.0f;		// pixels-per-second
 
-Player::Player(std::shared_ptr<hosTile::hTTileSprite> sprite)
-:	GameObject(sprite)
+Player::Player(std::unique_ptr<hosTile::hTTileSprite> sprite)
+:	GameObject(std::move(sprite))
 {
 	;
 }
@@ -39,6 +39,6 @@ void Player::Update(const DX::StepTimer& timer)
 		m_sprite->SetXFlip(true);
 		position.x += MovementSpeed * delta;
 	}
-	m_sprite->SetPosition(position);
+	SetPosition(position);
 	m_sprite->Update();
 }

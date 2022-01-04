@@ -9,7 +9,7 @@ using namespace hosTile;
 using namespace std;
 using namespace Windows::Foundation;
 
-hTRenderer::hTRenderer(const shared_ptr<DX::DeviceResources>& deviceResources)
+hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false)
 {
@@ -131,9 +131,9 @@ void hTRenderer::CreateDeviceDependentResources()
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 		samplerDesc.MaxAnisotropy = 0;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 		samplerDesc.MipLODBias = 0.0f;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
@@ -283,33 +283,24 @@ void hTRenderer::Render()
 	deviceContext->OMSetBlendState(m_blendState.Get(), blendFactor, sampleMask);
 
 	// Draw the sprites.
-	UINT numSprites = 0;
+	UINT totalIndices = 0;
 	for (auto sprite : m_sprites)
 	{
 		// Bind each sprite's individual texture.
 		ID3D11ShaderResourceView* texture = sprite->GetTexture();
-		deviceContext->PSSetShaderResources(
-			0,
-			1,
-			&texture
-			);
-
-		deviceContext->DrawIndexed(
-			6,
-			numSprites * 6,
-			0
-			);
-
-		numSprites++;
+		deviceContext->PSSetShaderResources(0, 1, &texture);
+		UINT numIndices = sprite->GetNumVertices() / 4 * 6;
+		deviceContext->DrawIndexed(numIndices, totalIndices, 0);
+		totalIndices += numIndices;
 	}
 }
 
-const shared_ptr<DX::DeviceResources>& hTRenderer::GetDeviceResources() const
+DX::DeviceResources* hTRenderer::GetDeviceResources() const
 {
 	return m_deviceResources;
 }
 
-void hTRenderer::AddSprite(shared_ptr<hTSprite> sprite)
+void hTRenderer::AddSprite(const hTSprite* sprite)
 {
 	m_sprites.push_back(sprite);
 }
@@ -335,19 +326,20 @@ void hTRenderer::FillVertexBuffer()
 	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
 
 	// Copy each sprite's vertices into the data for the vertex buffer.
-	UINT numSprites = 0;
+	UINT totalVertices = 0;
 	for (auto sprite : m_sprites)
 	{
+		UINT numVertices = sprite->GetNumVertices();
 		const VertexPositionTex* vertexData = sprite->GetVertices();
-		memcpy(&m_vertexBufferData[numSprites * 4], vertexData, sizeof(VertexPositionTex) * 4);
-		numSprites++;
+		memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
+		totalVertices += numVertices;
 	}
 
 	// Map the data for the vertex buffer into the actual vertex buffer.
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
 	deviceContext->Map(m_vertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	size_t vertexBufferDataSize = numSprites * sizeof(VertexPositionTex) * 4;
+	size_t vertexBufferDataSize = sizeof(VertexPositionTex) * totalVertices;
 	memcpy(mappedResource.pData, m_vertexBufferData, vertexBufferDataSize);
 	deviceContext->Unmap(m_vertexBuffer.Get(), 0);
 }

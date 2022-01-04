@@ -8,8 +8,7 @@ namespace hosTile
 	class hTTileset
 	{
 	public:
-		hTTileset(
-			const std::shared_ptr<DX::DeviceResources>& deviceResources, std::string tilesetSource);
+		hTTileset(const DX::DeviceResources* deviceResources, std::string tilesetSource);
 
 		const std::string GetImageFilename() const;
 		ID3D11ShaderResourceView* GetTexture() const;
