@@ -226,6 +226,9 @@
     <CopyFileToFolders Include="Assets\Futile\futile_map.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_textbox.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_tileset.dds" />
     <CopyFileToFolders Include="Assets\Futile\futile_tileset.json">
       <FileType>Document</FileType>
@@ -238,6 +241,7 @@
     <ClInclude Include="Game\GameObject.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\StepTimer.h" />
+    <ClInclude Include="Game\TextBox.h" />
     <ClInclude Include="hosTile\Original\hosTile.h">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClInclude>
@@ -262,6 +266,7 @@
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameObject.cpp" />
     <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\TextBox.cpp" />
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>

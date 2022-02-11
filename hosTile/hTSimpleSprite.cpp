@@ -39,6 +39,7 @@ hTSimpleSprite::hTSimpleSprite(
 
 void hTSimpleSprite::Update()
 {
+	// TODO: Rethink Render/AddSprite paradigm. Do this in Render instead?
 	UpdateVertices();
 }
 

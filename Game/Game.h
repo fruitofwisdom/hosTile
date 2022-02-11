@@ -5,6 +5,7 @@
 #include "hosTile\hTRenderer.h"
 #include "Player.h"
 #include "StepTimer.h"
+#include "TextBox.h"
 
 // The game instance.
 namespace hosTileSample
@@ -12,16 +13,27 @@ namespace hosTileSample
 	class Game final
 	{
 	public:
-		Game(hosTile::hTRenderer* renderer);
+		Game(hosTile::hTRenderer& renderer);
 
 		void Update(const DX::StepTimer& timer);
+		void Render();
 
 	private:
-		static const float Scale;
+		enum GameState
+		{
+			GS_Intro,
+			GS_Playing
+		};
 
+		GameState m_gameState;
+
+		hosTile::hTRenderer* m_renderer;
 		std::unique_ptr<hosTile::hTTileset> m_tileset;
 		std::unique_ptr<hosTile::hTMap> m_map;
 		std::unique_ptr<Player> m_player;
 		std::unique_ptr<Camera> m_camera;
+		std::unique_ptr<TextBox> m_textBox;
+
+		static const float Scale;
 	};
 }

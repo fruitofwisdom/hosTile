@@ -23,6 +23,7 @@ hTTileSprite::hTTileSprite(
 
 void hTTileSprite::Update()
 {
+	// TODO: Rethink Render/AddSprite paradigm. Do this in Render instead?
 	UpdateVertices();
 }
 
@@ -94,12 +95,12 @@ void hTTileSprite::UpdateVertices()
 	// Apply x-flip and y-flip.
 	if (m_xFlip)
 	{
-		swapUVs(m_vertices[0].tex, m_vertices[1].tex);
-		swapUVs(m_vertices[2].tex, m_vertices[3].tex);
+		SwapUVs(m_vertices[0].tex, m_vertices[1].tex);
+		SwapUVs(m_vertices[2].tex, m_vertices[3].tex);
 	}
 	if (m_yFlip)
 	{
-		swapUVs(m_vertices[0].tex, m_vertices[3].tex);
-		swapUVs(m_vertices[1].tex, m_vertices[2].tex);
+		SwapUVs(m_vertices[0].tex, m_vertices[3].tex);
+		SwapUVs(m_vertices[1].tex, m_vertices[2].tex);
 	}
 }

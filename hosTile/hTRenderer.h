@@ -19,7 +19,6 @@ namespace hosTile
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
 
-		void Update();
 		void Render();
 
 		DX::DeviceResources* GetDeviceResources() const;
@@ -27,9 +26,14 @@ namespace hosTile
 		// Once a sprite derived from hTSprite has been created, it needs to be added to the
 		// renderer with AddSprite.
 		void AddSprite(const hTSprite* sprite);
+		void RemoveSprite(const hTSprite* sprite);
+		bool ContainsSprite(const hTSprite* sprite) const;
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
+
+		// Convert from screen space (pixels) to world space.
+		DirectX::XMFLOAT3 ScreenToWorldPosition(unsigned int x, unsigned int y) const;
 
 	private:
 		// Copy each sprite's vertices into the vertex buffer.

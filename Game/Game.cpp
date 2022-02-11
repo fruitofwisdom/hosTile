@@ -5,6 +5,7 @@
 #include "hosTile\hTException.h"
 #include "hosTile\hTTileset.h"
 #include "hosTile\Other\json.hpp"
+#include "Keyboard.h"
 
 using namespace hosTile;
 using namespace hosTileSample;
@@ -13,7 +14,9 @@ using namespace std;
 
 const float Game::Scale = 5.0f;
 
-Game::Game(hTRenderer* renderer)
+Game::Game(hTRenderer& renderer)
+:	m_gameState(GS_Intro),
+	m_renderer(&renderer)
 {
 	ifstream mapFile("futile_map.json");
 	json mapJson;
@@ -22,14 +25,14 @@ Game::Game(hTRenderer* renderer)
 	// the tileset is kept internally as a .tsx file, but exported as a .json
 	tilesetSource.replace(tilesetSource.find(".tsx"), string(".tsx").length(), ".json");
 
-	DX::DeviceResources* deviceResources = renderer->GetDeviceResources();
+	DX::DeviceResources* deviceResources = m_renderer->GetDeviceResources();
 	m_tileset = make_unique<hTTileset>(deviceResources, tilesetSource);
 
 	try
 	{
 		m_map = make_unique<hTMap>(m_tileset.get(), mapJson);
 		m_map->SetScale(Scale);
-		renderer->AddSprite(m_map.get());
+		m_renderer->AddSprite(m_map.get());
 
 		// TODO: Search through only objectgroups.
 		json objects = mapJson["layers"][1]["objects"];
@@ -49,9 +52,12 @@ Game::Game(hTRenderer* renderer)
 					m_tileset.get(), object["gid"], DirectX::XMFLOAT3(x, y, 0.0f));
 				playerSprite->SetScale(Scale);
 				m_player = make_unique<Player>(move(playerSprite));
-				renderer->AddSprite(m_player->GetSprite());
 			}
 		}
+
+		m_textBox = make_unique<TextBox>(*m_tileset, "futile_textbox.json");
+		m_textBox->SetScale(Scale);
+		m_renderer->AddSprite(m_textBox->GetSprite());
 	}
 	catch (hTException& exception)
 	{
@@ -59,12 +65,35 @@ Game::Game(hTRenderer* renderer)
 		hTException::HandleException(exception);
 	}
 
-	m_camera = make_unique<Camera>(renderer, m_player.get());
+	m_camera = make_unique<Camera>(*m_renderer, *m_player.get());
 }
 
 void Game::Update(const DX::StepTimer& timer)
 {
 	m_map->Update();
-	m_player->Update(timer);
+	if (m_gameState == GS_Playing)
+	{
+		m_player->Update(timer);
+	}
 	m_camera->Update();
+	if (m_gameState == GS_Intro)
+	{
+		auto kb = DirectX::Keyboard::Get().GetState();
+		if (kb.Enter || kb.Space)
+		{
+			m_gameState = GS_Playing;
+			m_renderer->RemoveSprite(m_textBox->GetSprite());
+			m_renderer->AddSprite(m_player->GetSprite());
+		}
+
+		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
+			m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2, m_textBox->GetHeight() / 2.0f * Scale);
+		m_textBox->SetPosition(textBoxPosition);
+		m_textBox->Update();
+	}
+}
+
+void Game::Render()
+{
+	// TODO: Rethink Render/AddSprite paradigm.
 }

@@ -3,6 +3,8 @@
 #include "hTSprite.h"
 #include "hTTileset.h"
 
+// An hTTileSprite is a sprite that renders an individual tile in an hTTileset. It does not
+// contain any image information itself other than a reference into its tileset.
 namespace hosTile
 {
 	class hTTileSprite : public hTSprite

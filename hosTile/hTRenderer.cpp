@@ -192,13 +192,6 @@ void hTRenderer::ReleaseDeviceDependentResources()
 	delete m_indexBufferData;
 }
 
-// Called once per frame, calculate the model and view matrices.
-void hTRenderer::Update()
-{
-	// Prepare to pass the updated model matrix to the shader
-	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
-}
-
 // Renders one frame using the vertex and pixel shaders.
 void hTRenderer::Render()
 {
@@ -305,6 +298,16 @@ void hTRenderer::AddSprite(const hTSprite* sprite)
 	m_sprites.push_back(sprite);
 }
 
+void hTRenderer::RemoveSprite(const hTSprite* sprite)
+{
+	m_sprites.erase(remove(m_sprites.begin(), m_sprites.end(), sprite), m_sprites.end());
+}
+
+bool hTRenderer::ContainsSprite(const hTSprite* sprite) const
+{
+	return find(m_sprites.begin(), m_sprites.end(), sprite) != m_sprites.end();
+}
+
 XMFLOAT3 hTRenderer::GetCameraPosition() const
 {
 	XMFLOAT3 cameraPosition = { m_cameraPosition[0], m_cameraPosition[1], m_cameraPosition[2] };
@@ -317,6 +320,29 @@ void hTRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
 	// The camera's focus needs to remain straight ahead and move with the camera itself.
 	m_cameraFocus = { cameraPosition.x, cameraPosition.y, m_cameraFocus[2] };
 	UpdateConstantBuffer();
+}
+
+// Convert from screen space (pixels) to world space.
+XMFLOAT3 hTRenderer::ScreenToWorldPosition(unsigned int x, unsigned int y) const
+{
+	// Convert "regular" pixels to DPI-appropriate pixels.
+	float screenX = DX::ConvertDipsToPixels((float)x, m_deviceResources->GetDpi());
+	float screenY = DX::ConvertDipsToPixels((float)y, m_deviceResources->GetDpi());
+	XMVECTOR screenPosition = { screenX, screenY, 1.0f };
+
+	// Unproject from screen space to world space.
+	XMMATRIX viewMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.view));
+	XMMATRIX projectionMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.projection));
+	XMMATRIX worldMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.model));
+	D3D11_VIEWPORT viewport = m_deviceResources->GetScreenViewport();
+	XMVECTOR worldPosition = XMVector3Unproject(
+		screenPosition,
+		viewport.TopLeftX, viewport.TopLeftY, viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth,
+		projectionMatrix, viewMatrix, worldMatrix);
+
+	XMFLOAT3 toReturn;
+	XMStoreFloat3(&toReturn, worldPosition);
+	return toReturn;
 }
 
 // Copy each sprite's vertices into the vertex buffer.
@@ -364,4 +390,6 @@ void hTRenderer::UpdateConstantBuffer()
 
 	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
 	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
+
+	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
 }

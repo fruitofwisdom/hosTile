@@ -130,17 +130,17 @@ void hTMap::UpdateVertices()
 			// Apply diagonal-flip, x-flip, and y-flip.
 			if (tileDiagonalFlip)
 			{
-				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 2].tex);
+				SwapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 2].tex);
 			}
 			if (tileXFlip)
 			{
-				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 1].tex);
-				swapUVs(m_vertices[vertexOffset + 2].tex, m_vertices[vertexOffset + 3].tex);
+				SwapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 1].tex);
+				SwapUVs(m_vertices[vertexOffset + 2].tex, m_vertices[vertexOffset + 3].tex);
 			}
 			if (tileYFlip)
 			{
-				swapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 3].tex);
-				swapUVs(m_vertices[vertexOffset + 1].tex, m_vertices[vertexOffset + 2].tex);
+				SwapUVs(m_vertices[vertexOffset].tex, m_vertices[vertexOffset + 3].tex);
+				SwapUVs(m_vertices[vertexOffset + 1].tex, m_vertices[vertexOffset + 2].tex);
 			}
 		}
 	}

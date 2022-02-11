@@ -4,8 +4,8 @@
 #include "Other/DeviceResources.h"
 #include "hTSprite.h"
 
-// An instance of a sprite which contains a texture, position, and the vertices to render it. A
-// sprite may contain a number of "sub-"sprites in a sprite sheet.
+// An hTSimpleSprite is the simplest type of sprite, as its name implies. It is used to render a
+// single image without any notion of tiles.
 namespace hosTile
 {
 	class hTSimpleSprite : public hTSprite
