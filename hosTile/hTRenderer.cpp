@@ -36,9 +36,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				&fileData[0],
 				fileData.size(),
 				nullptr,
-				&m_vertexShader
-				)
-			);
+				&m_vertexShader));
 
 		// Create the input-layout object.
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
@@ -52,9 +50,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				ARRAYSIZE(vertexDesc),
 				&fileData[0],
 				fileData.size(),
-				&m_inputLayout
-				)
-			);
+				&m_inputLayout));
 	});
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
@@ -65,18 +61,14 @@ void hTRenderer::CreateDeviceDependentResources()
 				&fileData[0],
 				fileData.size(),
 				nullptr,
-				&m_pixelShader
-				)
-			);
+				&m_pixelShader));
 
 		CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&constantBufferDesc,
 				nullptr,
-				&m_constantBuffer
-				)
-			);
+				&m_constantBuffer));
 	});
 
 	// Once both shaders are loaded, create the input buffers, sampler state, and blend state.
@@ -110,9 +102,7 @@ void hTRenderer::CreateDeviceDependentResources()
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&vertexBufferDesc,
 				&vertexBufferData,
-				&m_vertexBuffer
-				)
-			);
+				&m_vertexBuffer));
 
 		// Create the index buffer.
 		D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
@@ -124,9 +114,7 @@ void hTRenderer::CreateDeviceDependentResources()
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&indexBufferDesc,
 				&indexBufferData,
-				&m_indexBuffer
-				)
-			);
+				&m_indexBuffer));
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -145,9 +133,7 @@ void hTRenderer::CreateDeviceDependentResources()
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateSamplerState(
 				&samplerDesc,
-				&m_samplerState
-				)
-			);
+				&m_samplerState));
 
 		D3D11_BLEND_DESC blendState;
 		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
@@ -160,8 +146,7 @@ void hTRenderer::CreateDeviceDependentResources()
 		blendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState)
-			);
+			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState));
 	});
 
 	// Once all tasks have finished, we are ready to render.
@@ -206,14 +191,9 @@ void hTRenderer::Render()
 
 	// Prepare the constant buffer to send it to the graphics device.
 	deviceContext->UpdateSubresource1(
-		m_constantBuffer.Get(),
-		0,
-		NULL,
-		&m_constantBufferData,
-		0,
-		0,
-		0
-		);
+		m_constantBuffer.Get(), 0, NULL,
+		&m_constantBufferData, 0, 0,
+		0);
 
 	// Copy each sprite's vertices into the vertex buffer.
 	FillVertexBuffer();
@@ -221,20 +201,13 @@ void hTRenderer::Render()
 	// Bind the vertex buffer to the IA stage.
 	UINT stride = sizeof(VertexPositionTex);
 	UINT offset = 0;
-	deviceContext->IASetVertexBuffers(
-		0,
-		1,
-		m_vertexBuffer.GetAddressOf(),
-		&stride,
-		&offset
-		);
+	deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
 	// Bind the index buffer to the IA stage.
 	deviceContext->IASetIndexBuffer(
 		m_indexBuffer.Get(),
 		DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
-		0
-		);
+		0);
 
 	// Set the input layout.
 	deviceContext->IASetInputLayout(m_inputLayout.Get());
@@ -243,33 +216,15 @@ void hTRenderer::Render()
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Attach our vertex shader.
-	deviceContext->VSSetShader(
-		m_vertexShader.Get(),
-		nullptr,
-		0
-		);
+	deviceContext->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 
 	// Send the constant buffer to the graphics device.
-	deviceContext->VSSetConstantBuffers1(
-		0,
-		1,
-		m_constantBuffer.GetAddressOf(),
-		nullptr,
-		nullptr
-		);
+	deviceContext->VSSetConstantBuffers1(0, 1, m_constantBuffer.GetAddressOf(), nullptr, nullptr);
 
 	// Attach our pixel shader.
-	deviceContext->PSSetShader(
-		m_pixelShader.Get(),
-		nullptr,
-		0
-		);
+	deviceContext->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
-	deviceContext->PSSetSamplers(
-		0,
-		1,
-		m_samplerState.GetAddressOf()
-		);
+	deviceContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	UINT sampleMask = 0xffffffff;
@@ -385,8 +340,7 @@ void hTRenderer::UpdateConstantBuffer()
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
 	XMStoreFloat4x4(
 		&m_constantBufferData.projection,
-		XMMatrixTranspose(orthoMatrix * orientationMatrix)
-	);
+		XMMatrixTranspose(orthoMatrix * orientationMatrix));
 
 	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
 	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
