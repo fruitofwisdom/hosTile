@@ -11,6 +11,7 @@ namespace hosTileSample
 		Player(std::unique_ptr<hosTile::hTTileSprite> sprite);
 
 		void Update(const DX::StepTimer& timer);
+		void Render(hosTile::hTRenderer& renderer);
 
 	private:
 		static const float MovementSpeed;		// pixels-per-second

@@ -15,9 +15,10 @@ namespace hosTile
 			const DX::DeviceResources* deviceResources, std::string spriteFilename,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		ID3D11ShaderResourceView* GetTexture() const;
+		unsigned int GetNumVertices() const;
 		const VertexPositionTex* GetVertices() const;
 
 	private:

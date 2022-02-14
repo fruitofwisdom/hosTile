@@ -15,7 +15,7 @@ namespace hosTile
 			const hTTileset* tileset, const nlohmann::json& mapJson,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		ID3D11ShaderResourceView* GetTexture() const;
 		unsigned int GetNumVertices() const;

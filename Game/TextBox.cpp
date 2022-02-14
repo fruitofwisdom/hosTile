@@ -15,9 +15,9 @@ TextBox::TextBox(const hosTile::hTTileset& tileset, string mapFilename)
 	m_textBoxMap = make_unique<hosTile::hTMap>(&tileset, textBoxMapJson);
 }
 
-void TextBox::Update()
+void TextBox::Render(hosTile::hTRenderer& renderer)
 {
-	m_textBoxMap->Update();
+	m_textBoxMap->Render(renderer);
 }
 
 hosTile::hTSprite* TextBox::GetSprite() const

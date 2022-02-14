@@ -2,6 +2,8 @@
 
 #include "hTShaderStructures.h"
 
+namespace hosTile { class hTRenderer; }
+
 // An hTSprite is the virtual base class of sprites used in hosTile and only contains the
 // prototypes that derived sprites need to implement. These are meant to present a unified
 // interface and to work seamlessly with hTRenderer.
@@ -13,8 +15,8 @@ namespace hosTile
 		hTSprite(DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 		virtual ~hTSprite() {}
 
-		// Game engines should use this to update vertices or other per-frame operations.
-		virtual void Update() {}
+		// Game engines should use this to update vertices and prepare to render.
+		virtual void Render(hosTile::hTRenderer& renderer) {}
 
 		// hTRenderer uses these to actually render the sprite.
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;

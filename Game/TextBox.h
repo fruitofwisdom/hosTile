@@ -11,7 +11,7 @@ namespace hosTileSample
 	public:
 		TextBox(const hosTile::hTTileset& tileset, std::string mapFilename);
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		hosTile::hTSprite* GetSprite() const;
 

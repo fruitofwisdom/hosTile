@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "hTMap.h"
 
-#include "hosTile/Other/json.hpp"
+#include "hTRenderer.h"
+#include "Other/json.hpp"
 
 using namespace DirectX;
 using namespace hosTile;
@@ -30,9 +31,10 @@ hTMap::hTMap(
 	UpdateVertices();
 }
 
-void hTMap::Update()
+void hTMap::Render(hTRenderer& renderer)
 {
 	UpdateVertices();
+	renderer.AddSprite(this);
 }
 
 ID3D11ShaderResourceView* hTMap::GetTexture() const

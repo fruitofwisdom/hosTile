@@ -3,8 +3,8 @@
 #include <vector>
 #include "Other/DeviceResources.h"
 #include "hTShaderStructures.h"
-#include "hTSprite.h"
-#include "hTTileset.h"
+
+namespace hosTile { class hTSprite; }
 
 namespace hosTile
 {
@@ -24,10 +24,8 @@ namespace hosTile
 		DX::DeviceResources* GetDeviceResources() const;
 
 		// Once a sprite derived from hTSprite has been created, it needs to be added to the
-		// renderer with AddSprite.
+		// renderer with AddSprite. The list of sprites is cleared after each call to Render.
 		void AddSprite(const hTSprite* sprite);
-		void RemoveSprite(const hTSprite* sprite);
-		bool ContainsSprite(const hTSprite* sprite) const;
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);

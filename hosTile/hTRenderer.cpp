@@ -3,6 +3,7 @@
 
 #include "DDSTextureLoader.h"
 #include "Other/DirectXHelper.h"
+#include "hTSprite.h"
 
 using namespace DirectX;
 using namespace hosTile;
@@ -241,6 +242,9 @@ void hTRenderer::Render()
 		deviceContext->DrawIndexed(numIndices, totalIndices, 0);
 		totalIndices += numIndices;
 	}
+
+	// Empty the list for next frame.
+	m_sprites.clear();
 }
 
 DX::DeviceResources* hTRenderer::GetDeviceResources() const
@@ -251,16 +255,6 @@ DX::DeviceResources* hTRenderer::GetDeviceResources() const
 void hTRenderer::AddSprite(const hTSprite* sprite)
 {
 	m_sprites.push_back(sprite);
-}
-
-void hTRenderer::RemoveSprite(const hTSprite* sprite)
-{
-	m_sprites.erase(remove(m_sprites.begin(), m_sprites.end(), sprite), m_sprites.end());
-}
-
-bool hTRenderer::ContainsSprite(const hTSprite* sprite) const
-{
-	return find(m_sprites.begin(), m_sprites.end(), sprite) != m_sprites.end();
 }
 
 XMFLOAT3 hTRenderer::GetCameraPosition() const

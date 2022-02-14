@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "hTTileSprite.h"
 
+#include "hTRenderer.h"
+
 using namespace DirectX;
 using namespace hosTile;
 
@@ -21,10 +23,10 @@ hTTileSprite::hTTileSprite(
 	UpdateVertices();
 }
 
-void hTTileSprite::Update()
+void hTTileSprite::Render(hTRenderer& renderer)
 {
-	// TODO: Rethink Render/AddSprite paradigm. Do this in Render instead?
 	UpdateVertices();
+	renderer.AddSprite(this);
 }
 
 ID3D11ShaderResourceView* hTTileSprite::GetTexture() const

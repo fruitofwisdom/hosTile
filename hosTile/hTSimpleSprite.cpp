@@ -4,6 +4,7 @@
 #include <codecvt>
 #include <locale>
 #include "DDSTextureLoader.h"
+#include "hTRenderer.h"
 #include "Other/DirectXHelper.h"
 
 using namespace DirectX;
@@ -37,15 +38,20 @@ hTSimpleSprite::hTSimpleSprite(
 	UpdateVertices();
 }
 
-void hTSimpleSprite::Update()
+void hTSimpleSprite::Render(hTRenderer& renderer)
 {
-	// TODO: Rethink Render/AddSprite paradigm. Do this in Render instead?
 	UpdateVertices();
+	renderer.AddSprite(this);
 }
 
 ID3D11ShaderResourceView* hTSimpleSprite::GetTexture() const
 {
 	return m_texture.Get();
+}
+
+unsigned int hTSimpleSprite::GetNumVertices() const
+{
+	return sizeof(m_vertices) / sizeof(m_vertices[0]);
 }
 
 const VertexPositionTex* hTSimpleSprite::GetVertices() const

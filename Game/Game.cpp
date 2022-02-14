@@ -32,7 +32,6 @@ Game::Game(hTRenderer& renderer)
 	{
 		m_map = make_unique<hTMap>(m_tileset.get(), mapJson);
 		m_map->SetScale(Scale);
-		m_renderer->AddSprite(m_map.get());
 
 		// TODO: Search through only objectgroups.
 		json objects = mapJson["layers"][1]["objects"];
@@ -57,7 +56,6 @@ Game::Game(hTRenderer& renderer)
 
 		m_textBox = make_unique<TextBox>(*m_tileset, "futile_textbox.json");
 		m_textBox->SetScale(Scale);
-		m_renderer->AddSprite(m_textBox->GetSprite());
 	}
 	catch (hTException& exception)
 	{
@@ -70,7 +68,6 @@ Game::Game(hTRenderer& renderer)
 
 void Game::Update(const DX::StepTimer& timer)
 {
-	m_map->Update();
 	if (m_gameState == GS_Playing)
 	{
 		m_player->Update(timer);
@@ -78,22 +75,26 @@ void Game::Update(const DX::StepTimer& timer)
 	m_camera->Update();
 	if (m_gameState == GS_Intro)
 	{
+		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
+			(unsigned int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
+			(unsigned int)(m_textBox->GetHeight() / 2.0f * Scale));
+		m_textBox->SetPosition(textBoxPosition);
+
 		auto kb = DirectX::Keyboard::Get().GetState();
 		if (kb.Enter || kb.Space)
 		{
 			m_gameState = GS_Playing;
-			m_renderer->RemoveSprite(m_textBox->GetSprite());
-			m_renderer->AddSprite(m_player->GetSprite());
+			m_textBox.release();
 		}
-
-		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
-			m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2, m_textBox->GetHeight() / 2.0f * Scale);
-		m_textBox->SetPosition(textBoxPosition);
-		m_textBox->Update();
 	}
 }
 
 void Game::Render()
 {
-	// TODO: Rethink Render/AddSprite paradigm.
+	m_map->Render(*m_renderer);
+	m_player->Render(*m_renderer);
+	if (m_textBox != nullptr)
+	{
+		m_textBox->Render(*m_renderer);
+	}
 }
