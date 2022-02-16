@@ -2,6 +2,7 @@
 #include "hTMap.h"
 
 #include "hTRenderer.h"
+#include "hTTileset.h"
 #include "Other/json.hpp"
 
 using namespace DirectX;

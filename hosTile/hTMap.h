@@ -3,7 +3,8 @@
 #include <string>
 #include "hosTile/Other/json_fwd.hpp"
 #include "hTSprite.h"
-#include "hTTileset.h"
+
+namespace hosTile { class hTTileset; }
 
 // A map, which consists of a tileset and json description of the map.
 namespace hosTile

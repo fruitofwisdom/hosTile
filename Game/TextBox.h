@@ -2,18 +2,18 @@
 
 #include "hosTile/hTMap.h"
 #include "hosTile/hTRenderer.h"
-#include "hosTile/hTTileset.h"
+#include "hosTile/hTTextBox.h"
 
 namespace hosTileSample
 {
 	class TextBox
 	{
 	public:
-		TextBox(const hosTile::hTTileset& tileset, std::string mapFilename);
+		TextBox(
+			const hosTile::hTTileset* boxTileset, std::string boxFilename,
+			const hosTile::hTFont* font, const wchar_t* text);
 
 		void Render(hosTile::hTRenderer& renderer);
-
-		hosTile::hTSprite* GetSprite() const;
 
 		void SetPosition(DirectX::XMFLOAT3 position);
 
@@ -23,6 +23,7 @@ namespace hosTileSample
 		void SetScale(float scale);
 
 	private:
-		std::unique_ptr<hosTile::hTMap> m_textBoxMap;
+		std::unique_ptr<hosTile::hTMap> m_box;
+		std::unique_ptr<hosTile::hTTextBox> m_text;
 	};
 }

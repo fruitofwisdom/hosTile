@@ -28,6 +28,9 @@ Game::Game(hTRenderer& renderer)
 	DX::DeviceResources* deviceResources = m_renderer->GetDeviceResources();
 	m_tileset = make_unique<hTTileset>(deviceResources, tilesetSource);
 
+	const wchar_t* fontDescription = L"abcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n1234567890.:,;\'\"(!?)+-*/= ";
+	m_font = make_unique<hTFont>(deviceResources, "futile_font.dds", fontDescription);
+
 	try
 	{
 		m_map = make_unique<hTMap>(m_tileset.get(), mapJson);
@@ -54,7 +57,9 @@ Game::Game(hTRenderer& renderer)
 			}
 		}
 
-		m_textBox = make_unique<TextBox>(*m_tileset, "futile_textbox.json");
+		m_textBox = make_unique<TextBox>(
+			m_tileset.get(), "futile_textbox.json",
+			m_font.get(), L"Welcome to Futile - a demo game for hosTile!");
 		m_textBox->SetScale(Scale);
 	}
 	catch (hTException& exception)

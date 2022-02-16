@@ -3,6 +3,9 @@
 #include <string>
 #include "Other/DeviceResources.h"
 
+// An hTTileset is a representation of an image that has been broken down to individual tiles that
+// can be referenced by tile number. Information describing a tileset is provided by a Tiled-
+// formatted .json file.
 namespace hosTile
 {
 	class hTTileset
@@ -27,10 +30,10 @@ namespace hosTile
 		std::string m_imageFilename;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
-		unsigned int m_imageWidth;
+		unsigned int m_imageWidth;		// in pixels
 		unsigned int m_imageHeight;
 		unsigned int m_tileCount;
-		unsigned int m_tileWidth;
+		unsigned int m_tileWidth;		// in pixels
 		unsigned int m_tileHeight;
 	};
 }

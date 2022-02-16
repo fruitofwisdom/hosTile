@@ -150,6 +150,9 @@
     <ClCompile Include="hosTile\Other\DeviceResources.cpp">
       <Filter>hosTile\Other</Filter>
     </ClCompile>
+    <ClCompile Include="hosTile\hTFont.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
     <ClCompile Include="hosTile\hTMap.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
@@ -160,6 +163,9 @@
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hTTextBox.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTTileset.cpp">
@@ -209,6 +215,9 @@
     <ClInclude Include="hosTile\hTException.h">
       <Filter>hosTile</Filter>
     </ClInclude>
+    <ClInclude Include="hosTile\hTFont.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
     <ClInclude Include="hosTile\hTMap.h">
       <Filter>hosTile</Filter>
     </ClInclude>
@@ -222,6 +231,9 @@
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hTTextBox.h">
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTTileset.h">
@@ -248,6 +260,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\futile_font.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_map.json">
       <Filter>Assets\Futile</Filter>
     </CopyFileToFolders>

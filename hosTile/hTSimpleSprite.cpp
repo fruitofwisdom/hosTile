@@ -2,7 +2,6 @@
 #include "hTSimpleSprite.h"
 
 #include <codecvt>
-#include <locale>
 #include "DDSTextureLoader.h"
 #include "hTRenderer.h"
 #include "Other/DirectXHelper.h"

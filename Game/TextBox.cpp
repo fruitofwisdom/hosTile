@@ -7,40 +7,42 @@
 using namespace hosTileSample;
 using namespace std;
 
-TextBox::TextBox(const hosTile::hTTileset& tileset, string mapFilename)
+TextBox::TextBox(
+	const hosTile::hTTileset* boxTileset, string boxFilename,
+	const hosTile::hTFont* font, const wchar_t* text)
 {
-	ifstream textBoxMapFile(mapFilename);
+	ifstream textBoxMapFile(boxFilename);
 	nlohmann::json textBoxMapJson;
 	textBoxMapFile >> textBoxMapJson;
-	m_textBoxMap = make_unique<hosTile::hTMap>(&tileset, textBoxMapJson);
+	m_box = make_unique<hosTile::hTMap>(boxTileset, textBoxMapJson);
+
+	m_text = make_unique<hosTile::hTTextBox>(font, text);
 }
 
 void TextBox::Render(hosTile::hTRenderer& renderer)
 {
-	m_textBoxMap->Render(renderer);
-}
-
-hosTile::hTSprite* TextBox::GetSprite() const
-{
-	return m_textBoxMap.get();
+	m_box->Render(renderer);
+	// TODO: Add bounds.
+	m_text->Render(renderer, m_box->GetPosition());
 }
 
 void TextBox::SetPosition(DirectX::XMFLOAT3 position)
 {
-	m_textBoxMap->SetPosition(position);
+	m_box->SetPosition(position);
 }
 
 unsigned int TextBox::GetWidth() const
 {
-	return m_textBoxMap->GetWidth();
+	return m_box->GetWidth();
 }
 
 unsigned int TextBox::GetHeight() const
 {
-	return m_textBoxMap->GetHeight();
+	return m_box->GetHeight();
 }
 
 void TextBox::SetScale(float scale)
 {
-	m_textBoxMap->SetScale(scale);
+	m_box->SetScale(scale);
+	m_text->SetScale(scale);
 }
