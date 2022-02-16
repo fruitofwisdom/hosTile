@@ -29,6 +29,7 @@ namespace hosTile
 		unsigned int GetWidth() const;		// in pixels
 		unsigned int GetHeight() const;		// in pixels
 
+		float GetScale() const;
 		void SetScale(float scale);
 		void SetXFlip(bool xFlip);
 		void SetYFlip(bool yFlip);

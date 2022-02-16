@@ -59,7 +59,7 @@ Game::Game(hTRenderer& renderer)
 
 		m_textBox = make_unique<TextBox>(
 			m_tileset.get(), "futile_textbox.json",
-			m_font.get(), L"Welcome to Futile - a demo game for hosTile!");
+			m_font.get(), L"Welcome to Futile - demo game for hosTile!\n\nPress any key to play!\ntest");
 		m_textBox->SetScale(Scale);
 	}
 	catch (hTException& exception)
@@ -82,7 +82,7 @@ void Game::Update(const DX::StepTimer& timer)
 	{
 		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
 			(unsigned int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
-			(unsigned int)(m_textBox->GetHeight() / 2.0f * Scale));
+			(unsigned int)(m_textBox->GetHeight() / 2.0f));
 		m_textBox->SetPosition(textBoxPosition);
 
 		auto kb = DirectX::Keyboard::Get().GetState();

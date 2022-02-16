@@ -35,6 +35,11 @@ unsigned int hTSprite::GetHeight() const
 	return m_height;
 }
 
+float hTSprite::GetScale() const
+{
+	return m_scale;
+}
+
 void hTSprite::SetScale(float scale)
 {
 	m_scale = scale;

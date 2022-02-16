@@ -7,9 +7,15 @@
 using namespace DirectX;
 using namespace hosTile;
 
-hTTextBox::hTTextBox(const hTFont* font, const wchar_t* text)
-:	m_font(font),
-	m_text(text)
+hTTextBox::hTTextBox(
+	const hTFont* font, const wchar_t* text,
+	XMFLOAT3 position,
+	unsigned int boundingWidth, unsigned int boundingHeight)
+:	hTSprite(position),
+	m_font(font),
+	m_text(text),
+	m_boundingWidth(boundingWidth),
+	m_boundingHeight(boundingHeight)
 {
 	for (int i = 0; i < wcslen(text); ++i)
 	{
@@ -22,9 +28,8 @@ hTTextBox::hTTextBox(const hTFont* font, const wchar_t* text)
 	UpdateVertices();
 }
 
-void hTTextBox::Render(hTRenderer& renderer, DirectX::XMFLOAT3 position)
+void hTTextBox::Render(hTRenderer& renderer)
 {
-	m_position = position;
 	UpdateVertices();
 	renderer.AddSprite(this);
 }
@@ -44,21 +49,38 @@ const VertexPositionTex* hTTextBox::GetVertices() const
 	return &m_vertices[0];
 }
 
+const hTFont* hTTextBox::GetFont() const
+{
+	return m_font;
+}
+
+void hTTextBox::SetBounds(unsigned int boundingWidth, unsigned int boundingHeight)
+{
+	m_boundingWidth = boundingWidth;
+	m_boundingHeight = boundingHeight;
+}
+
 void hTTextBox::UpdateVertices()
 {
+	float letterXPosition = 0.0f;
+	float letterYPosition = 0.0f;
 	for (int i = 0; i < m_text.length(); ++i)
 	{
 		wchar_t letter = m_text[i];
 
-		float letterXPosition = i * m_font->GetLetterWidth();
-		float letterYPosition = 0.0f;
+		// \n is a manual line wrap.
+		if (letter == '\n')
+		{
+			letterXPosition = 0.0f;
+			letterYPosition -= m_font->GetLetterHeight();
+			continue;
+		}
 
 		// Calculate UV-coordinates.
 		float uvTileWidth = (float)m_font->GetLetterWidth() / m_font->GetImageWidth();
 		float uvTileHeight = (float)m_font->GetLetterHeight() / m_font->GetImageHeight();
 		float uvXOffset = (float)m_font->GetLetterXOffset(letter) / m_font->GetImageWidth();
 		float uvYOffset = (float)m_font->GetLetterYOffset(letter) / m_font->GetImageHeight();
-		// Bring in the UV borders an imperceptible amount to prevent seams from showing.
 		float uvLeft = uvXOffset;
 		float uvRight = uvXOffset + uvTileWidth;
 		float uvBottom = uvYOffset + uvTileHeight;
@@ -68,9 +90,9 @@ void hTTextBox::UpdateVertices()
 		m_vertices[vertexOffset] =		// 0, bottom-left
 		{
 			XMFLOAT3(
-				(m_font->GetLetterWidth() / 2.0f * -1.0f + letterXPosition)
+				letterXPosition
 				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() / 2.0f * -1.0f + letterYPosition)
+				letterYPosition
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -79,9 +101,9 @@ void hTTextBox::UpdateVertices()
 		m_vertices[vertexOffset + 1] =		// 1, bottom-right
 		{
 			XMFLOAT3(
-				(m_font->GetLetterWidth() / 2.0f + letterXPosition)
-				*(m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() / 2.0f * -1.0f + letterYPosition)
+				(m_font->GetLetterWidth() + letterXPosition)
+				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+				letterYPosition
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -90,9 +112,9 @@ void hTTextBox::UpdateVertices()
 		m_vertices[vertexOffset + 2] =		// 2, top-right
 		{
 			XMFLOAT3(
-				(m_font->GetLetterWidth() / 2.0f + letterXPosition)
-				*(m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() / 2.0f + letterYPosition)
+				(m_font->GetLetterWidth() + letterXPosition)
+				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+				(m_font->GetLetterHeight() + letterYPosition)
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -101,13 +123,29 @@ void hTTextBox::UpdateVertices()
 		m_vertices[vertexOffset + 3] =		// 3, top-left
 		{
 			XMFLOAT3(
-				(m_font->GetLetterWidth() / 2.0f * -1.0f + letterXPosition)
-				*(m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() / 2.0f + letterYPosition)
+				letterXPosition
+				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
+				(m_font->GetLetterHeight() + letterYPosition)
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
 			XMFLOAT2(uvLeft, uvTop)
 		};
+
+		letterXPosition += m_font->GetLetterWidth();
+
+		// Handle word wrapping. TODO: Better.
+		if (m_boundingWidth > 0 && m_boundingHeight > 0)
+		{
+			if (letterXPosition >= m_boundingWidth)
+			{
+				letterXPosition = 0.0f;
+				letterYPosition -= m_font->GetLetterHeight();
+			}
+			if (abs(letterYPosition) >= m_boundingHeight)
+			{
+				break;
+			}
+		}
 	}
 }
