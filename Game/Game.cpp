@@ -59,7 +59,7 @@ Game::Game(hTRenderer& renderer)
 
 		m_textBox = make_unique<TextBox>(
 			m_tileset.get(), "futile_textbox.json",
-			m_font.get(), L"Welcome to Futile - a demo game for hosTile!\n\nPress any key to play!");
+			m_font.get(), L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
 		m_textBox->SetScale(Scale);
 	}
 	catch (hTException& exception)
@@ -69,6 +69,9 @@ Game::Game(hTRenderer& renderer)
 	}
 
 	m_camera = make_unique<Camera>(*m_renderer, *m_player.get());
+
+	m_ui = make_unique<UI>(*m_renderer, m_font.get());
+	m_ui->SetScale(Scale);
 }
 
 void Game::Update(const DX::StepTimer& timer)
@@ -81,8 +84,8 @@ void Game::Update(const DX::StepTimer& timer)
 	if (m_gameState == GS_Intro)
 	{
 		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
-			(unsigned int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
-			(unsigned int)(m_textBox->GetHeight() / 2.0f));
+			(int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
+			(int)(m_textBox->GetHeight() / 2.0f));
 		m_textBox->SetPosition(textBoxPosition);
 
 		auto kb = DirectX::Keyboard::Get().GetState();
@@ -92,6 +95,15 @@ void Game::Update(const DX::StepTimer& timer)
 			m_textBox.release();
 		}
 	}
+
+	// An example of printing debug text.
+	/*
+	wstringstream debugText;
+	debugText << fixed << setprecision(3);
+	debugText << "player: " << m_player->GetPosition().x << ", " << m_player->GetPosition().y;
+	m_ui->SetDebugText(debugText.str().c_str());
+	*/
+	m_ui->Update();
 }
 
 void Game::Render()
@@ -102,4 +114,5 @@ void Game::Render()
 	{
 		m_textBox->Render(*m_renderer);
 	}
+	m_ui->Render();
 }

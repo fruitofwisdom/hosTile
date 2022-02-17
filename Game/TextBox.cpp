@@ -31,11 +31,11 @@ void TextBox::SetPosition(DirectX::XMFLOAT3 position)
 {
 	m_box->SetPosition(position);
 
-	// The text starts one tile inwards.
+	// The text starts one tile inwards and two tiles up from the middle.
 	DirectX::XMFLOAT3 topLeft =
 	{
-		m_box->GetPosition().x - GetWidth() / 2.0f + m_text->GetFont()->GetLetterWidth() * m_box->GetScale(),
-		m_box->GetPosition().y + m_text->GetFont()->GetLetterHeight() * m_box->GetScale(),
+		m_box->GetPosition().x - GetWidth() / 2.0f + (float)m_text->GetFont()->GetLetterWidth() * m_box->GetScale(),
+		m_box->GetPosition().y + (float)(m_text->GetFont()->GetLetterHeight() * 2) * m_box->GetScale(),
 		m_box->GetPosition().z
 	};
 	m_text->SetPosition(topLeft);
@@ -43,12 +43,12 @@ void TextBox::SetPosition(DirectX::XMFLOAT3 position)
 
 unsigned int TextBox::GetWidth() const
 {
-	return m_box->GetWidth() * m_box->GetScale();
+	return (unsigned int)(m_box->GetWidth() * m_box->GetScale());
 }
 
 unsigned int TextBox::GetHeight() const
 {
-	return m_box->GetHeight() * m_box->GetScale();
+	return (unsigned int)(m_box->GetHeight() * m_box->GetScale());
 }
 
 void TextBox::SetScale(float scale)

@@ -7,11 +7,12 @@
 #include "Player.h"
 #include "StepTimer.h"
 #include "TextBox.h"
+#include "UI.h"
 
 // The game instance.
 namespace hosTileSample
 {
-	class Game final
+	class Game
 	{
 	public:
 		Game(hosTile::hTRenderer& renderer);
@@ -37,6 +38,7 @@ namespace hosTileSample
 		std::unique_ptr<Player> m_player;
 		std::unique_ptr<Camera> m_camera;
 		std::unique_ptr<TextBox> m_textBox;
+		std::unique_ptr<UI> m_ui;
 
 		static const float Scale;
 	};

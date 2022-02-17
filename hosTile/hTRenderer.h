@@ -31,7 +31,7 @@ namespace hosTile
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
 
 		// Convert from screen space (pixels) to world space.
-		DirectX::XMFLOAT3 ScreenToWorldPosition(unsigned int x, unsigned int y) const;
+		DirectX::XMFLOAT3 ScreenToWorldPosition(int x, int y) const;
 
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
@@ -59,7 +59,7 @@ namespace hosTile
 
 		bool m_loadingComplete;
 
-		static const int MaxSprites = 1024;
+		static const int MaxSprites = 10000;
 		std::vector<const hTSprite*> m_sprites;
 
 		DirectX::XMVECTORF32 m_cameraPosition;

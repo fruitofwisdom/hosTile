@@ -25,6 +25,8 @@ namespace hosTile
 		const VertexPositionTex* GetVertices() const;
 
 		const hTFont* GetFont() const;
+		const wchar_t* GetText() const;
+		void SetText(const wchar_t* text);
 
 		void SetBounds(unsigned int boundingWidth, unsigned int boundingHeight);
 

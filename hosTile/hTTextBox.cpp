@@ -17,17 +17,7 @@ hTTextBox::hTTextBox(
 	m_boundingWidth(boundingWidth),
 	m_boundingHeight(boundingHeight)
 {
-	// Make room for vertices for each letter, though not all may render.
-	for (int i = 0; i < wcslen(text); ++i)
-	{
-		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
-		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
-		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
-		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
-	}
-	m_verticesToRender = (unsigned int)wcslen(text) * 4;
-
-	UpdateVertices();
+	SetText(text);
 }
 
 void hTTextBox::Render(hTRenderer& renderer)
@@ -54,6 +44,28 @@ const VertexPositionTex* hTTextBox::GetVertices() const
 const hTFont* hTTextBox::GetFont() const
 {
 	return m_font;
+}
+
+const wchar_t* hTTextBox::GetText() const
+{
+	return m_text.c_str();
+}
+
+void hTTextBox::SetText(const wchar_t* text)
+{
+	m_text = text;
+
+	// Make room for vertices for each letter, though not all may render.
+	m_vertices.clear();
+	for (int i = 0; i < wcslen(m_text.c_str()); ++i)
+	{
+		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
+		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
+		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
+		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
+	}
+	m_verticesToRender = (unsigned int)wcslen(m_text.c_str()) * 4;
+	UpdateVertices();
 }
 
 void hTTextBox::SetBounds(unsigned int boundingWidth, unsigned int boundingHeight)
@@ -125,7 +137,7 @@ void hTTextBox::UpdateVertices()
 			XMFLOAT3(
 				letterXPosition
 				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				letterYPosition
+				(letterYPosition - m_font->GetLetterHeight())
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -136,7 +148,7 @@ void hTTextBox::UpdateVertices()
 			XMFLOAT3(
 				(m_font->GetLetterWidth() + letterXPosition)
 				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				letterYPosition
+				(letterYPosition - m_font->GetLetterHeight())
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -147,7 +159,7 @@ void hTTextBox::UpdateVertices()
 			XMFLOAT3(
 				(m_font->GetLetterWidth() + letterXPosition)
 				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() + letterYPosition)
+				letterYPosition
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),
@@ -158,7 +170,7 @@ void hTTextBox::UpdateVertices()
 			XMFLOAT3(
 				letterXPosition
 				* (m_xFlip ? -1.0f : 1.0f) * m_scale + m_position.x,
-				(m_font->GetLetterHeight() + letterYPosition)
+				letterYPosition
 				* (m_yFlip ? -1.0f : 1.0f) * m_scale + m_position.y,
 				m_position.z
 			),

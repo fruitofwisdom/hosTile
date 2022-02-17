@@ -96,7 +96,8 @@ void hTRenderer::CreateDeviceDependentResources()
 		vertexBufferData.pSysMem = m_vertexBufferData;
 		vertexBufferData.SysMemPitch = 0;
 		vertexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionTex) * MaxSprites * 4, D3D11_BIND_VERTEX_BUFFER);
+		UINT vertexBufferSize = sizeof(VertexPositionTex) * MaxSprites * 4;
+		CD3D11_BUFFER_DESC vertexBufferDesc(vertexBufferSize, D3D11_BIND_VERTEX_BUFFER);
 		vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 		vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		DX::ThrowIfFailed(
@@ -110,7 +111,8 @@ void hTRenderer::CreateDeviceDependentResources()
 		indexBufferData.pSysMem = m_indexBufferData;
 		indexBufferData.SysMemPitch = 0;
 		indexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * MaxSprites * 6, D3D11_BIND_INDEX_BUFFER);
+		UINT indexBufferSize = sizeof(unsigned short) * MaxSprites * 6;
+		CD3D11_BUFFER_DESC indexBufferDesc(indexBufferSize, D3D11_BIND_INDEX_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&indexBufferDesc,
@@ -272,7 +274,7 @@ void hTRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
 }
 
 // Convert from screen space (pixels) to world space.
-XMFLOAT3 hTRenderer::ScreenToWorldPosition(unsigned int x, unsigned int y) const
+XMFLOAT3 hTRenderer::ScreenToWorldPosition(int x, int y) const
 {
 	// Convert "regular" pixels to DPI-appropriate pixels.
 	float screenX = DX::ConvertDipsToPixels((float)x, m_deviceResources->GetDpi());
@@ -291,6 +293,8 @@ XMFLOAT3 hTRenderer::ScreenToWorldPosition(unsigned int x, unsigned int y) const
 
 	XMFLOAT3 toReturn;
 	XMStoreFloat3(&toReturn, worldPosition);
+	// The unprojected z value is not relevant in this situation.
+	toReturn.z = 0.0f;
 	return toReturn;
 }
 
@@ -305,6 +309,16 @@ void hTRenderer::FillVertexBuffer()
 	for (auto sprite : m_sprites)
 	{
 		UINT numVertices = sprite->GetNumVertices();
+		// If we're about to exceed the size of our vertex buffer, stop!
+		if (totalVertices + numVertices > MaxSprites * 4)
+		{
+			break;
+		}
+		// If a sprite has no vertices (like an empty text box), skip it.
+		if (numVertices == 0)
+		{
+			continue;
+		}
 		const VertexPositionTex* vertexData = sprite->GetVertices();
 		memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
 		totalVertices += numVertices;
