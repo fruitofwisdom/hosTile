@@ -29,6 +29,8 @@ namespace hosTile
 		void SetBounds(unsigned int boundingWidth, unsigned int boundingHeight);
 
 	private:
+		int DistanceToWhitespace(int from) const;
+
 		// Update the vertices' data after the position or text has changed.
 		void UpdateVertices();
 
@@ -39,5 +41,6 @@ namespace hosTile
 		unsigned int m_boundingHeight;		// in pixels
 
 		std::vector<VertexPositionTex> m_vertices;
+		unsigned int m_verticesToRender;
 	};
 }

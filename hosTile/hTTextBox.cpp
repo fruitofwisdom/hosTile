@@ -17,6 +17,7 @@ hTTextBox::hTTextBox(
 	m_boundingWidth(boundingWidth),
 	m_boundingHeight(boundingHeight)
 {
+	// Make room for vertices for each letter, though not all may render.
 	for (int i = 0; i < wcslen(text); ++i)
 	{
 		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
@@ -24,6 +25,7 @@ hTTextBox::hTTextBox(
 		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
 		m_vertices.push_back({ XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT2(0.0f, 0.0f) });
 	}
+	m_verticesToRender = (unsigned int)wcslen(text) * 4;
 
 	UpdateVertices();
 }
@@ -41,7 +43,7 @@ ID3D11ShaderResourceView* hTTextBox::GetTexture() const
 
 unsigned int hTTextBox::GetNumVertices() const
 {
-	return (unsigned int)m_text.length() * 4;
+	return m_verticesToRender;
 }
 
 const VertexPositionTex* hTTextBox::GetVertices() const
@@ -60,11 +62,28 @@ void hTTextBox::SetBounds(unsigned int boundingWidth, unsigned int boundingHeigh
 	m_boundingHeight = boundingHeight;
 }
 
+int hTTextBox::DistanceToWhitespace(int from) const
+{
+	int toReturn = 0;
+
+	for (int i = from; i < m_text.length(); ++i)
+	{
+		if (m_text[i] == ' ' || m_text[i] == '\t' || m_text[i] == '\n')
+		{
+			toReturn = i - from;
+			break;
+		}
+	}
+
+	return toReturn;
+}
+
 void hTTextBox::UpdateVertices()
 {
+	int i = 0;
 	float letterXPosition = 0.0f;
 	float letterYPosition = 0.0f;
-	for (int i = 0; i < m_text.length(); ++i)
+	for (; i < m_text.length(); ++i)
 	{
 		wchar_t letter = m_text[i];
 
@@ -74,6 +93,20 @@ void hTTextBox::UpdateVertices()
 			letterXPosition = 0.0f;
 			letterYPosition -= m_font->GetLetterHeight();
 			continue;
+		}
+
+		// Handle word wrapping.
+		if (m_boundingWidth > 0 && m_boundingHeight > 0)
+		{
+			if (letterXPosition + DistanceToWhitespace(i) * m_font->GetLetterWidth() > m_boundingWidth)
+			{
+				letterXPosition = 0.0f;
+				letterYPosition -= m_font->GetLetterHeight();
+			}
+			if (abs(letterYPosition) >= m_boundingHeight)
+			{
+				break;
+			}
 		}
 
 		// Calculate UV-coordinates.
@@ -133,19 +166,8 @@ void hTTextBox::UpdateVertices()
 		};
 
 		letterXPosition += m_font->GetLetterWidth();
-
-		// Handle word wrapping. TODO: Better.
-		if (m_boundingWidth > 0 && m_boundingHeight > 0)
-		{
-			if (letterXPosition >= m_boundingWidth)
-			{
-				letterXPosition = 0.0f;
-				letterYPosition -= m_font->GetLetterHeight();
-			}
-			if (abs(letterYPosition) >= m_boundingHeight)
-			{
-				break;
-			}
-		}
 	}
+
+	// If not all letters fit, we need to adjust how many vertices to render.
+	m_verticesToRender = i * 4;
 }

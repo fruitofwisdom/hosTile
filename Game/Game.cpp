@@ -59,7 +59,7 @@ Game::Game(hTRenderer& renderer)
 
 		m_textBox = make_unique<TextBox>(
 			m_tileset.get(), "futile_textbox.json",
-			m_font.get(), L"Welcome to Futile - demo game for hosTile!\n\nPress any key to play!\ntest");
+			m_font.get(), L"Welcome to Futile - a demo game for hosTile!\n\nPress any key to play!");
 		m_textBox->SetScale(Scale);
 	}
 	catch (hTException& exception)
