@@ -4,8 +4,8 @@
 #include "Other/DeviceResources.h"
 #include "hTSprite.h"
 
-// An instance of a sprite which contains a texture, position, and the vertices to render it. A
-// sprite may contain a number of "sub-"sprites in a sprite sheet.
+// An hTSimpleSprite is the simplest type of sprite, as its name implies. It is used to render a
+// single image without any notion of tiles.
 namespace hosTile
 {
 	class hTSimpleSprite : public hTSprite
@@ -15,9 +15,10 @@ namespace hosTile
 			const DX::DeviceResources* deviceResources, std::string spriteFilename,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		ID3D11ShaderResourceView* GetTexture() const;
+		unsigned int GetNumVertices() const;
 		const VertexPositionTex* GetVertices() const;
 
 	private:

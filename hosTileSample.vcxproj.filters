@@ -141,11 +141,20 @@
     <ClCompile Include="Game\GameObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\TextBox.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="hosTile\Original\hosTile.cpp">
       <Filter>hosTile\Original</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\Other\DeviceResources.cpp">
       <Filter>hosTile\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hTFont.cpp">
+      <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTMap.cpp">
       <Filter>hosTile</Filter>
@@ -157,6 +166,9 @@
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hosTile\hTTextBox.cpp">
       <Filter>hosTile</Filter>
     </ClCompile>
     <ClCompile Include="hosTile\hTTileset.cpp">
@@ -185,6 +197,12 @@
     <ClInclude Include="Game\StepTimer.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\TextBox.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI.h">
+      <Filter>Game</Filter>
+    </ClInclude>
     <ClInclude Include="hosTile\Original\hosTile.h">
       <Filter>hosTile\Original</Filter>
     </ClInclude>
@@ -203,6 +221,9 @@
     <ClInclude Include="hosTile\hTException.h">
       <Filter>hosTile</Filter>
     </ClInclude>
+    <ClInclude Include="hosTile\hTFont.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
     <ClInclude Include="hosTile\hTMap.h">
       <Filter>hosTile</Filter>
     </ClInclude>
@@ -216,6 +237,9 @@
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hosTile\hTTextBox.h">
       <Filter>hosTile</Filter>
     </ClInclude>
     <ClInclude Include="hosTile\hTTileset.h">
@@ -242,7 +266,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\futile_font.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_map.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_textbox.json">
       <Filter>Assets\Futile</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_tileset.dds">

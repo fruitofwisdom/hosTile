@@ -40,5 +40,9 @@ void Player::Update(const DX::StepTimer& timer)
 		position.x += MovementSpeed * delta;
 	}
 	SetPosition(position);
-	m_sprite->Update();
+}
+
+void Player::Render(hosTile::hTRenderer& renderer)
+{
+	m_sprite->Render(renderer);
 }

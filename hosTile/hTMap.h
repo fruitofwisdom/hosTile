@@ -3,7 +3,8 @@
 #include <string>
 #include "hosTile/Other/json_fwd.hpp"
 #include "hTSprite.h"
-#include "hTTileset.h"
+
+namespace hosTile { class hTTileset; }
 
 // A map, which consists of a tileset and json description of the map.
 namespace hosTile
@@ -15,7 +16,7 @@ namespace hosTile
 			const hTTileset* tileset, const nlohmann::json& mapJson,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		ID3D11ShaderResourceView* GetTexture() const;
 		unsigned int GetNumVertices() const;

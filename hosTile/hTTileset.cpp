@@ -3,7 +3,6 @@
 
 #include <codecvt>
 #include <fstream>
-#include <locale>
 #include "DDSTextureLoader.h"
 #include "hosTile/hTException.h"
 #include "hosTile/Other/DirectXHelper.h"

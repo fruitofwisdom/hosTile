@@ -3,9 +3,9 @@
 
 using namespace hosTileSample;
 
-Camera::Camera(hosTile::hTRenderer* renderer, const GameObject* focus)
-:	m_renderer(renderer),
-	m_focus(focus)
+Camera::Camera(hosTile::hTRenderer& renderer, const GameObject& focus)
+:	m_renderer(&renderer),
+	m_focus(&focus)
 {
 	;
 }
@@ -17,4 +17,9 @@ void Camera::Update()
 	cameraPosition.y = m_focus->GetPosition().y;
 	// Leave the camera's z in the same place.
 	m_renderer->SetCameraPosition(cameraPosition);
+}
+
+DirectX::XMFLOAT3 Camera::GetPosition() const
+{
+	return m_focus->GetPosition();
 }

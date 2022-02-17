@@ -24,7 +24,7 @@ hosTileSampleMain::hosTileSampleMain(DX::DeviceResources* deviceResources)
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
 
-	m_game = std::make_unique<Game>(m_renderer.get());
+	m_game = std::make_unique<Game>(*m_renderer.get());
 }
 
 hosTileSampleMain::~hosTileSampleMain()
@@ -46,7 +46,6 @@ void hosTileSampleMain::Update()
 	m_timer.Tick([&]()
 	{
 		m_game->Update(m_timer);
-		m_renderer->Update();
 	});
 }
 
@@ -75,6 +74,7 @@ bool hosTileSampleMain::Render()
 	context->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	// Render the scene objects.
+	m_game->Render();
 	m_renderer->Render();
 
 	return true;

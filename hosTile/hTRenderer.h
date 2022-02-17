@@ -3,8 +3,8 @@
 #include <vector>
 #include "Other/DeviceResources.h"
 #include "hTShaderStructures.h"
-#include "hTSprite.h"
-#include "hTTileset.h"
+
+namespace hosTile { class hTSprite; }
 
 namespace hosTile
 {
@@ -19,17 +19,19 @@ namespace hosTile
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
 
-		void Update();
 		void Render();
 
 		DX::DeviceResources* GetDeviceResources() const;
 
 		// Once a sprite derived from hTSprite has been created, it needs to be added to the
-		// renderer with AddSprite.
+		// renderer with AddSprite. The list of sprites is cleared after each call to Render.
 		void AddSprite(const hTSprite* sprite);
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
+
+		// Convert from screen space (pixels) to world space.
+		DirectX::XMFLOAT3 ScreenToWorldPosition(int x, int y) const;
 
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
@@ -57,7 +59,7 @@ namespace hosTile
 
 		bool m_loadingComplete;
 
-		static const int MaxSprites = 1024;
+		static const int MaxSprites = 10000;
 		std::vector<const hTSprite*> m_sprites;
 
 		DirectX::XMVECTORF32 m_cameraPosition;

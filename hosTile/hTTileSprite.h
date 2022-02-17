@@ -3,6 +3,8 @@
 #include "hTSprite.h"
 #include "hTTileset.h"
 
+// An hTTileSprite is a sprite that renders an individual tile in an hTTileset. It does not
+// contain any image information itself other than a reference into its tileset.
 namespace hosTile
 {
 	class hTTileSprite : public hTSprite
@@ -12,7 +14,7 @@ namespace hosTile
 			const hTTileset* tileset, unsigned int tileNum,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
-		void Update();
+		void Render(hosTile::hTRenderer& renderer);
 
 		ID3D11ShaderResourceView* GetTexture() const;
 		unsigned int GetNumVertices() const;

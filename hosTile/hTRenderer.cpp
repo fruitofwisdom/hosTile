@@ -3,6 +3,7 @@
 
 #include "DDSTextureLoader.h"
 #include "Other/DirectXHelper.h"
+#include "hTSprite.h"
 
 using namespace DirectX;
 using namespace hosTile;
@@ -36,9 +37,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				&fileData[0],
 				fileData.size(),
 				nullptr,
-				&m_vertexShader
-				)
-			);
+				&m_vertexShader));
 
 		// Create the input-layout object.
 		static const D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
@@ -52,9 +51,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				ARRAYSIZE(vertexDesc),
 				&fileData[0],
 				fileData.size(),
-				&m_inputLayout
-				)
-			);
+				&m_inputLayout));
 	});
 
 	// After the pixel shader file is loaded, create the shader and constant buffer.
@@ -65,18 +62,14 @@ void hTRenderer::CreateDeviceDependentResources()
 				&fileData[0],
 				fileData.size(),
 				nullptr,
-				&m_pixelShader
-				)
-			);
+				&m_pixelShader));
 
 		CD3D11_BUFFER_DESC constantBufferDesc(sizeof(ModelViewProjectionConstantBuffer), D3D11_BIND_CONSTANT_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&constantBufferDesc,
 				nullptr,
-				&m_constantBuffer
-				)
-			);
+				&m_constantBuffer));
 	});
 
 	// Once both shaders are loaded, create the input buffers, sampler state, and blend state.
@@ -103,30 +96,28 @@ void hTRenderer::CreateDeviceDependentResources()
 		vertexBufferData.pSysMem = m_vertexBufferData;
 		vertexBufferData.SysMemPitch = 0;
 		vertexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(VertexPositionTex) * MaxSprites * 4, D3D11_BIND_VERTEX_BUFFER);
+		UINT vertexBufferSize = sizeof(VertexPositionTex) * MaxSprites * 4;
+		CD3D11_BUFFER_DESC vertexBufferDesc(vertexBufferSize, D3D11_BIND_VERTEX_BUFFER);
 		vertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 		vertexBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&vertexBufferDesc,
 				&vertexBufferData,
-				&m_vertexBuffer
-				)
-			);
+				&m_vertexBuffer));
 
 		// Create the index buffer.
 		D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
 		indexBufferData.pSysMem = m_indexBufferData;
 		indexBufferData.SysMemPitch = 0;
 		indexBufferData.SysMemSlicePitch = 0;
-		CD3D11_BUFFER_DESC indexBufferDesc(sizeof(unsigned short) * MaxSprites * 6, D3D11_BIND_INDEX_BUFFER);
+		UINT indexBufferSize = sizeof(unsigned short) * MaxSprites * 6;
+		CD3D11_BUFFER_DESC indexBufferDesc(indexBufferSize, D3D11_BIND_INDEX_BUFFER);
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBuffer(
 				&indexBufferDesc,
 				&indexBufferData,
-				&m_indexBuffer
-				)
-			);
+				&m_indexBuffer));
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
@@ -145,9 +136,7 @@ void hTRenderer::CreateDeviceDependentResources()
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateSamplerState(
 				&samplerDesc,
-				&m_samplerState
-				)
-			);
+				&m_samplerState));
 
 		D3D11_BLEND_DESC blendState;
 		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
@@ -160,8 +149,7 @@ void hTRenderer::CreateDeviceDependentResources()
 		blendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		DX::ThrowIfFailed(
-			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState)
-			);
+			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState));
 	});
 
 	// Once all tasks have finished, we are ready to render.
@@ -192,13 +180,6 @@ void hTRenderer::ReleaseDeviceDependentResources()
 	delete m_indexBufferData;
 }
 
-// Called once per frame, calculate the model and view matrices.
-void hTRenderer::Update()
-{
-	// Prepare to pass the updated model matrix to the shader
-	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
-}
-
 // Renders one frame using the vertex and pixel shaders.
 void hTRenderer::Render()
 {
@@ -213,14 +194,9 @@ void hTRenderer::Render()
 
 	// Prepare the constant buffer to send it to the graphics device.
 	deviceContext->UpdateSubresource1(
-		m_constantBuffer.Get(),
-		0,
-		NULL,
-		&m_constantBufferData,
-		0,
-		0,
-		0
-		);
+		m_constantBuffer.Get(), 0, NULL,
+		&m_constantBufferData, 0, 0,
+		0);
 
 	// Copy each sprite's vertices into the vertex buffer.
 	FillVertexBuffer();
@@ -228,20 +204,13 @@ void hTRenderer::Render()
 	// Bind the vertex buffer to the IA stage.
 	UINT stride = sizeof(VertexPositionTex);
 	UINT offset = 0;
-	deviceContext->IASetVertexBuffers(
-		0,
-		1,
-		m_vertexBuffer.GetAddressOf(),
-		&stride,
-		&offset
-		);
+	deviceContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
 
 	// Bind the index buffer to the IA stage.
 	deviceContext->IASetIndexBuffer(
 		m_indexBuffer.Get(),
 		DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
-		0
-		);
+		0);
 
 	// Set the input layout.
 	deviceContext->IASetInputLayout(m_inputLayout.Get());
@@ -250,33 +219,15 @@ void hTRenderer::Render()
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Attach our vertex shader.
-	deviceContext->VSSetShader(
-		m_vertexShader.Get(),
-		nullptr,
-		0
-		);
+	deviceContext->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 
 	// Send the constant buffer to the graphics device.
-	deviceContext->VSSetConstantBuffers1(
-		0,
-		1,
-		m_constantBuffer.GetAddressOf(),
-		nullptr,
-		nullptr
-		);
+	deviceContext->VSSetConstantBuffers1(0, 1, m_constantBuffer.GetAddressOf(), nullptr, nullptr);
 
 	// Attach our pixel shader.
-	deviceContext->PSSetShader(
-		m_pixelShader.Get(),
-		nullptr,
-		0
-		);
+	deviceContext->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
-	deviceContext->PSSetSamplers(
-		0,
-		1,
-		m_samplerState.GetAddressOf()
-		);
+	deviceContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	UINT sampleMask = 0xffffffff;
@@ -293,6 +244,9 @@ void hTRenderer::Render()
 		deviceContext->DrawIndexed(numIndices, totalIndices, 0);
 		totalIndices += numIndices;
 	}
+
+	// Empty the list for next frame.
+	m_sprites.clear();
 }
 
 DX::DeviceResources* hTRenderer::GetDeviceResources() const
@@ -319,6 +273,31 @@ void hTRenderer::SetCameraPosition(XMFLOAT3 cameraPosition)
 	UpdateConstantBuffer();
 }
 
+// Convert from screen space (pixels) to world space.
+XMFLOAT3 hTRenderer::ScreenToWorldPosition(int x, int y) const
+{
+	// Convert "regular" pixels to DPI-appropriate pixels.
+	float screenX = DX::ConvertDipsToPixels((float)x, m_deviceResources->GetDpi());
+	float screenY = DX::ConvertDipsToPixels((float)y, m_deviceResources->GetDpi());
+	XMVECTOR screenPosition = { screenX, screenY, 1.0f };
+
+	// Unproject from screen space to world space.
+	XMMATRIX viewMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.view));
+	XMMATRIX projectionMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.projection));
+	XMMATRIX worldMatrix = XMMatrixTranspose(XMLoadFloat4x4(&m_constantBufferData.model));
+	D3D11_VIEWPORT viewport = m_deviceResources->GetScreenViewport();
+	XMVECTOR worldPosition = XMVector3Unproject(
+		screenPosition,
+		viewport.TopLeftX, viewport.TopLeftY, viewport.Width, viewport.Height, viewport.MinDepth, viewport.MaxDepth,
+		projectionMatrix, viewMatrix, worldMatrix);
+
+	XMFLOAT3 toReturn;
+	XMStoreFloat3(&toReturn, worldPosition);
+	// The unprojected z value is not relevant in this situation.
+	toReturn.z = 0.0f;
+	return toReturn;
+}
+
 // Copy each sprite's vertices into the vertex buffer.
 void hTRenderer::FillVertexBuffer()
 {
@@ -330,6 +309,16 @@ void hTRenderer::FillVertexBuffer()
 	for (auto sprite : m_sprites)
 	{
 		UINT numVertices = sprite->GetNumVertices();
+		// If we're about to exceed the size of our vertex buffer, stop!
+		if (totalVertices + numVertices > MaxSprites * 4)
+		{
+			break;
+		}
+		// If a sprite has no vertices (like an empty text box), skip it.
+		if (numVertices == 0)
+		{
+			continue;
+		}
 		const VertexPositionTex* vertexData = sprite->GetVertices();
 		memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
 		totalVertices += numVertices;
@@ -359,9 +348,10 @@ void hTRenderer::UpdateConstantBuffer()
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
 	XMStoreFloat4x4(
 		&m_constantBufferData.projection,
-		XMMatrixTranspose(orthoMatrix * orientationMatrix)
-	);
+		XMMatrixTranspose(orthoMatrix * orientationMatrix));
 
 	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
 	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
+
+	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
 }

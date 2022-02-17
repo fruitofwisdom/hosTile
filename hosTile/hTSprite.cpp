@@ -35,6 +35,11 @@ unsigned int hTSprite::GetHeight() const
 	return m_height;
 }
 
+float hTSprite::GetScale() const
+{
+	return m_scale;
+}
+
 void hTSprite::SetScale(float scale)
 {
 	m_scale = scale;
@@ -51,7 +56,7 @@ void hTSprite::SetYFlip(bool yFlip)
 }
 
 // Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
-void hTSprite::swapUVs(XMFLOAT2& uv1, XMFLOAT2& uv2) const
+void hTSprite::SwapUVs(XMFLOAT2& uv1, XMFLOAT2& uv2) const
 {
 	XMFLOAT2 temp = uv1;
 	uv1 = uv2;
