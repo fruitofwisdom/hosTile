@@ -7,11 +7,11 @@ using namespace hosTile;
 using namespace hosTileSample;
 using namespace std;
 
-UI::UI(hTRenderer& renderer, const hTFont* font)
+UI::UI(hTRenderer& renderer, const hTFont* font, const wchar_t* version)
 :	m_renderer(&renderer)
 {
 	m_debug = make_unique<hTTextBox>(font, L"");
-	m_version = make_unique<hTTextBox>(font, L"hosTile v0.4.0-alpha");
+	m_version = make_unique<hTTextBox>(font, version);
 }
 
 void UI::Update()
@@ -21,7 +21,7 @@ void UI::Update()
 	DirectX::XMFLOAT3 debugPosition = m_renderer->ScreenToWorldPosition(
 		(int)m_renderer->GetDeviceResources()->GetLogicalSize().Width
 		- (int)(m_debug->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_debug->GetText()) * m_debug->GetScale()),
-		screenBottom - m_debug->GetFont()->GetLetterHeight() * m_debug->GetScale());
+		screenBottom - (int)(m_debug->GetFont()->GetLetterHeight() * m_debug->GetScale()));
 	DirectX::XMFLOAT3 versionPosition = m_renderer->ScreenToWorldPosition(
 		(int)m_renderer->GetDeviceResources()->GetLogicalSize().Width
 		- (int)(m_version->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_version->GetText()) * m_version->GetScale()),

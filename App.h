@@ -18,6 +18,8 @@ namespace hosTileSample
 		virtual void Run();
 		virtual void Uninitialize();
 
+		static Platform::String^ GetVersion();
+
 	protected:
 		// Application lifecycle event handlers.
 		void OnActivated(Windows::ApplicationModel::Core::CoreApplicationView^ applicationView, Windows::ApplicationModel::Activation::IActivatedEventArgs^ args);
@@ -46,6 +48,8 @@ namespace hosTileSample
 
 		bool m_windowClosed;
 		bool m_windowVisible;
+
+		static Platform::String^ s_version;
 	};
 }
 

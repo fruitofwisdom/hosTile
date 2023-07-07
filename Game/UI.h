@@ -8,7 +8,7 @@ namespace hosTileSample
 	class UI
 	{
 	public:
-		UI(hosTile::hTRenderer& renderer, const hosTile::hTFont* font);
+		UI(hosTile::hTRenderer& renderer, const hosTile::hTFont* font, const wchar_t* version);
 
 		void Update();
 		void Render();

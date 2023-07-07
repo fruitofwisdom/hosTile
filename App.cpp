@@ -1,9 +1,12 @@
 ﻿#include "pch.h"
 #include "App.h"
 
+#include <fstream>
+#include "hosTile\Other\json.hpp"
 #include <ppltasks.h>
 
 using namespace hosTileSample;
+using namespace nlohmann;
 using namespace std;
 
 using namespace concurrency;
@@ -35,12 +38,45 @@ IFrameworkView^ Direct3DApplicationSource::CreateView()
 const float App::PreferredWidth = 1280.0f;
 const float App::PreferredHeight = 720.0f;
 
+Platform::String^ App::s_version = L"unknown";
+
 App::App()
 :	m_windowClosed(false),
 	m_windowVisible(true)
 {
 	ApplicationView::PreferredLaunchViewSize = Size(PreferredWidth, PreferredHeight);
 	ApplicationView::PreferredLaunchWindowingMode = ApplicationViewWindowingMode::PreferredLaunchViewSize;
+
+	ifstream configFile("futile.json");
+	if (configFile.is_open())
+	{
+		json configJson;
+		configFile >> configJson;
+
+		if (configJson.contains("version"))
+		{
+			string version = configJson["version"];
+			wstring wversion = wstring(version.begin(), version.end());
+			s_version = ref new Platform::String(wversion.c_str());
+		}
+		if (configJson.contains("displayMode"))
+		{
+			string displayMode = configJson["displayMode"];
+			if (displayMode == "fullscreen")
+			{
+				ApplicationView::PreferredLaunchWindowingMode = ApplicationViewWindowingMode::FullScreen;
+			}
+			else if (displayMode == "maximized")
+			{
+				// NOTE: Maximized is not currently supported by UWP.
+				ApplicationView::PreferredLaunchWindowingMode = ApplicationViewWindowingMode::Maximized;
+			}
+			else if (displayMode == "windowed")
+			{
+				// Do nothing. Windowed is default.
+			}
+		}
+	}
 }
 
 // The first method called when the IFrameworkView is being created.
@@ -149,14 +185,17 @@ void App::Uninitialize()
 {
 }
 
+Platform::String^ App::GetVersion()
+{
+	return s_version;
+}
+
 // Application lifecycle event handlers.
 
 void App::OnActivated(CoreApplicationView^ applicationView, IActivatedEventArgs^ args)
 {
 	// Run() won't start until the CoreWindow is activated.
 	CoreWindow::GetForCurrentThread()->Activate();
-
-	ApplicationView::GetForCurrentView()->TryResizeView(Size(PreferredWidth, PreferredHeight));
 }
 
 void App::OnSuspending(Platform::Object^ sender, SuspendingEventArgs^ args)

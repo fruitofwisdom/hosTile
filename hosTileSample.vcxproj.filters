@@ -266,6 +266,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\futile.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_font.dds">
       <Filter>Assets\Futile</Filter>
     </CopyFileToFolders>

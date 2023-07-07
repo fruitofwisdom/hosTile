@@ -223,6 +223,9 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <CopyFileToFolders Include="Assets\Futile\futile.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile_font.dds" />
     <CopyFileToFolders Include="Assets\Futile\futile_map.json">
       <FileType>Document</FileType>
