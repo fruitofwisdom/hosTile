@@ -1,8 +1,8 @@
 #pragma once
 
-#include <string>
-#include "hosTile/Other/json_fwd.hpp"
 #include "hTSprite.h"
+#include "Other/json_fwd.hpp"
+#include <string>
 
 namespace hosTile { class hTTileset; }
 

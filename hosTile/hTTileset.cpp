@@ -2,11 +2,11 @@
 #include "hTTileset.h"
 
 #include <codecvt>
-#include <fstream>
 #include "DDSTextureLoader.h"
-#include "hosTile/hTException.h"
-#include "hosTile/Other/DirectXHelper.h"
-#include "hosTile/Other/json.hpp"
+#include <fstream>
+#include "hTException.h"
+#include "Other/DirectXHelper.h"
+#include "Other/json.hpp"
 
 using namespace hosTile;
 using namespace std;
