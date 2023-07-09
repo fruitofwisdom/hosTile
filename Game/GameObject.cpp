@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "GameObject.h"
 
-using namespace hosTileSample;
+using namespace Futile;
 
 GameObject::GameObject(std::unique_ptr<hosTile::hTSprite> sprite)
 :	m_sprite(std::move(sprite))

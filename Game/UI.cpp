@@ -4,7 +4,7 @@
 #include "hosTile/hTFont.h"
 
 using namespace hosTile;
-using namespace hosTileSample;
+using namespace Futile;
 using namespace std;
 
 UI::UI(hTRenderer& renderer, const hTFont* font, const wchar_t* version)

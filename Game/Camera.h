@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "hosTile\hTRenderer.h"
 
-namespace hosTileSample
+namespace Futile
 {
 	class Camera
 	{

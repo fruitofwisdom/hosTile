@@ -5,7 +5,7 @@
 #include "hosTile/hTFont.h"
 #include "hosTile/Other/json.hpp"
 
-using namespace hosTileSample;
+using namespace Futile;
 using namespace std;
 
 TextBox::TextBox(

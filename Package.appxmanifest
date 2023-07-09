@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="5cef6a86-6269-43c5-83fe-dc7f2b6f385a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>hosTile Sample Game</DisplayName>
+    <DisplayName>Futile</DisplayName>
     <PublisherDisplayName>Ward Childress</PublisherDisplayName>
     <Logo>Assets\App\StoreLogo.png</Logo>
   </Properties>
@@ -30,9 +30,9 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="hosTileSample.App">
+      EntryPoint="Futile.App">
       <uap:VisualElements
-        DisplayName="hosTile Sample Game"
+        DisplayName="Futile"
         Square150x150Logo="Assets\App\Square150x150Logo.png"
         Square44x44Logo="Assets\App\Square44x44Logo.png"
         Description="A 2D sprite-based graphics engine written in modern C++ using DirectX 11."

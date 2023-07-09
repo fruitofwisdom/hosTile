@@ -10,7 +10,7 @@
 #include "UI.h"
 
 // The game instance.
-namespace hosTileSample
+namespace Futile
 {
 	class Game
 	{

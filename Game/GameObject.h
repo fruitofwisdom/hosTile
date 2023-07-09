@@ -3,7 +3,7 @@
 #include "hosTile\hTSprite.h"
 #include "StepTimer.h"
 
-namespace hosTileSample
+namespace Futile
 {
 	class GameObject
 	{

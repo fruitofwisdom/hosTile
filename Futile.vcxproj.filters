@@ -135,7 +135,7 @@
     <ClCompile Include="Game\UI.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="hosTileSampleMain.cpp" />
+    <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="Game\UI.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="hosTileSampleMain.h" />
+    <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>

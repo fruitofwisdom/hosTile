@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "hosTileSampleMain.h"
+#include "FutileMain.h"
 #include "Keyboard.h"
 
-namespace hosTileSample
+namespace Futile
 {
 	// Main entry point for our app. Connects the app with the Windows shell and handles application lifecycle events.
 	ref class App sealed : public Windows::ApplicationModel::Core::IFrameworkView
@@ -41,7 +41,7 @@ namespace hosTileSample
 		static const float PreferredHeight;
 
 		std::unique_ptr<DX::DeviceResources> m_deviceResources;
-		std::unique_ptr<hosTileSampleMain> m_main;
+		std::unique_ptr<FutileMain> m_main;
 
 		std::unique_ptr<DirectX::Keyboard> m_keyboard;
 		DirectX::Keyboard::KeyboardStateTracker m_keyboardTracker;

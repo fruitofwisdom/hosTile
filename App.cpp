@@ -5,7 +5,7 @@
 #include "hosTile\Other\json.hpp"
 #include <ppltasks.h>
 
-using namespace hosTileSample;
+using namespace Futile;
 using namespace nlohmann;
 using namespace std;
 
@@ -131,7 +131,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = make_unique<hosTileSampleMain>(m_deviceResources.get());
+		m_main = make_unique<FutileMain>(m_deviceResources.get());
 	}
 }
 

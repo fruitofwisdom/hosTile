@@ -1,15 +1,15 @@
 ﻿#include "pch.h"
-#include "hosTileSampleMain.h"
+#include "FutileMain.h"
 
 #include "hosTile\Other\DirectXHelper.h"
 
 using namespace Concurrency;
-using namespace hosTileSample;
+using namespace Futile;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 
 // Loads and initializes application assets when the application is loaded.
-hosTileSampleMain::hosTileSampleMain(DX::DeviceResources* deviceResources)
+FutileMain::FutileMain(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources)
 {
 	// Register to be notified if the Device is lost or recreated
@@ -27,20 +27,20 @@ hosTileSampleMain::hosTileSampleMain(DX::DeviceResources* deviceResources)
 	m_game = std::make_unique<Game>(*m_renderer.get());
 }
 
-hosTileSampleMain::~hosTileSampleMain()
+FutileMain::~FutileMain()
 {
 	// Deregister device notification
 	m_deviceResources->RegisterDeviceNotify(nullptr);
 }
 
 // Updates application state when the window size changes (e.g. device orientation change)
-void hosTileSampleMain::CreateWindowSizeDependentResources() 
+void FutileMain::CreateWindowSizeDependentResources()
 {
 	m_renderer->CreateWindowSizeDependentResources();
 }
 
 // Updates the application state once per frame.
-void hosTileSampleMain::Update() 
+void FutileMain::Update()
 {
 	// Update scene objects.
 	m_timer.Tick([&]()
@@ -51,7 +51,7 @@ void hosTileSampleMain::Update()
 
 // Renders the current frame according to the current application state.
 // Returns true if the frame was rendered and is ready to be displayed.
-bool hosTileSampleMain::Render() 
+bool FutileMain::Render()
 {
 	// Don't try to render anything before the first Update.
 	if (m_timer.GetFrameCount() == 0)
@@ -81,13 +81,13 @@ bool hosTileSampleMain::Render()
 }
 
 // Notifies renderers that device resources need to be released.
-void hosTileSampleMain::OnDeviceLost()
+void FutileMain::OnDeviceLost()
 {
 	m_renderer->ReleaseDeviceDependentResources();
 }
 
 // Notifies renderers that device resources may now be recreated.
-void hosTileSampleMain::OnDeviceRestored()
+void FutileMain::OnDeviceRestored()
 {
 	m_renderer->CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();

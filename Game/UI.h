@@ -3,7 +3,7 @@
 #include "hosTile/hTRenderer.h"
 #include "hosTile/hTTextBox.h"
 
-namespace hosTileSample
+namespace Futile
 {
 	class UI
 	{

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Camera.h"
 
-using namespace hosTileSample;
+using namespace Futile;
 
 Camera::Camera(hosTile::hTRenderer& renderer, const GameObject& focus)
 :	m_renderer(&renderer),

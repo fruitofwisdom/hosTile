@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{458a7844-2175-4b08-bf2e-99f689284127}</ProjectGuid>
     <Keyword>DirectXApp</Keyword>
-    <RootNamespace>hosTileSample</RootNamespace>
+    <RootNamespace>Futile</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -30,6 +30,7 @@
     <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <ProjectName>Futile</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -247,7 +248,7 @@
     <ClInclude Include="Game\StepTimer.h" />
     <ClInclude Include="Game\TextBox.h" />
     <ClInclude Include="Game\UI.h" />
-    <ClInclude Include="hosTileSampleMain.h" />
+    <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -258,7 +259,7 @@
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\TextBox.cpp" />
     <ClCompile Include="Game\UI.cpp" />
-    <ClCompile Include="hosTileSampleMain.cpp" />
+    <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

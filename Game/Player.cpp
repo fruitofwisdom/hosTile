@@ -3,7 +3,7 @@
 
 #include "Keyboard.h"
 
-using namespace hosTileSample;
+using namespace Futile;
 
 const float Player::MovementSpeed = 128.0f;		// pixels-per-second
 

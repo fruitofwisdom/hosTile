@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "hosTile/hTTileSprite.h"
 
-namespace hosTileSample
+namespace Futile
 {
 	class Player : public GameObject
 	{

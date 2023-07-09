@@ -6,13 +6,13 @@
 #include "hosTile\Other\DeviceResources.h"
 
 // Renders Direct2D and 3D content on the screen.
-namespace hosTileSample
+namespace Futile
 {
-	class hosTileSampleMain : public DX::IDeviceNotify
+	class FutileMain : public DX::IDeviceNotify
 	{
 	public:
-		hosTileSampleMain(DX::DeviceResources* deviceResources);
-		~hosTileSampleMain();
+		FutileMain(DX::DeviceResources* deviceResources);
+		~FutileMain();
 
 		void CreateWindowSizeDependentResources();
 
