@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "hosTile\hTRenderer.h"
+#include "..\hosTile\hTRenderer.h"
 
 namespace Futile
 {

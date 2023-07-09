@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hosTile\hTSprite.h"
+#include "..\hosTile\hTSprite.h"
 #include "StepTimer.h"
 
 namespace Futile

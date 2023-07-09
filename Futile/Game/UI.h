@@ -1,7 +1,7 @@
 #pragma once
 
-#include "hosTile/hTRenderer.h"
-#include "hosTile/hTTextBox.h"
+#include "..\hosTile\hTRenderer.h"
+#include "..\hosTile\hTTextBox.h"
 
 namespace Futile
 {

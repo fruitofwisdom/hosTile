@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Camera.h"
-#include "hosTile\hTFont.h"
-#include "hosTile\hTMap.h"
-#include "hosTile\hTRenderer.h"
+#include "..\hosTile\hTFont.h"
+#include "..\hosTile\hTMap.h"
+#include "..\hosTile\hTRenderer.h"
 #include "Player.h"
 #include "StepTimer.h"
 #include "TextBox.h"

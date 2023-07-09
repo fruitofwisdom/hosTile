@@ -2,8 +2,8 @@
 #include "TextBox.h"
 
 #include <fstream>
-#include "hosTile/hTFont.h"
-#include "hosTile/Other/json.hpp"
+#include "..\hosTile\hTFont.h"
+#include "..\hosTile\Other\json.hpp"
 
 using namespace Futile;
 using namespace std;

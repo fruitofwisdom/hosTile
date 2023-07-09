@@ -3,9 +3,9 @@
 
 #include "App.h"
 #include <fstream>
-#include "hosTile\hTException.h"
-#include "hosTile\hTTileset.h"
-#include "hosTile\Other\json.hpp"
+#include "..\hosTile\hTException.h"
+#include "..\hosTile\hTTileset.h"
+#include "..\hosTile\Other\json.hpp"
 #include "Keyboard.h"
 
 using namespace hosTile;

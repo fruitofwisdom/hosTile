@@ -2,8 +2,8 @@
 
 #include "Game\Game.h"
 #include "Game\StepTimer.h"
-#include "hosTile\hTRenderer.h"
-#include "hosTile\Other\DeviceResources.h"
+#include "..\hosTile\hTRenderer.h"
+#include "..\hosTile\Other\DeviceResources.h"
 
 // Renders Direct2D and 3D content on the screen.
 namespace Futile

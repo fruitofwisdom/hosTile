@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "FutileMain.h"
 
-#include "hosTile\Other\DirectXHelper.h"
+#include "..\hosTile\Other\DirectXHelper.h"
 
 using namespace Concurrency;
 using namespace Futile;

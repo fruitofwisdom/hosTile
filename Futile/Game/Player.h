@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
-#include "hosTile/hTTileSprite.h"
+#include "..\hosTile\hTTileSprite.h"
 
 namespace Futile
 {
