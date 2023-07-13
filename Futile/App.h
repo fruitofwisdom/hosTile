@@ -1,8 +1,7 @@
 ﻿#pragma once
 
 #include "FutileMain.h"
-#include "Keyboard.h"
-#include "Mouse.h"
+#include "Game/Input.h"
 
 namespace Futile
 {
@@ -44,9 +43,7 @@ namespace Futile
 		std::unique_ptr<DX::DeviceResources> m_deviceResources;
 		std::unique_ptr<FutileMain> m_main;
 
-		std::unique_ptr<DirectX::Keyboard> m_keyboard;
-		DirectX::Keyboard::KeyboardStateTracker m_keyboardTracker;
-		std::unique_ptr<DirectX::Mouse> m_mouse;
+		std::unique_ptr<Input> m_input;
 
 		bool m_windowClosed;
 		bool m_windowVisible;

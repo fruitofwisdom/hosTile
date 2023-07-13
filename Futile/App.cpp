@@ -96,8 +96,7 @@ void App::Initialize(CoreApplicationView^ applicationView)
 	// At this point we have access to the device. 
 	// We can create the device-dependent resources.
 	m_deviceResources = make_unique<DX::DeviceResources>();
-	m_keyboard = make_unique<DirectX::Keyboard>();
-	m_mouse = make_unique<DirectX::Mouse>();
+	m_input = make_unique<Input>();
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -124,9 +123,8 @@ void App::SetWindow(CoreWindow^ window)
 		ref new TypedEventHandler<DisplayInformation^, Object^>(this, &App::OnDisplayContentsInvalidated);
 
 	m_deviceResources->SetWindow(window);
-	m_keyboard->SetWindow(window);
-	m_mouse->SetWindow(window);
-	m_mouse->SetDpi(currentDisplayInformation->LogicalDpi);
+	m_input->SetWindow(window);
+	m_input->SetDpi(currentDisplayInformation->LogicalDpi);
 }
 
 // Initializes scene resources, or loads a previously saved app state.
@@ -147,10 +145,11 @@ void App::Run()
 		{
 			CoreWindow::GetForCurrentThread()->Dispatcher->ProcessEvents(CoreProcessEventsOption::ProcessAllIfPresent);
 
+			m_input->Update();
+
 			// Handle the classic Alt+Enter fullscreen toggle combination.
-			auto kb = m_keyboard->GetState();
-			m_keyboardTracker.Update(kb);
-			if ((kb.LeftAlt || kb.RightAlt) && m_keyboardTracker.IsKeyPressed(DirectX::Keyboard::Enter))
+			if ((m_input->GetKeyboardState().LeftAlt || m_input->GetKeyboardState().RightAlt) &&
+				m_input->GetKeyboardTracker().IsKeyPressed(DirectX::Keyboard::Enter))
 			{
 				auto av = ApplicationView::GetForCurrentView();
 				if (!av->IsFullScreenMode)
@@ -260,7 +259,7 @@ void App::OnDpiChanged(DisplayInformation^ sender, Object^ args)
 	// See DeviceResources.cpp for more details.
 	m_deviceResources->SetDpi(sender->LogicalDpi);
 	m_main->CreateWindowSizeDependentResources();
-	m_mouse->SetDpi(sender->LogicalDpi);
+	m_input->SetDpi(sender->LogicalDpi);
 }
 
 void App::OnOrientationChanged(DisplayInformation^ sender, Object^ args)

@@ -8,6 +8,7 @@
 #include "..\hosTile\Other\json.hpp"
 #include "Keyboard.h"
 
+using namespace DirectX;
 using namespace hosTile;
 using namespace Futile;
 using namespace nlohmann;
@@ -55,7 +56,7 @@ Game::Game(hTRenderer& renderer)
 						+ m_map->GetHeight() / 2.0f - object["y"]
 						+ m_tileset->GetTileHeight() / 2.0f) * Scale;
 					auto playerSprite = make_unique<hTTileSprite>(
-						m_tileset.get(), object["gid"], DirectX::XMFLOAT3(x, y, 0.0f));
+						m_tileset.get(), object["gid"], XMFLOAT3(x, y, 0.0f));
 					playerSprite->SetScale(Scale);
 					m_player = make_unique<Player>(move(playerSprite));
 				}
@@ -91,18 +92,18 @@ void Game::Update(const DX::StepTimer& timer)
 	m_camera->Update();
 	if (m_gameState == GS_Intro)
 	{
-		DirectX::XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
+		XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
 			(int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
 			(int)(m_textBox->GetHeight() / 2.0f));
 		m_textBox->SetPosition(textBoxPosition);
 
 		// Press Enter, Space, or left-click in the text box to close it.
-		auto keyboardState = DirectX::Keyboard::Get().GetState();
-		auto mouseState = DirectX::Mouse::Get().GetState();
-		DirectX::XMFLOAT3 mousePosition = m_renderer->ScreenToWorldPosition(
-			mouseState.x, mouseState.y);
-		if (keyboardState.Enter || keyboardState.Space ||
-			(mouseState.leftButton && m_textBox->Contains(mousePosition.x, mousePosition.y)))
+		XMFLOAT3 mousePosition = m_renderer->ScreenToWorldPosition(
+			Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
+		if (Input::Get().GetKeyboardTracker().IsKeyPressed(Keyboard::Keys::Enter) ||
+			Input::Get().GetKeyboardTracker().IsKeyPressed(Keyboard::Keys::Space) ||
+			(Input::Get().GetMouseTracker().leftButton == Mouse::ButtonStateTracker::PRESSED &&
+				m_textBox->Contains(mousePosition.x, mousePosition.y)))
 		{
 			m_gameState = GS_Playing;
 			m_textBox.release();

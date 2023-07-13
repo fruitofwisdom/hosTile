@@ -129,6 +129,9 @@
     <ClCompile Include="Game\GameObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Input.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="Game\TextBox.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -150,6 +153,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Input.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\StepTimer.h">
