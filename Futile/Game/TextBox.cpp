@@ -56,3 +56,8 @@ void TextBox::SetScale(float scale)
 	m_box->SetScale(scale);
 	m_text->SetScale(scale);
 }
+
+bool TextBox::Contains(float x, float y) const
+{
+	return m_box->Contains(x, y);
+}

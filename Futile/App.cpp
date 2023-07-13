@@ -97,6 +97,7 @@ void App::Initialize(CoreApplicationView^ applicationView)
 	// We can create the device-dependent resources.
 	m_deviceResources = make_unique<DX::DeviceResources>();
 	m_keyboard = make_unique<DirectX::Keyboard>();
+	m_mouse = make_unique<DirectX::Mouse>();
 }
 
 // Called when the CoreWindow object is created (or re-created).
@@ -124,6 +125,8 @@ void App::SetWindow(CoreWindow^ window)
 
 	m_deviceResources->SetWindow(window);
 	m_keyboard->SetWindow(window);
+	m_mouse->SetWindow(window);
+	m_mouse->SetDpi(currentDisplayInformation->LogicalDpi);
 }
 
 // Initializes scene resources, or loads a previously saved app state.
@@ -257,6 +260,7 @@ void App::OnDpiChanged(DisplayInformation^ sender, Object^ args)
 	// See DeviceResources.cpp for more details.
 	m_deviceResources->SetDpi(sender->LogicalDpi);
 	m_main->CreateWindowSizeDependentResources();
+	m_mouse->SetDpi(sender->LogicalDpi);
 }
 
 void App::OnOrientationChanged(DisplayInformation^ sender, Object^ args)

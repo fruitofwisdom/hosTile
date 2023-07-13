@@ -22,6 +22,9 @@ namespace Futile
 
 		void SetScale(float scale);
 
+		// Are x and y contained within the text box's box?
+		bool Contains(float x, float y) const;
+
 	private:
 		std::unique_ptr<hosTile::hTMap> m_box;
 		std::unique_ptr<hosTile::hTTextBox> m_text;

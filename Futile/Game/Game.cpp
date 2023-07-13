@@ -96,8 +96,13 @@ void Game::Update(const DX::StepTimer& timer)
 			(int)(m_textBox->GetHeight() / 2.0f));
 		m_textBox->SetPosition(textBoxPosition);
 
-		auto kb = DirectX::Keyboard::Get().GetState();
-		if (kb.Enter || kb.Space)
+		// Press Enter, Space, or left-click in the text box to close it.
+		auto keyboardState = DirectX::Keyboard::Get().GetState();
+		auto mouseState = DirectX::Mouse::Get().GetState();
+		DirectX::XMFLOAT3 mousePosition = m_renderer->ScreenToWorldPosition(
+			mouseState.x, mouseState.y);
+		if (keyboardState.Enter || keyboardState.Space ||
+			(mouseState.leftButton && m_textBox->Contains(mousePosition.x, mousePosition.y)))
 		{
 			m_gameState = GS_Playing;
 			m_textBox.release();
