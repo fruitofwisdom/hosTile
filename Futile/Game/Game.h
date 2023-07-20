@@ -9,16 +9,28 @@
 #include "TextBox.h"
 #include "UI.h"
 
-// The game instance.
 namespace Futile
 {
+	// The game instance.
 	class Game
 	{
 	public:
 		Game(hosTile::hTRenderer& renderer);
+		virtual ~Game();
+
+		Game(Game const&) = delete;
+		Game& operator=(Game const&) = delete;
+
+		// Game is a singleton.
+		static Game& Get();
 
 		void Update(const DX::StepTimer& timer);
 		void Render();
+
+		// The primary renderer used for the camera, UI, mouse, etc.
+		hosTile::hTRenderer* GetRenderer() const;
+		// The primary UI.
+		UI& GetUI() const;
 
 	private:
 		enum GameState

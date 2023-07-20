@@ -15,7 +15,6 @@ Input::Input()
 	{
 		throw logic_error("Input is a singleton!");
 	}
-
 	s_input = this;
 
 	m_keyboard = make_unique<DirectX::Keyboard>();
@@ -33,7 +32,6 @@ Input& Input::Get()
 	{
 		throw logic_error("Input not yet created!");
 	}
-	
 	return *s_input;
 }
 

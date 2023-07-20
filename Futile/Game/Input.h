@@ -5,6 +5,7 @@
 
 namespace Futile
 {
+	// Input manages state and tracking for the keyboard and mouse.
 	class Input
 	{
 	public:
@@ -14,6 +15,7 @@ namespace Futile
 		Input(Input const&) = delete;
 		Input& operator=(Input const&) = delete;
 
+		// Input is a singleton.
 		static Input& Get();
 
 		void SetWindow(Windows::UI::Core::CoreWindow^ window);

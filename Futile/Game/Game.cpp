@@ -7,6 +7,7 @@
 #include "..\hosTile\hTTileset.h"
 #include "..\hosTile\Other\json.hpp"
 #include "Keyboard.h"
+#include <stdexcept>
 
 using namespace DirectX;
 using namespace hosTile;
@@ -16,10 +17,18 @@ using namespace std;
 
 const float Game::Scale = 5.0f;
 
+static Game* s_game = nullptr;
+
 Game::Game(hTRenderer& renderer)
 :	m_gameState(GS_Intro),
 	m_renderer(&renderer)
 {
+	if (s_game)
+	{
+		throw logic_error("Game is a singleton!");
+	}
+	s_game = this;
+
 	ifstream mapFile("futile_map.json");
 	if (mapFile.is_open())
 	{
@@ -80,6 +89,20 @@ Game::Game(hTRenderer& renderer)
 	}
 }
 
+Game::~Game()
+{
+	s_game = nullptr;
+}
+
+Game& Game::Get()
+{
+	if (s_game == nullptr)
+	{
+		throw logic_error("Game not yet created!");
+	}
+	return *s_game;
+}
+
 void Game::Update(const DX::StepTimer& timer)
 {
 	if (m_gameState == GS_Playing)
@@ -129,4 +152,14 @@ void Game::Render()
 		m_textBox->Render(*m_renderer);
 	}
 	m_ui->Render();
+}
+
+hTRenderer* Game::GetRenderer() const
+{
+	return m_renderer;
+}
+
+UI& Game::GetUI() const
+{
+	return *m_ui;
 }

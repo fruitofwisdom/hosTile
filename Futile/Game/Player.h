@@ -14,6 +14,17 @@ namespace Futile
 		void Render(hosTile::hTRenderer& renderer);
 
 	private:
+		enum PlayerState
+		{
+			PS_Idle,
+			PS_Walking
+		};
+
+		PlayerState m_playerState;
+
+		DirectX::XMFLOAT3 m_walkingTarget;
+
 		static const float MovementSpeed;		// pixels-per-second
+		static const float NearTarget;		// distance in world space
 	};
 }
