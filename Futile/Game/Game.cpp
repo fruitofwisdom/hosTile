@@ -64,10 +64,9 @@ Game::Game(hTRenderer& renderer)
 					float y = (m_map->GetPosition().y
 						+ m_map->GetHeight() / 2.0f - object["y"]
 						+ m_tileset->GetTileHeight() / 2.0f) * Scale;
-					auto playerSprite = make_unique<hTTileSprite>(
-						m_tileset.get(), object["gid"], XMFLOAT3(x, y, 0.0f));
-					playerSprite->SetScale(Scale);
-					m_player = make_unique<Player>(move(playerSprite));
+					m_player = make_unique<Player>();
+					m_player->SetPosition(XMFLOAT3(x, y, 0.0f));
+					m_player->GetSprite()->SetScale(Scale);
 				}
 			}
 

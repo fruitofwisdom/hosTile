@@ -224,6 +224,38 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
@@ -240,7 +272,6 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
     <ClInclude Include="Game\Camera.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameObject.h" />
@@ -249,11 +280,11 @@
     <ClInclude Include="Game\StepTimer.h" />
     <ClInclude Include="Game\TextBox.h" />
     <ClInclude Include="Game\UI.h" />
+    <ClInclude Include="App.h" />
     <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="Game\Camera.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameObject.cpp" />
@@ -261,6 +292,7 @@
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\TextBox.cpp" />
     <ClCompile Include="Game\UI.cpp" />
+    <ClCompile Include="App.cpp" />
     <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

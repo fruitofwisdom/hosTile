@@ -8,6 +8,7 @@ namespace Futile
 	class GameObject
 	{
 	public:
+		GameObject();
 		GameObject(std::unique_ptr<hosTile::hTSprite> sprite);
 		virtual ~GameObject() {}
 

@@ -13,28 +13,9 @@ using namespace std;
 hTSimpleSprite::hTSimpleSprite(
 	const DX::DeviceResources* deviceResources, string spriteFilename,
 	XMFLOAT3 position)
-:	hTSprite(position),
-	m_spriteFilename(spriteFilename)
+:	hTSprite(position)
 {
-	wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
-	wstring wideSpriteFilename = converter.from_bytes(spriteFilename);
-	DX::ThrowIfFailed(
-		CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), wideSpriteFilename.c_str(), nullptr, &m_texture)
-		);
-
-	// Store the width and height from the texture description.
-	ID3D11Resource* resource = nullptr;
-	m_texture->GetResource(&resource);
-	ID3D11Texture2D* texture2D = nullptr;
-	DX::ThrowIfFailed(resource->QueryInterface(&texture2D));
-	D3D11_TEXTURE2D_DESC textureDescription;
-	texture2D->GetDesc(&textureDescription);
-	m_width = textureDescription.Width;
-	m_height = textureDescription.Height;
-	texture2D->Release();
-	resource->Release();
-
-	UpdateVertices();
+	SetSprite(deviceResources, spriteFilename);
 }
 
 void hTSimpleSprite::Render(hTRenderer& renderer)
@@ -56,6 +37,33 @@ unsigned int hTSimpleSprite::GetNumVertices() const
 const VertexPositionTex* hTSimpleSprite::GetVertices() const
 {
 	return m_vertices;
+}
+
+void hTSimpleSprite::SetSprite(const DX::DeviceResources* deviceResources, string spriteFilename)
+{
+	if (!spriteFilename.empty())
+	{
+		m_spriteFilename = spriteFilename;
+		wstring_convert<codecvt_utf8_utf16<wchar_t>> converter;
+		wstring wideSpriteFilename = converter.from_bytes(spriteFilename);
+		HRESULT hr = CreateDDSTextureFromFile(deviceResources->GetD3DDevice(), wideSpriteFilename.c_str(), nullptr, &m_texture);
+		if (hr == S_OK)
+		{
+			// Store the width and height from the texture description.
+			ID3D11Resource* resource = nullptr;
+			m_texture->GetResource(&resource);
+			ID3D11Texture2D* texture2D = nullptr;
+			DX::ThrowIfFailed(resource->QueryInterface(&texture2D));
+			D3D11_TEXTURE2D_DESC textureDescription;
+			texture2D->GetDesc(&textureDescription);
+			m_width = textureDescription.Width;
+			m_height = textureDescription.Height;
+			texture2D->Release();
+			resource->Release();
+
+			UpdateVertices();
+		}
+	}
 }
 
 // Update the vertices' data after the position has changed.

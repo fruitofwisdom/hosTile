@@ -108,15 +108,17 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <Filter>Assets\App</Filter>
     </Image>
-    <Filter Include="Game">
-      <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
+    <Filter Include="Assets\Futile\Warrior">
+      <UniqueIdentifier>{f7beb7bb-db6e-488d-a10b-a97d58f0accd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Assets\Futile">
       <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="App.cpp" />
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -138,11 +140,11 @@
     <ClCompile Include="Game\UI.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="App.cpp" />
     <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
     <ClInclude Include="Game\Game.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -167,6 +169,7 @@
     <ClInclude Include="Game\UI.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="App.h" />
     <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -174,6 +177,54 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile.json">
       <Filter>Assets\Futile</Filter>
     </CopyFileToFolders>

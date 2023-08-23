@@ -3,6 +3,11 @@
 
 using namespace Futile;
 
+GameObject::GameObject()
+{
+	;
+}
+
 GameObject::GameObject(std::unique_ptr<hosTile::hTSprite> sprite)
 :	m_sprite(std::move(sprite))
 {
@@ -31,5 +36,12 @@ void GameObject::SetPosition(DirectX::XMFLOAT3 position)
 
 hosTile::hTSprite* GameObject::GetSprite() const
 {
-	return m_sprite.get();
+	hosTile::hTSprite* sprite = nullptr;
+
+	if (m_sprite != nullptr)
+	{
+		sprite = m_sprite.get();
+	}
+
+	return sprite;
 }
