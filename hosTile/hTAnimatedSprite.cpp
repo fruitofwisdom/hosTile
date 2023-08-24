@@ -25,17 +25,23 @@ hTAnimatedSprite::hTAnimatedSprite(
 
 void hTAnimatedSprite::Update(float elapsedSeconds)
 {
+	// Progress m_currentTime and loop back when we've passed the end.
 	m_currentTime += elapsedSeconds;
-	int currentFrame = m_currentTime * 1000.0f / m_speed;
-	currentFrame %= m_numFrames;
-	if (currentFrame != m_currentFrame)
+	float length = m_numFrames * m_speed / 1000.0f;
+	if (m_currentTime > length)
 	{
-		m_currentFrame = currentFrame;
+		m_currentTime -= length;
 	}
+	m_currentFrame = (int)(m_currentTime / length * m_numFrames);
 }
 
 void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources, string animationFilename)
 {
+	if (m_currentAnimation == animationFilename)
+	{
+		return;
+	}
+
 	ifstream animationFile(animationFilename);
 	if (animationFile.is_open())
 	{
@@ -49,18 +55,24 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 			spriteFilename.replace(spriteFilename.find(".ase"), string(".ase").length(), ".dds");
 			SetSprite(deviceResources, spriteFilename);
 
+			// Reset the animation.
+			m_currentAnimation = animationFilename;
+			m_currentFrame = 0;
 			m_numFrames = (unsigned int)animationJson["frames"].size();
+			m_currentTime = 0.0f;
 			m_speed = animationJson["frames"][0]["duration"];
+			m_frameData.clear();
 
 			// update the actual size of the sprite based on the number of frames
 			m_width /= m_numFrames;
 
-			m_frameData.clear();
-			for (int i = 0; i < m_numFrames; ++i)
+			for (unsigned int i = 0; i < m_numFrames; ++i)
 			{
 				hTFrameData frameData;
 				m_frameData.push_back(frameData);
 			}
+			// The program Aseprite has a concept of slices that we can use to define regions for
+			// collision, hit boxes, and hurt boxes. Load these into per-frame data.
 			for (json slice : animationJson["meta"]["slices"])
 			{
 				if (slice["name"] == "Collision")
@@ -106,6 +118,21 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 			hTException::HandleException(exception);
 		}
 	}
+}
+
+hTRegion hTAnimatedSprite::GetCollision() const
+{
+	return m_frameData[m_currentFrame].m_collision;
+}
+
+hTRegion hTAnimatedSprite::GetHitBox() const
+{
+	return m_frameData[m_currentFrame].m_hitBox;
+}
+
+hTRegion hTAnimatedSprite::GetHurtBox() const
+{
+	return m_frameData[m_currentFrame].m_hurtBox;
 }
 
 // Update the vertices' data after the position has changed.
