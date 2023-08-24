@@ -224,12 +224,20 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.dds" />
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.dds" />
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftAttack01.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.dds" />
@@ -240,12 +248,8 @@
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.dds" />
-    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.json">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.dds" />
-    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightAttack01.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.dds" />
@@ -254,6 +258,18 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.dds" />
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile.json">

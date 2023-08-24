@@ -20,7 +20,7 @@ namespace hosTile
 		// Replace the sprite with a new one.
 		void PlayAnimation(const DX::DeviceResources* deviceResources, std::string animationFilename);
 
-		// TODO: Get collision box, hit box, hurt box, etc.
+		// TODO: Get collision, hit box, and hurt box.
 
 	private:
 		// Update the vertices' data after the animation has changed.
@@ -31,5 +31,8 @@ namespace hosTile
 
 		float m_currentTime;		// in seconds
 		unsigned int m_speed;		// in milliseconds
+
+		// Contains collision, hit box, and hurt box data per frame.
+		std::vector<hTFrameData> m_frameData;
 	};
 }

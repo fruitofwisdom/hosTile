@@ -84,7 +84,8 @@
    { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
-   { "name": "Collision", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 26, "w": 16, "h": 16 } }] }
+   { "name": "Collision", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 1, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 2, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 3, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 4, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 5, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 6, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 7, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }] },
+   { "name": "Hurt Box", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }] }
   ]
  }
 }

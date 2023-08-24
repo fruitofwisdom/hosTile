@@ -137,6 +137,7 @@
     <ClInclude Include="hTAnimatedSprite.h" />
     <ClInclude Include="hTException.h" />
     <ClInclude Include="hTFont.h" />
+    <ClInclude Include="hTFrameData.h" />
     <ClInclude Include="hTMap.h" />
     <ClInclude Include="hTRenderer.h" />
     <ClInclude Include="hTShaderStructures.h" />

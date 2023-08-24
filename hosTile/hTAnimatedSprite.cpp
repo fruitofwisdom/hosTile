@@ -8,6 +8,7 @@
 
 using namespace DirectX;
 using namespace hosTile;
+using namespace nlohmann;
 using namespace std;
 
 hTAnimatedSprite::hTAnimatedSprite(
@@ -35,13 +36,12 @@ void hTAnimatedSprite::Update(float elapsedSeconds)
 
 void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources, string animationFilename)
 {
-	// TODO: Parse animation file to build frame data.
 	ifstream animationFile(animationFilename);
 	if (animationFile.is_open())
 	{
 		try
 		{
-			nlohmann::json animationJson;
+			json animationJson;
 			animationFile >> animationJson;
 
 			string spriteFilename = animationJson["frames"][0]["filename"];
@@ -54,6 +54,49 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 
 			// update the actual size of the sprite based on the number of frames
 			m_width /= m_numFrames;
+
+			m_frameData.clear();
+			for (int i = 0; i < m_numFrames; ++i)
+			{
+				hTFrameData frameData;
+				m_frameData.push_back(frameData);
+			}
+			for (json slice : animationJson["meta"]["slices"])
+			{
+				if (slice["name"] == "Collision")
+				{
+					for (json key : slice["keys"])
+					{
+						m_frameData[key["frame"]].m_collision.hasRegion = true;
+						m_frameData[key["frame"]].m_collision.x = key["bounds"]["x"];
+						m_frameData[key["frame"]].m_collision.y = key["bounds"]["y"];
+						m_frameData[key["frame"]].m_collision.width = key["bounds"]["w"];
+						m_frameData[key["frame"]].m_collision.height = key["bounds"]["h"];
+					}
+				}
+				if (slice["name"] == "Hit Box")
+				{
+					for (json key : slice["keys"])
+					{
+						m_frameData[key["frame"]].m_hitBox.hasRegion = true;
+						m_frameData[key["frame"]].m_hitBox.x = key["bounds"]["x"];
+						m_frameData[key["frame"]].m_hitBox.y = key["bounds"]["y"];
+						m_frameData[key["frame"]].m_hitBox.width = key["bounds"]["w"];
+						m_frameData[key["frame"]].m_hitBox.height = key["bounds"]["h"];
+					}
+				}
+				if (slice["name"] == "Hurt Box")
+				{
+					for (json key : slice["keys"])
+					{
+						m_frameData[key["frame"]].m_hurtBox.hasRegion = true;
+						m_frameData[key["frame"]].m_hurtBox.x = key["bounds"]["x"];
+						m_frameData[key["frame"]].m_hurtBox.y = key["bounds"]["y"];
+						m_frameData[key["frame"]].m_hurtBox.width = key["bounds"]["w"];
+						m_frameData[key["frame"]].m_hurtBox.height = key["bounds"]["h"];
+					}
+				}
+			}
 
 			UpdateVertices();
 		}

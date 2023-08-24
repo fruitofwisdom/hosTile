@@ -64,6 +64,9 @@
     <ClInclude Include="hTFont.h">
       <Filter>hosTile</Filter>
     </ClInclude>
+    <ClInclude Include="hTFrameData.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
     <ClInclude Include="hTMap.h">
       <Filter>hosTile</Filter>
     </ClInclude>
