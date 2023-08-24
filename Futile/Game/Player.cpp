@@ -16,47 +16,61 @@ using namespace std;
 const float Player::MovementSpeed = 128.0f;		// pixels-per-second
 
 Player::Player()
-:	m_playerState(PS_Idle)
+:	m_playerState(PS_Idle),
+	m_facingAngle(90.0f)
 {
-	m_sprite = make_unique<hTAnimatedSprite>(
-		Game::Get().GetRenderer()->GetDeviceResources(), "WarriorRightIdle.json");
+	m_sprite = make_unique<hTAnimatedSprite>(Game::Get().GetRenderer()->GetDeviceResources(), "WarriorDownIdle.json");
 }
 
 void Player::Update(const DX::StepTimer& timer)
 {
+	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
 	float delta = (float)timer.GetElapsedSeconds();
 
 	switch (m_playerState)
 	{
+	case PS_Attack:
+		{
+			if (animatedSprite->AnimationDone())
+			{
+				m_playerState = PS_Idle;
+				PlayAnimationForDirection("WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
+			}
+		}
+		break;
+
 	case PS_Idle:
 		{
 			Mouse::ButtonStateTracker mouseTracker = Input::Get().GetMouseTracker();
 			if (mouseTracker.leftButton == Mouse::ButtonStateTracker::PRESSED)
 			{
-				m_playerState = PS_Walking;
-				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(
-					Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
+				m_playerState = PS_Walk;
+				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
 				XMVECTOR walkingTargetVector = XMLoadFloat3(&m_walkingTarget);
 				XMVECTOR positionVector = XMLoadFloat3(&GetPosition());
 				XMVECTOR direction = walkingTargetVector - positionVector;
 				XMVECTOR directionNormalized = XMVector3Normalize(direction);
-				float angle = XMConvertToDegrees(
-					atan2(XMVectorGetY(directionNormalized), XMVectorGetX(directionNormalized))) + 180.0f;
+				m_facingAngle = XMConvertToDegrees(atan2(XMVectorGetY(directionNormalized), XMVectorGetX(directionNormalized))) + 180.0f;
+				PlayAnimationForDirection("WarriorLeftWalk.json", "WarriorDownWalk.json", "WarriorRightWalk.json", "WarriorUpWalk.json");
+			}
+
+			// If the right mouse button is pressed, start to attack.
+			if (mouseTracker.rightButton == Mouse::ButtonStateTracker::PRESSED)
+			{
+				m_playerState = PS_Attack;
 				PlayAnimationForDirection(
-					angle,
-					"WarriorLeftWalk.json", "WarriorDownWalk.json", "WarriorRightWalk.json", "WarriorUpWalk.json");
+					"WarriorLeftAttack01.json", "WarriorDownAttack01.json", "WarriorRightAttack01.json", "WarriorUpAttack01.json", false);
 			}
 		}
 		break;
 
-	case PS_Walking:
+	case PS_Walk:
 		{
 			Mouse::ButtonStateTracker mouseTracker = Input::Get().GetMouseTracker();
 			if (mouseTracker.leftButton == Mouse::ButtonStateTracker::PRESSED ||
 				mouseTracker.leftButton == Mouse::ButtonStateTracker::HELD)
 			{
-				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(
-					Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
+				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
 			}
 
 			// Move towards the walking target.
@@ -64,11 +78,8 @@ void Player::Update(const DX::StepTimer& timer)
 			XMVECTOR positionVector = XMLoadFloat3(&GetPosition());
 			XMVECTOR direction = walkingTargetVector - positionVector;
 			XMVECTOR directionNormalized = XMVector3Normalize(direction);
-			float angle = XMConvertToDegrees(
-				atan2(XMVectorGetY(directionNormalized), XMVectorGetX(directionNormalized))) + 180.0f;
-			PlayAnimationForDirection(
-				angle,
-				"WarriorLeftWalk.json", "WarriorDownWalk.json", "WarriorRightWalk.json", "WarriorUpWalk.json");
+			m_facingAngle = XMConvertToDegrees(atan2(XMVectorGetY(directionNormalized), XMVectorGetX(directionNormalized))) + 180.0f;
+			PlayAnimationForDirection("WarriorLeftWalk.json", "WarriorDownWalk.json", "WarriorRightWalk.json", "WarriorUpWalk.json");
 
 			XMFLOAT3 position = GetPosition();
 			position.x += XMVectorGetX(directionNormalized) * MovementSpeed * delta;
@@ -80,15 +91,20 @@ void Player::Update(const DX::StepTimer& timer)
 			if (XMVectorGetX(distance) < MovementSpeed * delta)
 			{
 				m_playerState = PS_Idle;
+				PlayAnimationForDirection("WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
+			}
+
+			// If the right mouse button is pressed, stop and attack.
+			if (mouseTracker.rightButton == Mouse::ButtonStateTracker::PRESSED)
+			{
+				m_playerState = PS_Attack;
 				PlayAnimationForDirection(
-					angle,
-					"WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
+					"WarriorLeftAttack01.json", "WarriorDownAttack01.json", "WarriorRightAttack01.json", "WarriorUpAttack01.json", false);
 			}
 		}
 		break;
 	}
 
-	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
 	animatedSprite->Update(delta);
 }
 
@@ -115,30 +131,24 @@ hTRegion Player::GetHurtBox() const
 	return animatedSprite->GetHurtBox();
 }
 
-// Play a particular animation based on an atan2 angle in the range 0.0f to 360.0f.
-void Player::PlayAnimationForDirection(
-	float angle,
-	string leftAnimation, string downAnimation, string rightAnimation, string upAnimation)
+// Play a particular animation based on the player's angle in the range 0.0f to 360.0f.
+void Player::PlayAnimationForDirection(string leftAnimation, string downAnimation, string rightAnimation, string upAnimation, bool looping)
 {
 	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
-	if (angle > 315.0f || angle <= 45.0f)
+	if (m_facingAngle > 315.0f || m_facingAngle <= 45.0f)
 	{
-		animatedSprite->PlayAnimation(
-			Game::Get().GetRenderer()->GetDeviceResources(), leftAnimation);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), leftAnimation, looping);
 	}
-	else if (angle > 45.0f && angle <= 135.0f)
+	else if (m_facingAngle > 45.0f && m_facingAngle <= 135.0f)
 	{
-		animatedSprite->PlayAnimation(
-			Game::Get().GetRenderer()->GetDeviceResources(), downAnimation);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), downAnimation, looping);
 	}
-	else if (angle > 135.0f && angle <= 225.0f)
+	else if (m_facingAngle > 135.0f && m_facingAngle <= 225.0f)
 	{
-		animatedSprite->PlayAnimation(
-			Game::Get().GetRenderer()->GetDeviceResources(), rightAnimation);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), rightAnimation, looping);
 	}
 	else
 	{
-		animatedSprite->PlayAnimation(
-			Game::Get().GetRenderer()->GetDeviceResources(), upAnimation);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), upAnimation, looping);
 	}
 }

@@ -18,18 +18,19 @@ namespace Futile
 		hosTile::hTRegion GetHurtBox() const;
 
 	private:
-		// Play a particular animation based on an atan2 angle in the range 0.0f to 360.0f.
+		// Play a particular animation based on the player's angle in the range 0.0f to 360.0f.
 		void PlayAnimationForDirection(
-			float angle,
-			std::string leftAnimation, std::string downAnimation, std::string rightAnimation, std::string upAnimation);
+			std::string leftAnimation, std::string downAnimation, std::string rightAnimation, std::string upAnimation, bool looping = true);
 
 		enum PlayerState
 		{
+			PS_Attack,
 			PS_Idle,
-			PS_Walking
+			PS_Walk
 		};
 
 		PlayerState m_playerState;
+		float m_facingAngle;		// in degrees
 
 		DirectX::XMFLOAT3 m_walkingTarget;
 
