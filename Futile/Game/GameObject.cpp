@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 using namespace Futile;
+using namespace hosTile;
 
 GameObject::GameObject()
 {
@@ -34,9 +35,9 @@ void GameObject::SetPosition(DirectX::XMFLOAT3 position)
 	}
 }
 
-hosTile::hTSprite* GameObject::GetSprite() const
+hTSprite* GameObject::GetSprite() const
 {
-	hosTile::hTSprite* sprite = nullptr;
+	hTSprite* sprite = nullptr;
 
 	if (m_sprite != nullptr)
 	{
@@ -44,4 +45,22 @@ hosTile::hTSprite* GameObject::GetSprite() const
 	}
 
 	return sprite;
+}
+
+hTRegion GameObject::GetCollision() const
+{
+	hTRegion collision;
+	return collision;
+}
+
+hTRegion GameObject::GetHitBox() const
+{
+	hTRegion hitBox;
+	return hitBox;
+}
+
+hTRegion GameObject::GetHurtBox() const
+{
+	hTRegion hurtBox;
+	return hurtBox;
 }

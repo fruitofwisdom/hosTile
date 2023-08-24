@@ -13,6 +13,10 @@ namespace Futile
 		void Update(const DX::StepTimer& timer);
 		void Render(hosTile::hTRenderer& renderer);
 
+		hosTile::hTRegion GetCollision() const;
+		hosTile::hTRegion GetHitBox() const;
+		hosTile::hTRegion GetHurtBox() const;
+
 	private:
 		// Play a particular animation based on an atan2 angle in the range 0.0f to 360.0f.
 		void PlayAnimationForDirection(

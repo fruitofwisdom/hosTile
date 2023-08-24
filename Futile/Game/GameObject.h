@@ -1,5 +1,6 @@
 #pragma once
 
+#include "..\hosTile\hTFrameData.h"
 #include "..\hosTile\hTSprite.h"
 #include "StepTimer.h"
 
@@ -18,6 +19,10 @@ namespace Futile
 		void SetPosition(DirectX::XMFLOAT3 position);
 
 		hosTile::hTSprite* GetSprite() const;
+
+		virtual hosTile::hTRegion GetCollision() const;
+		virtual hosTile::hTRegion GetHitBox() const;
+		virtual hosTile::hTRegion GetHurtBox() const;
 
 	protected:
 		std::unique_ptr<hosTile::hTSprite> m_sprite;

@@ -97,6 +97,24 @@ void Player::Render(hosTile::hTRenderer& renderer)
 	m_sprite->Render(renderer);
 }
 
+hTRegion Player::GetCollision() const
+{
+	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
+	return animatedSprite->GetCollision();
+}
+
+hTRegion Player::GetHitBox() const
+{
+	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
+	return animatedSprite->GetHitBox();
+}
+
+hTRegion Player::GetHurtBox() const
+{
+	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
+	return animatedSprite->GetHurtBox();
+}
+
 // Play a particular animation based on an atan2 angle in the range 0.0f to 360.0f.
 void Player::PlayAnimationForDirection(
 	float angle,
