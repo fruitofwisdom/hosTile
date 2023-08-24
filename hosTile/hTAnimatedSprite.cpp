@@ -16,8 +16,10 @@ hTAnimatedSprite::hTAnimatedSprite(
 	XMFLOAT3 position)
 :	hTSimpleSprite(deviceResources, "", position),
 	m_currentFrame(0),
-	m_numFrames(0),
 	m_currentTime(0.0f),
+	m_animationDone(false),
+	m_looping(true),
+	m_numFrames(0),
 	m_speed(100)
 {
 	PlayAnimation(deviceResources, animationFilename);
@@ -25,17 +27,25 @@ hTAnimatedSprite::hTAnimatedSprite(
 
 void hTAnimatedSprite::Update(float elapsedSeconds)
 {
-	// Progress m_currentTime and loop back when we've passed the end.
+	// Progress m_currentTime and loop back when we've passed the end, if looping.
 	m_currentTime += elapsedSeconds;
 	float length = m_numFrames * m_speed / 1000.0f;
 	if (m_currentTime > length)
 	{
-		m_currentTime -= length;
+		if (m_looping)
+		{
+			m_currentTime -= length;
+		}
+		else
+		{
+			m_currentTime = length;
+			m_animationDone = true;
+		}
 	}
 	m_currentFrame = (int)(m_currentTime / length * m_numFrames);
 }
 
-void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources, string animationFilename)
+void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources, string animationFilename, bool looping)
 {
 	if (m_currentAnimation == animationFilename)
 	{
@@ -58,8 +68,10 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 			// Reset the animation.
 			m_currentAnimation = animationFilename;
 			m_currentFrame = 0;
-			m_numFrames = (unsigned int)animationJson["frames"].size();
 			m_currentTime = 0.0f;
+			m_animationDone = false;
+			m_looping = looping;
+			m_numFrames = (unsigned int)animationJson["frames"].size();
 			m_speed = animationJson["frames"][0]["duration"];
 			m_frameData.clear();
 
@@ -118,6 +130,11 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 			hTException::HandleException(exception);
 		}
 	}
+}
+
+bool hTAnimatedSprite::AnimationDone() const
+{
+	return m_animationDone;
 }
 
 hTRegion hTAnimatedSprite::GetCollision() const

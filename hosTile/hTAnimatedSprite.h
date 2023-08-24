@@ -17,8 +17,8 @@ namespace hosTile
 
 		void Update(float elapsedSeconds);
 
-		// Replace the sprite with a new one.
-		void PlayAnimation(const DX::DeviceResources* deviceResources, std::string animationFilename);
+		void PlayAnimation(const DX::DeviceResources* deviceResources, std::string animationFilename, bool looping = true);
+		bool AnimationDone() const;
 
 		hTRegion GetCollision() const;
 		hTRegion GetHitBox() const;
@@ -30,8 +30,11 @@ namespace hosTile
 
 		std::string m_currentAnimation;
 		unsigned int m_currentFrame;
-		unsigned int m_numFrames;
 		float m_currentTime;		// in seconds
+
+		bool m_animationDone;
+		bool m_looping;
+		unsigned int m_numFrames;
 		unsigned int m_speed;		// in milliseconds
 
 		// Contains collision, hit box, and hurt box data per frame.
