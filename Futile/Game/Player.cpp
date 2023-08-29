@@ -19,7 +19,7 @@ Player::Player()
 :	m_playerState(PS_Idle),
 	m_facingAngle(90.0f)
 {
-	m_sprite = make_unique<hTAnimatedSprite>(Game::Get().GetRenderer()->GetDeviceResources(), "WarriorDownIdle.json");
+	m_sprite = make_unique<hTAnimatedSprite>(Game::Get().GetRenderer().GetDeviceResources(), "WarriorDownIdle.json");
 }
 
 void Player::Update(const DX::StepTimer& timer)
@@ -45,7 +45,7 @@ void Player::Update(const DX::StepTimer& timer)
 			if (mouseTracker.leftButton == Mouse::ButtonStateTracker::PRESSED)
 			{
 				m_playerState = PS_Walk;
-				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
+				m_walkingTarget = Game::Get().GetRenderer().ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
 				XMVECTOR walkingTargetVector = XMLoadFloat3(&m_walkingTarget);
 				XMVECTOR positionVector = XMLoadFloat3(&GetPosition());
 				XMVECTOR direction = walkingTargetVector - positionVector;
@@ -70,7 +70,7 @@ void Player::Update(const DX::StepTimer& timer)
 			if (mouseTracker.leftButton == Mouse::ButtonStateTracker::PRESSED ||
 				mouseTracker.leftButton == Mouse::ButtonStateTracker::HELD)
 			{
-				m_walkingTarget = Game::Get().GetRenderer()->ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
+				m_walkingTarget = Game::Get().GetRenderer().ScreenToWorldPosition(Input::Get().GetMouseState().x, Input::Get().GetMouseState().y);
 			}
 
 			// Move towards the walking target.
@@ -137,18 +137,18 @@ void Player::PlayAnimationForDirection(string leftAnimation, string downAnimatio
 	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
 	if (m_facingAngle > 315.0f || m_facingAngle <= 45.0f)
 	{
-		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), leftAnimation, looping);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer().GetDeviceResources(), leftAnimation, looping);
 	}
 	else if (m_facingAngle > 45.0f && m_facingAngle <= 135.0f)
 	{
-		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), downAnimation, looping);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer().GetDeviceResources(), downAnimation, looping);
 	}
 	else if (m_facingAngle > 135.0f && m_facingAngle <= 225.0f)
 	{
-		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), rightAnimation, looping);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer().GetDeviceResources(), rightAnimation, looping);
 	}
 	else
 	{
-		animatedSprite->PlayAnimation(Game::Get().GetRenderer()->GetDeviceResources(), upAnimation, looping);
+		animatedSprite->PlayAnimation(Game::Get().GetRenderer().GetDeviceResources(), upAnimation, looping);
 	}
 }

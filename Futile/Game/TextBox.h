@@ -1,7 +1,8 @@
 #pragma once
 
+#include "..\hosTile\hTFont.h"
 #include "..\hosTile\hTMap.h"
-#include "..\hosTile\hTRenderer.h"
+#include "..\hosTile\hTTileset.h"
 #include "..\hosTile\hTTextBox.h"
 
 namespace Futile
@@ -9,11 +10,9 @@ namespace Futile
 	class TextBox
 	{
 	public:
-		TextBox(
-			const hosTile::hTTileset* boxTileset, std::string boxFilename,
-			const hosTile::hTFont* font, const wchar_t* text);
+		TextBox(std::string tilesetFilename, std::string boxFilename, std::string fontFilename, const wchar_t* text);
 
-		void Render(hosTile::hTRenderer& renderer);
+		void Render();
 
 		void SetPosition(DirectX::XMFLOAT3 position);
 
@@ -26,7 +25,10 @@ namespace Futile
 		bool Contains(float x, float y) const;
 
 	private:
+		std::unique_ptr<hosTile::hTTileset> m_tileset;
 		std::unique_ptr<hosTile::hTMap> m_box;
+
+		std::unique_ptr<hosTile::hTFont> m_font;
 		std::unique_ptr<hosTile::hTTextBox> m_text;
 	};
 }

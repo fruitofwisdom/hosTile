@@ -2,12 +2,7 @@
 #include "Game.h"
 
 #include "App.h"
-#include <fstream>
-#include "..\hosTile\hTException.h"
-#include "..\hosTile\hTTileset.h"
 #include "..\hosTile\Other\json.hpp"
-#include "Keyboard.h"
-#include <stdexcept>
 
 using namespace DirectX;
 using namespace hosTile;
@@ -29,61 +24,18 @@ Game::Game(hTRenderer& renderer)
 	}
 	s_game = this;
 
-	ifstream mapFile("futile_map.json");
-	if (mapFile.is_open())
+	m_level = make_unique<Level>("futile_map.json");
+	if (m_level->IsLoaded())
 	{
-		try
-		{
-			json mapJson;
-			mapFile >> mapJson;
-			string tilesetSource = mapJson["tilesets"][0]["source"];
-			// the tileset is kept internally as a .tsx file, but exported as a .json
-			tilesetSource.replace(tilesetSource.find(".tsx"), string(".tsx").length(), ".json");
+		m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());
 
-			DX::DeviceResources* deviceResources = m_renderer->GetDeviceResources();
-			m_tileset = make_unique<hTTileset>(deviceResources, tilesetSource);
+		// TODO: The text box and UI should have its own tileset.
+		m_textBox = make_unique<TextBox>(
+			"futile_tileset.json", "futile_textbox.json", "futile_font.dds",
+			L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
+		m_textBox->SetScale(Scale);
 
-			// TODO: This should be a part of "futile_font.json".
-			const wchar_t* fontDescription = L"abcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n1234567890.:,;\'\"(!?)+-*/= ";
-			m_font = make_unique<hTFont>(deviceResources, "futile_font.dds", fontDescription);
-
-			m_map = make_unique<hTMap>(m_tileset.get(), mapJson);
-			m_map->SetScale(Scale);
-
-			// TODO: Search through only objectgroups.
-			json objects = mapJson["layers"][1]["objects"];
-			for (json object : objects)
-			{
-				if (object["name"] == "player")
-				{
-					// Objects are placed in Tiled based on their bottom-left corner from the top-left
-					// corner of the map. Translate that to an absolute position in our game's space.
-					float x = (m_map->GetPosition().x
-						- m_map->GetWidth() / 2.0f + object["x"]
-						+ m_tileset->GetTileWidth() / 2.0f) * Scale;
-					float y = (m_map->GetPosition().y
-						+ m_map->GetHeight() / 2.0f - object["y"]
-						+ m_tileset->GetTileHeight() / 2.0f) * Scale;
-					m_player = make_unique<Player>();
-					m_player->SetPosition(XMFLOAT3(x, y, 0.0f));
-					m_player->GetSprite()->SetScale(Scale);
-				}
-			}
-
-			m_textBox = make_unique<TextBox>(
-				m_tileset.get(), "futile_textbox.json",
-				m_font.get(), L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
-			m_textBox->SetScale(Scale);
-		}
-		catch (hTException& exception)
-		{
-			// Any hosTile exceptions can be handled generically.
-			hTException::HandleException(exception);
-		}
-
-		m_camera = make_unique<Camera>(*m_renderer, *m_player.get());
-
-		m_ui = make_unique<UI>(*m_renderer, m_font.get(), App::GetVersion()->Data());
+		m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
 		m_ui->SetScale(Scale);
 	}
 }
@@ -104,16 +56,16 @@ Game& Game::Get()
 
 void Game::Update(const DX::StepTimer& timer)
 {
-	if (m_gameState == GS_Playing)
+	if (!m_level->IsLoaded())
 	{
-		if (m_player)
-		{
-			m_player->Update(timer);
-		}
+		return;
 	}
-	m_camera->Update();
-	if (m_gameState == GS_Intro)
+
+	switch (m_gameState)
 	{
+	case GS_Intro:
+		m_camera->Update();
+
 		XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
 			(int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
 			(int)(m_textBox->GetHeight() / 2.0f));
@@ -130,13 +82,19 @@ void Game::Update(const DX::StepTimer& timer)
 			m_gameState = GS_Playing;
 			m_textBox.release();
 		}
+	break;
+
+	case GS_Playing:
+		m_level->Update(timer);
+		m_camera->Update();
+		break;
 	}
 
 	// An example of printing debug text.
 	/*
 	wstringstream debugText;
 	debugText << fixed << setprecision(3);
-	debugText << "player: " << m_player->GetPosition().x << ", " << m_player->GetPosition().y;
+	debugText << "player: " << m_level->GetPlayer()->GetPosition().x << ", " << m_level->GetPlayer()->GetPosition().y;
 	m_ui->SetDebugText(debugText.str().c_str());
 	*/
 	m_ui->Update();
@@ -144,18 +102,17 @@ void Game::Update(const DX::StepTimer& timer)
 
 void Game::Render()
 {
-	m_map->Render(*m_renderer);
-	m_player->Render(*m_renderer);
-	if (m_textBox != nullptr)
+	m_level->Render();
+	if (m_textBox)
 	{
-		m_textBox->Render(*m_renderer);
+		m_textBox->Render();
 	}
 	m_ui->Render();
 }
 
-hTRenderer* Game::GetRenderer() const
+hTRenderer& Game::GetRenderer() const
 {
-	return m_renderer;
+	return *m_renderer;
 }
 
 UI& Game::GetUI() const

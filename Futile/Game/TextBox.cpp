@@ -2,29 +2,36 @@
 #include "TextBox.h"
 
 #include <fstream>
-#include "..\hosTile\hTFont.h"
+#include "Game.h"
 #include "..\hosTile\Other\json.hpp"
 
 using namespace Futile;
+using namespace hosTile;
 using namespace std;
 
-TextBox::TextBox(
-	const hosTile::hTTileset* boxTileset, string boxFilename,
-	const hosTile::hTFont* font, const wchar_t* text)
+TextBox::TextBox(string tilesetFilename, string boxFilename, string fontFilename, const wchar_t* text)
 {
+	DX::DeviceResources* deviceResources = Game::Get().GetRenderer().GetDeviceResources();
+
+	m_tileset = make_unique<hTTileset>(deviceResources, tilesetFilename);
+
 	ifstream textBoxMapFile(boxFilename);
 	nlohmann::json textBoxMapJson;
 	textBoxMapFile >> textBoxMapJson;
-	m_box = make_unique<hosTile::hTMap>(boxTileset, textBoxMapJson);
+	m_box = make_unique<hosTile::hTMap>(*m_tileset, textBoxMapJson);
 
-	m_text = make_unique<hosTile::hTTextBox>(font, text);
-	m_text->SetBounds(GetWidth() - font->GetLetterWidth() * 2, font->GetLetterHeight() * 4);
+	// TODO: This should be a part of a font JSON file.
+	const wchar_t* fontDescription = L"abcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n1234567890.:,;\'\"(!?)+-*/= ";
+	m_font = make_unique<hTFont>(deviceResources, fontFilename, fontDescription);
+
+	m_text = make_unique<hosTile::hTTextBox>(*m_font, text);
+	m_text->SetBounds(GetWidth() - m_font->GetLetterWidth() * 2, m_font->GetLetterHeight() * 4);
 }
 
-void TextBox::Render(hosTile::hTRenderer& renderer)
+void TextBox::Render()
 {
-	m_box->Render(renderer);
-	m_text->Render(renderer);
+	m_box->Render(Game::Get().GetRenderer());
+	m_text->Render(Game::Get().GetRenderer());
 }
 
 void TextBox::SetPosition(DirectX::XMFLOAT3 position)

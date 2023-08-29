@@ -11,10 +11,10 @@ using namespace hosTile;
 const float hTMap::UVSeamSlack = 0.00005f;
 
 hTMap::hTMap(
-	const hTTileset* tileset, const nlohmann::json& mapJson,
+	const hTTileset& tileset, const nlohmann::json& mapJson,
 	DirectX::XMFLOAT3 position)
 :	hTSprite(position),
-	m_tileset(tileset)
+	m_tileset(&tileset)
 {
 	for (unsigned int gid : mapJson["layers"][0]["data"])
 	{

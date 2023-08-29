@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\hosTile\hTRenderer.h"
+#include "..\hosTile\hTFont.h"
 #include "..\hosTile\hTTextBox.h"
 
 namespace Futile
@@ -8,7 +8,7 @@ namespace Futile
 	class UI
 	{
 	public:
-		UI(hosTile::hTRenderer& renderer, const hosTile::hTFont* font, const wchar_t* version);
+		UI(std::string fontFilename, const wchar_t* version);
 
 		void Update();
 		void Render();
@@ -18,7 +18,7 @@ namespace Futile
 		void SetDebugText(const wchar_t* text);
 
 	private:
-		hosTile::hTRenderer* m_renderer;
+		std::unique_ptr<hosTile::hTFont> m_font;
 
 		std::unique_ptr<hosTile::hTTextBox> m_debug;
 		std::unique_ptr<hosTile::hTTextBox> m_version;

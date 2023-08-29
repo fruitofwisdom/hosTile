@@ -13,7 +13,7 @@ namespace hosTile
 	{
 	public:
 		hTMap(
-			const hTTileset* tileset, const nlohmann::json& mapJson,
+			const hTTileset& tileset, const nlohmann::json& mapJson,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f });
 
 		void Render(hosTile::hTRenderer& renderer);
