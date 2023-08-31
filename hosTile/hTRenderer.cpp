@@ -12,7 +12,8 @@ using namespace Windows::Foundation;
 
 hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources),
-	m_loadingComplete(false)
+	m_loadingComplete(false),
+	m_clearColor(Colors::CornflowerBlue)
 {
 	m_cameraPosition = { 0.0f, 0.0f, -1.0f, 0.0f };
 	m_cameraFocus = { 0.0f, 0.0f, 1.0f, 0.0f };
@@ -192,6 +193,18 @@ void hTRenderer::Render()
 	// TODO: Upgrade this to ID3D11DeviceContext4.
 	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
 
+	// Reset the viewport to target the whole screen.
+	D3D11_VIEWPORT viewport = m_deviceResources->GetScreenViewport();
+	deviceContext->RSSetViewports(1, &viewport);
+
+	// Reset render targets to the screen.
+	ID3D11RenderTargetView* const targets[1] = { m_deviceResources->GetBackBufferRenderTargetView() };
+	deviceContext->OMSetRenderTargets(1, targets, m_deviceResources->GetDepthStencilView());
+
+	// Clear the back buffer and depth stencil view.
+	deviceContext->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), m_clearColor);
+	deviceContext->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
 	// Prepare the constant buffer to send it to the graphics device.
 	deviceContext->UpdateSubresource1(
 		m_constantBuffer.Get(), 0, NULL,
@@ -296,6 +309,11 @@ XMFLOAT3 hTRenderer::ScreenToWorldPosition(int x, int y) const
 	// The unprojected z value is not relevant in this situation.
 	toReturn.z = 0.0f;
 	return toReturn;
+}
+
+void hTRenderer::SetClearColor(DirectX::XMVECTORF32 clearColor)
+{
+	m_clearColor = clearColor;
 }
 
 // Copy each sprite's vertices into the vertex buffer.

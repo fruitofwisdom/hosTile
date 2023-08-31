@@ -61,6 +61,12 @@ void hTMap::UpdateVertices()
 		{
 			unsigned int gid = m_mapData[y * m_mapWidth + x];
 
+			// A gid of 0 means no tile.
+			if (gid == 0)
+			{
+				continue;
+			}
+
 			// The top three bits are for flipping flags and the tiles are 1-indexed.
 			unsigned int tileNum = (gid & 0x1FFFFFFF) - 1;
 			float tileXPosition = x * m_tileset->GetTileWidth()

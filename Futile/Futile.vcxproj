@@ -272,6 +272,13 @@
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\DungeonMap.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\DungeonTileset.dds" />
+    <CopyFileToFolders Include="Assets\Futile\DungeonTileset.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\futile.json">
       <FileType>Document</FileType>
     </CopyFileToFolders>
@@ -297,6 +304,7 @@
     <ClInclude Include="Game\StepTimer.h" />
     <ClInclude Include="Game\TextBox.h" />
     <ClInclude Include="Game\UI.h" />
+    <ClInclude Include="Game\Utilities.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
@@ -310,6 +318,7 @@
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\TextBox.cpp" />
     <ClCompile Include="Game\UI.cpp" />
+    <ClCompile Include="Game\Utilities.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp">

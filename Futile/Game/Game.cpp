@@ -24,6 +24,10 @@ Game::Game(hTRenderer& renderer)
 	}
 	s_game = this;
 
+	m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
+	m_ui->SetScale(Scale);
+
+	//m_level = make_unique<Level>("DungeonMap.json");
 	m_level = make_unique<Level>("futile_map.json");
 	if (m_level->IsLoaded())
 	{
@@ -34,9 +38,6 @@ Game::Game(hTRenderer& renderer)
 			"futile_tileset.json", "futile_textbox.json", "futile_font.dds",
 			L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
 		m_textBox->SetScale(Scale);
-
-		m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
-		m_ui->SetScale(Scale);
 	}
 }
 

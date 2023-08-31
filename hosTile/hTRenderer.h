@@ -33,6 +33,8 @@ namespace hosTile
 		// Convert from screen space (pixels) to world space.
 		DirectX::XMFLOAT3 ScreenToWorldPosition(int x, int y) const;
 
+		void SetClearColor(DirectX::XMVECTORF32 clearColor);
+
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
 		void FillVertexBuffer();
@@ -65,5 +67,7 @@ namespace hosTile
 		DirectX::XMVECTORF32 m_cameraPosition;
 		DirectX::XMVECTORF32 m_cameraFocus;
 		DirectX::XMVECTORF32 m_cameraUp;
+
+		DirectX::XMVECTORF32 m_clearColor;
 	};
 }

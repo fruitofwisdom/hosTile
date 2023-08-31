@@ -6,6 +6,7 @@
 #include "..\hosTile\hTException.h"
 #include "..\hosTile\hTRenderer.h"
 #include "..\hosTile\Other\json.hpp"
+#include "Utilities.h"
 
 using namespace Futile;
 using namespace hosTile;
@@ -32,23 +33,38 @@ Level::Level(string levelFilename)
 			m_map = make_unique<hTMap>(*m_tileset, levelJson);
 			m_map->SetScale(Game::Scale);
 
-			// TODO: Search through only objectgroups.
-			json objects = levelJson["layers"][1]["objects"];
-			for (json object : objects)
+			if (levelJson.contains("backgroundcolor"))
 			{
-				if (object["name"] == "player")
+				string backgroundColor = levelJson["backgroundcolor"];
+				Game::Get().GetRenderer().SetClearColor(Utilities::HexColorCodeToVector(backgroundColor));
+			}
+
+			json layers = levelJson["layers"];
+			for (json layer : layers)
+			{
+				// Load game objects from all object layers.
+				if (layer.contains("objects"))
 				{
-					// Objects are placed in Tiled based on their bottom-left corner from the top-left
-					// corner of the map. Translate that to an absolute position in our game's space.
-					float x = (m_map->GetPosition().x
-						- m_map->GetWidth() / 2.0f + object["x"]
-						+ m_tileset->GetTileWidth() / 2.0f) * Game::Scale;
-					float y = (m_map->GetPosition().y
-						+ m_map->GetHeight() / 2.0f - object["y"]
-						+ m_tileset->GetTileHeight() / 2.0f) * Game::Scale;
-					m_player = make_unique<Player>();
-					m_player->SetPosition(DirectX::XMFLOAT3(x, y, 0.0f));
-					m_player->GetSprite()->SetScale(Game::Scale);
+					json objects = layer["objects"];
+					for (json object : objects)
+					{
+						if (object["name"] == "player")
+						{
+							// Objects are placed in Tiled based on their bottom-left corner from the top-left
+							// corner of the map. Translate that to an absolute position in our game's space.
+							float x = (m_map->GetPosition().x
+								- m_map->GetWidth() / 2.0f + object["x"]
+								+ m_tileset->GetTileWidth() / 2.0f) * Game::Scale;
+							float y = (m_map->GetPosition().y
+								+ m_map->GetHeight() / 2.0f - object["y"]
+								+ m_tileset->GetTileHeight() / 2.0f) * Game::Scale;
+							m_player = make_unique<Player>();
+							m_player->SetPosition(DirectX::XMFLOAT3(x, y, 0.0f));
+							m_player->GetSprite()->SetScale(Game::Scale);
+						}
+
+						// TODO: Additional game objects.
+					}
 				}
 			}
 
