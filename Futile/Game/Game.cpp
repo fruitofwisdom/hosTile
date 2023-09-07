@@ -27,8 +27,8 @@ Game::Game(hTRenderer& renderer)
 	m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
 	m_ui->SetScale(Scale);
 
-	//m_level = make_unique<Level>("DungeonMap.json");
-	m_level = make_unique<Level>("futile_map.json");
+	m_level = make_unique<Level>("DungeonMap.json");
+	//m_level = make_unique<Level>("futile_map.json");
 	if (m_level->IsLoaded())
 	{
 		m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());

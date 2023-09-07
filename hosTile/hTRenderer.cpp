@@ -337,8 +337,17 @@ void hTRenderer::FillVertexBuffer()
 		{
 			continue;
 		}
+
+		// Get vertex data in one of two ways, either contiguously or by asking the sprite.
 		const VertexPositionTex* vertexData = sprite->GetVertices();
-		memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
+		if (vertexData)
+		{
+			memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
+		}
+		else
+		{
+			sprite->FillVertices(&m_vertexBufferData[totalVertices]);
+		}
 		totalVertices += numVertices;
 	}
 

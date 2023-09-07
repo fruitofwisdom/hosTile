@@ -22,6 +22,9 @@ namespace hosTile
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;
 		virtual unsigned int GetNumVertices() const = 0;
 		virtual const VertexPositionTex* GetVertices() const = 0;
+		
+		// Sprites may fill out vertex data this way if GetVertices returns null.
+		virtual void FillVertices(VertexPositionTex* buffer) const {}
 
 		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);
