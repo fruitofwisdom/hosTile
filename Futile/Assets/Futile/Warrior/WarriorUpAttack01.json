@@ -68,7 +68,7 @@
   "slices": [
    { "name": "Collision", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 1, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 2, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 3, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 4, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 5, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }] },
    { "name": "Hit Box", "color": "#0000ffff", "keys": [{ "frame": 2, "bounds": {"x": 6, "y": 4, "w": 36, "h": 24 } }, { "frame": 3, "bounds": {"x": 6, "y": 4, "w": 36, "h": 24 } }, { "frame": 4, "bounds": {"x": 6, "y": 4, "w": 36, "h": 24 } }] },
-   { "name": "Hurt Box", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }] }
+   { "name": "Hurt Box", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 1, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 2, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 3, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 4, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 5, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }] }
   ]
  }
 }
