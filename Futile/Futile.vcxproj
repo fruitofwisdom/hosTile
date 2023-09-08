@@ -224,6 +224,54 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.dds" />
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.json">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.dds" />
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.json">
       <FileType>Document</FileType>

@@ -108,11 +108,14 @@
     <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
       <Filter>Assets\App</Filter>
     </Image>
-    <Filter Include="Assets\Futile\Warrior">
-      <UniqueIdentifier>{f7beb7bb-db6e-488d-a10b-a97d58f0accd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets\Futile">
       <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Futile\Goblin">
+      <UniqueIdentifier>{d0d60f47-1ff6-47bd-808e-11ade22efc34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Futile\Warrior">
+      <UniqueIdentifier>{f7beb7bb-db6e-488d-a10b-a97d58f0accd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
@@ -189,6 +192,78 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.dds">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
