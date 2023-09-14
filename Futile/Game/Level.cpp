@@ -71,12 +71,6 @@ Level::Level(string levelFilename)
 					}
 				}
 			}
-
-			// A Player is required to be loaded.
-			if (m_player)
-			{
-				m_loaded = true;
-			}
 		}
 		catch (hTException&)
 		{
@@ -89,35 +83,33 @@ Level::Level(string levelFilename)
 
 void Level::Update(const DX::StepTimer& timer)
 {
-	if (m_loaded)
+	if (m_player != nullptr)
 	{
 		m_player->Update(timer);
-		for (unique_ptr<GameObject>& gameObject : m_gameObjects)
-		{
-			gameObject->Update(timer);
-		}
+	}
+	for (unique_ptr<GameObject>& gameObject : m_gameObjects)
+	{
+		gameObject->Update(timer);
 	}
 }
 
 void Level::Render()
 {
-	if (m_loaded)
+	if (m_map != nullptr)
 	{
 		m_map->Render(Game::Get().GetRenderer());
+	}
+	if (m_player != nullptr)
+	{
 		m_player->Render(Game::Get().GetRenderer());
-		for (unique_ptr<GameObject>& gameObject : m_gameObjects)
-		{
-			gameObject->Render(Game::Get().GetRenderer());
-		}
+	}
+	for (unique_ptr<GameObject>& gameObject : m_gameObjects)
+	{
+		gameObject->Render(Game::Get().GetRenderer());
 	}
 }
 
-Player& Level::GetPlayer() const
+const Player* Level::GetPlayer() const
 {
-	return *m_player.get();
-}
-
-bool Level::IsLoaded() const
-{
-	return m_loaded;
+	return m_player.get();
 }

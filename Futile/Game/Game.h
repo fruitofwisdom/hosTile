@@ -14,7 +14,7 @@ namespace Futile
 	class Game
 	{
 	public:
-		Game(hosTile::hTRenderer& renderer);
+		Game(hosTile::hTRenderer& renderer, std::string startingMap);
 		virtual ~Game();
 
 		Game(Game const&) = delete;

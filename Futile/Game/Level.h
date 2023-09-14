@@ -14,9 +14,7 @@ namespace Futile
 		void Update(const DX::StepTimer& timer);
 		void Render();
 
-		Player& GetPlayer() const;
-
-		bool IsLoaded() const;
+		const Player* GetPlayer() const;
 
 	private:
 		bool m_loaded;

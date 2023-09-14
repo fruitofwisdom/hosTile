@@ -14,7 +14,7 @@ const float Game::Scale = 4.0f;
 
 static Game* s_game = nullptr;
 
-Game::Game(hTRenderer& renderer)
+Game::Game(hTRenderer& renderer, string startingMap)
 :	m_gameState(GS_Intro),
 	m_renderer(&renderer)
 {
@@ -24,20 +24,16 @@ Game::Game(hTRenderer& renderer)
 	}
 	s_game = this;
 
+	m_level = make_unique<Level>(startingMap);
+	m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());
+
+	// TODO: The text box and UI should have its own tileset.
+	m_textBox = make_unique<TextBox>(
+		"futile_tileset.json", "futile_textbox.json", "futile_font.dds",
+		L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
+	m_textBox->SetScale(Scale);
 	m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
 	m_ui->SetScale(Scale);
-
-	m_level = make_unique<Level>("DungeonMap.json");
-	if (m_level->IsLoaded())
-	{
-		m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());
-
-		// TODO: The text box and UI should have its own tileset.
-		m_textBox = make_unique<TextBox>(
-			"futile_tileset.json", "futile_textbox.json", "futile_font.dds",
-			L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
-		m_textBox->SetScale(Scale);
-	}
 }
 
 Game::~Game()
@@ -56,11 +52,6 @@ Game& Game::Get()
 
 void Game::Update(const DX::StepTimer& timer)
 {
-	if (!m_level->IsLoaded())
-	{
-		return;
-	}
-
 	switch (m_gameState)
 	{
 	case GS_Intro:
@@ -94,7 +85,7 @@ void Game::Update(const DX::StepTimer& timer)
 	/*
 	wstringstream debugText;
 	debugText << fixed << setprecision(3);
-	debugText << "player: " << m_level->GetPlayer().GetPosition().x << ", " << m_level->GetPlayer().GetPosition().y;
+	debugText << "player: " << m_level->GetPlayer()->GetPosition().x << ", " << m_level->GetPlayer()->GetPosition().y;
 	m_ui->SetDebugText(debugText.str().c_str());
 	*/
 	m_ui->Update();

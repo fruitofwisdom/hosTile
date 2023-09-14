@@ -49,6 +49,7 @@ namespace Futile
 		bool m_windowVisible;
 
 		static Platform::String^ s_version;
+		std::string m_startingMap;
 	};
 }
 

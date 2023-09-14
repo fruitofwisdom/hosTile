@@ -9,7 +9,7 @@ using namespace Futile;
 using namespace nlohmann;
 using namespace std;
 
-using namespace concurrency;
+using namespace Concurrency;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::ApplicationModel::Activation;
@@ -47,7 +47,7 @@ App::App()
 	ApplicationView::PreferredLaunchViewSize = Size(PreferredWidth, PreferredHeight);
 	ApplicationView::PreferredLaunchWindowingMode = ApplicationViewWindowingMode::PreferredLaunchViewSize;
 
-	ifstream configFile("futile.json");
+	ifstream configFile("Futile.json");
 	if (configFile.is_open())
 	{
 		json configJson;
@@ -75,6 +75,10 @@ App::App()
 			{
 				// Do nothing. Windowed is default.
 			}
+		}
+		if (configJson.contains("startingMap"))
+		{
+			m_startingMap = configJson["startingMap"];
 		}
 	}
 }
@@ -132,7 +136,7 @@ void App::Load(Platform::String^ entryPoint)
 {
 	if (m_main == nullptr)
 	{
-		m_main = make_unique<FutileMain>(m_deviceResources.get());
+		m_main = make_unique<FutileMain>(m_deviceResources.get(), m_startingMap);
 	}
 }
 

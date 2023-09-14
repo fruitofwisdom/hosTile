@@ -8,7 +8,7 @@ namespace Futile
 	class Camera
 	{
 	public:
-		Camera(hosTile::hTRenderer& renderer, const GameObject& focus);
+		Camera(hosTile::hTRenderer& renderer, const GameObject* focus);
 		virtual ~Camera() {}
 
 		void Update();

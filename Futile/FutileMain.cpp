@@ -3,19 +3,21 @@
 
 #include "..\hosTile\Other\DirectXHelper.h"
 
-using namespace Concurrency;
 using namespace Futile;
+using namespace std;
+
+using namespace Concurrency;
 using namespace Windows::Foundation;
 using namespace Windows::System::Threading;
 
 // Loads and initializes application assets when the application is loaded.
-FutileMain::FutileMain(DX::DeviceResources* deviceResources)
+FutileMain::FutileMain(DX::DeviceResources* deviceResources, string startingMap)
 :	m_deviceResources(deviceResources)
 {
 	// Register to be notified if the Device is lost or recreated
 	m_deviceResources->RegisterDeviceNotify(this);
 
-	m_renderer = std::make_unique<hosTile::hTRenderer>(m_deviceResources);
+	m_renderer = make_unique<hosTile::hTRenderer>(m_deviceResources);
 
 	// TODO: Change the timer settings if you want something other than the default variable timestep mode.
 	// e.g. for 60 FPS fixed timestep update logic, call:
@@ -24,7 +26,7 @@ FutileMain::FutileMain(DX::DeviceResources* deviceResources)
 	m_timer.SetTargetElapsedSeconds(1.0 / 60);
 	*/
 
-	m_game = std::make_unique<Game>(*m_renderer.get());
+	m_game = make_unique<Game>(*m_renderer.get(), startingMap);
 }
 
 FutileMain::~FutileMain()

@@ -11,7 +11,7 @@ namespace Futile
 	class FutileMain : public DX::IDeviceNotify
 	{
 	public:
-		FutileMain(DX::DeviceResources* deviceResources);
+		FutileMain(DX::DeviceResources* deviceResources, std::string startingMap);
 		~FutileMain();
 
 		void CreateWindowSizeDependentResources();
