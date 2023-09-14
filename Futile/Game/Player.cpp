@@ -13,19 +13,21 @@ using namespace Futile;
 using namespace hosTile;
 using namespace std;
 
-const float Player::MovementSpeed = 128.0f;		// pixels-per-second
+const float Player::MovementSpeed = 256.0f;		// pixels-per-second
 
-Player::Player()
+Player::Player(XMFLOAT3 position, float scale)
 :	m_playerState(PS_Idle),
 	m_facingAngle(90.0f)
 {
 	m_sprite = make_unique<hTAnimatedSprite>(Game::Get().GetRenderer().GetDeviceResources(), "WarriorDownIdle.json");
+	SetPosition(position);
+	m_sprite->SetScale(scale);
 }
 
 void Player::Update(const DX::StepTimer& timer)
 {
 	hTAnimatedSprite* animatedSprite = static_cast<hTAnimatedSprite*>(m_sprite.get());
-	float delta = (float)timer.GetElapsedSeconds();
+	float elapsedSeconds = (float)timer.GetElapsedSeconds();
 
 	switch (m_playerState)
 	{
@@ -82,13 +84,13 @@ void Player::Update(const DX::StepTimer& timer)
 			PlayAnimationForDirection("WarriorLeftWalk.json", "WarriorDownWalk.json", "WarriorRightWalk.json", "WarriorUpWalk.json");
 
 			XMFLOAT3 position = GetPosition();
-			position.x += XMVectorGetX(directionNormalized) * MovementSpeed * delta;
-			position.y += XMVectorGetY(directionNormalized) * MovementSpeed * delta;
+			position.x += XMVectorGetX(directionNormalized) * MovementSpeed * elapsedSeconds;
+			position.y += XMVectorGetY(directionNormalized) * MovementSpeed * elapsedSeconds;
 			SetPosition(position);
 
 			// When we're close enough, stop.
 			XMVECTOR distance = XMVector3Length(direction);
-			if (XMVectorGetX(distance) < MovementSpeed * delta)
+			if (XMVectorGetX(distance) < MovementSpeed * elapsedSeconds)
 			{
 				m_playerState = PS_Idle;
 				PlayAnimationForDirection("WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
@@ -105,12 +107,7 @@ void Player::Update(const DX::StepTimer& timer)
 		break;
 	}
 
-	animatedSprite->Update(delta);
-}
-
-void Player::Render(hosTile::hTRenderer& renderer)
-{
-	m_sprite->Render(renderer);
+	animatedSprite->Update(elapsedSeconds);
 }
 
 hTRegion Player::GetCollision() const

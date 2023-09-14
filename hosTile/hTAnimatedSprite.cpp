@@ -61,8 +61,15 @@ void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources,
 			animationFile >> animationJson;
 
 			string spriteFilename = animationJson["frames"][0]["filename"];
-			// sprite sheets are originally .ase files, but converted to .dds
-			spriteFilename.replace(spriteFilename.find(".ase"), string(".ase").length(), ".dds");
+			// sprite sheets are originally .aseprite or .ase files, but converted to .dds
+			if (spriteFilename.find(".aseprite") != string::npos)
+			{
+				spriteFilename.replace(spriteFilename.find(".aseprite"), string(".aseprite").length(), ".dds");
+			}
+			else if(spriteFilename.find(".ase") != string::npos)
+			{
+				spriteFilename.replace(spriteFilename.find(".ase"), string(".ase").length(), ".dds");
+			}
 			SetSprite(deviceResources, spriteFilename);
 
 			// Reset the animation.

@@ -14,16 +14,17 @@ namespace Futile
 		void Update(const DX::StepTimer& timer);
 		void Render();
 
-		Player& GetPlayer();
+		Player& GetPlayer() const;
 
 		bool IsLoaded() const;
 
 	private:
 		bool m_loaded;
 
-		std::unique_ptr<hosTile::hTMap> m_map;
 		std::unique_ptr<hosTile::hTTileset> m_tileset;
+		std::unique_ptr<hosTile::hTMap> m_map;
 
 		std::unique_ptr<Player> m_player;
+		std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 	};
 }

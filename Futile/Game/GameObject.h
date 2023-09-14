@@ -1,6 +1,7 @@
 #pragma once
 
 #include "..\hosTile\hTFrameData.h"
+#include "..\hosTile\hTRenderer.h"
 #include "..\hosTile\hTSprite.h"
 #include "StepTimer.h"
 
@@ -14,6 +15,7 @@ namespace Futile
 		virtual ~GameObject() {}
 
 		virtual void Update(const DX::StepTimer& timer) {}
+		virtual void Render(hosTile::hTRenderer& renderer);
 
 		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);

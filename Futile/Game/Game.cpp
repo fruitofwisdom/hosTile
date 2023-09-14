@@ -10,7 +10,7 @@ using namespace Futile;
 using namespace nlohmann;
 using namespace std;
 
-const float Game::Scale = 5.0f;
+const float Game::Scale = 4.0f;
 
 static Game* s_game = nullptr;
 
@@ -28,7 +28,6 @@ Game::Game(hTRenderer& renderer)
 	m_ui->SetScale(Scale);
 
 	m_level = make_unique<Level>("DungeonMap.json");
-	//m_level = make_unique<Level>("futile_map.json");
 	if (m_level->IsLoaded())
 	{
 		m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());
@@ -95,7 +94,7 @@ void Game::Update(const DX::StepTimer& timer)
 	/*
 	wstringstream debugText;
 	debugText << fixed << setprecision(3);
-	debugText << "player: " << m_level->GetPlayer()->GetPosition().x << ", " << m_level->GetPlayer()->GetPosition().y;
+	debugText << "player: " << m_level->GetPlayer().GetPosition().x << ", " << m_level->GetPlayer().GetPosition().y;
 	m_ui->SetDebugText(debugText.str().c_str());
 	*/
 	m_ui->Update();

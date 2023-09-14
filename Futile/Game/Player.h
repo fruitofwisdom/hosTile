@@ -8,10 +8,9 @@ namespace Futile
 	class Player : public GameObject
 	{
 	public:
-		Player();
+		Player(DirectX::XMFLOAT3 position, float scale = 1.0f);
 
 		void Update(const DX::StepTimer& timer);
-		void Render(hosTile::hTRenderer& renderer);
 
 		hosTile::hTRegion GetCollision() const;
 		hosTile::hTRegion GetHitBox() const;

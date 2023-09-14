@@ -15,6 +15,14 @@ GameObject::GameObject(std::unique_ptr<hosTile::hTSprite> sprite)
 	;
 }
 
+void GameObject::Render(hosTile::hTRenderer& renderer)
+{
+	if (m_sprite != nullptr)
+	{
+		m_sprite->Render(renderer);
+	}
+}
+
 DirectX::XMFLOAT3 GameObject::GetPosition() const
 {
 	DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f };
