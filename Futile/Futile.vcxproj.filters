@@ -152,6 +152,9 @@
     <ClCompile Include="Game\Utilities.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\WorldObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp" />
@@ -188,6 +191,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Utilities.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\WorldObject.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="App.h" />

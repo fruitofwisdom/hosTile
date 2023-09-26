@@ -26,6 +26,8 @@ namespace Futile
 		void Update(const DX::StepTimer& timer);
 		void Render();
 
+		// The primary Player.
+		const Player* GetPlayer() const;
 		// The primary renderer used for the camera, UI, mouse, etc.
 		hosTile::hTRenderer& GetRenderer() const;
 		// The primary UI.

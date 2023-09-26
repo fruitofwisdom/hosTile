@@ -354,6 +354,7 @@
     <ClInclude Include="Game\TextBox.h" />
     <ClInclude Include="Game\UI.h" />
     <ClInclude Include="Game\Utilities.h" />
+    <ClInclude Include="Game\WorldObject.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="FutileMain.h" />
     <ClInclude Include="pch.h" />
@@ -369,6 +370,7 @@
     <ClCompile Include="Game\TextBox.cpp" />
     <ClCompile Include="Game\UI.cpp" />
     <ClCompile Include="Game\Utilities.cpp" />
+    <ClCompile Include="Game\WorldObject.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FutileMain.cpp" />
     <ClCompile Include="pch.cpp">

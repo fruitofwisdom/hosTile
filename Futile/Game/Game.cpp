@@ -101,6 +101,11 @@ void Game::Render()
 	m_ui->Render();
 }
 
+const Player* Game::GetPlayer() const
+{
+	return m_level->GetPlayer();
+}
+
 hTRenderer& Game::GetRenderer() const
 {
 	return *m_renderer;
