@@ -29,6 +29,7 @@ void hTAnimatedSprite::Update(float elapsedSeconds)
 {
 	// Progress m_currentTime and loop back when we've passed the end, if looping.
 	m_currentTime += elapsedSeconds;
+
 	float length = m_numFrames * m_speed / 1000.0f;
 	if (m_currentTime > length)
 	{
@@ -38,11 +39,16 @@ void hTAnimatedSprite::Update(float elapsedSeconds)
 		}
 		else
 		{
+			m_currentFrame = m_numFrames - 1;
 			m_currentTime = length;
 			m_animationDone = true;
 		}
 	}
-	m_currentFrame = (int)(m_currentTime / length * m_numFrames);
+
+	if (!m_animationDone)
+	{
+		m_currentFrame = (int)(m_currentTime / length * m_numFrames);
+	}
 }
 
 void hTAnimatedSprite::PlayAnimation(const DX::DeviceResources* deviceResources, string animationFilename, bool looping)
