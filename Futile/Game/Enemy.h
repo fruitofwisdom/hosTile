@@ -21,7 +21,12 @@ namespace Futile
 
 		EnemyState m_state;
 
-		static const float AttackDistance;		// distance in world space
+		DirectX::XMVECTOR m_walkingTarget;
+		float m_timeSinceLastAttack;		// seconds
+
+		static const float AttackCooldown;		// seconds
+		static const float AttackDistanceFar;		// distance in world space
+		static const float AttackDistanceNear;		// distance in world space
 		static const float AwareDistance;		// distance in world space
 		static const float MovementSpeed;		// pixels-per-second
 	};
