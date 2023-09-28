@@ -66,7 +66,9 @@ Level::Level(string levelFilename)
 						}
 						else if (object["type"] == "Player")
 						{
-							m_player = make_unique<Player>(position, Game::Scale);
+							unique_ptr<Player> newPlayer = make_unique<Player>(position, Game::Scale);
+							m_player = newPlayer.get();
+							m_gameObjects.push_back(move(newPlayer));
 						}
 					}
 				}
@@ -81,16 +83,20 @@ Level::Level(string levelFilename)
 	}
 }
 
+bool ByYValue(unique_ptr<GameObject>& gameObject1, unique_ptr<GameObject>& gameObject2)
+{
+	return gameObject1->GetPosition().y > gameObject2->GetPosition().y;
+}
+
 void Level::Update(const DX::StepTimer& timer)
 {
-	if (m_player != nullptr)
-	{
-		m_player->Update(timer);
-	}
 	for (unique_ptr<GameObject>& gameObject : m_gameObjects)
 	{
 		gameObject->Update(timer);
 	}
+
+	// Sort all the GameObjects by their y-values so they render with the correct depth.
+	m_gameObjects.sort(ByYValue);
 }
 
 void Level::Render()
@@ -99,10 +105,7 @@ void Level::Render()
 	{
 		m_map->Render(Game::Get().GetRenderer());
 	}
-	if (m_player != nullptr)
-	{
-		m_player->Render(Game::Get().GetRenderer());
-	}
+
 	for (unique_ptr<GameObject>& gameObject : m_gameObjects)
 	{
 		gameObject->Render(Game::Get().GetRenderer());
@@ -111,5 +114,5 @@ void Level::Render()
 
 const Player* Level::GetPlayer() const
 {
-	return m_player.get();
+	return m_player;
 }
