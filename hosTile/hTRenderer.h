@@ -6,10 +6,13 @@
 
 namespace hosTile { class hTSprite; }
 
+// hTRenderer is the hosTile graphics engine's main rendering component. It manages the creation
+// and rendering of sprites and interfacing with the DirectX hardware. Every frame, any hTSprite-
+// derived sprite, map, text box, etc. that wants to render must call AddSprite. When Render is
+// called, all sprites are drawn in order (with depth via the painter's algorithm) and the list of
+// sprites is then cleared.
 namespace hosTile
 {
-	// The hosTile 2D graphics engine main renderer component. Manages the creation and rendering
-	// of sprites and interfacing with the DirectX hardware.
 	class hTRenderer
 	{
 	public:
@@ -19,13 +22,13 @@ namespace hosTile
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
 
-		void Render();
-
 		DX::DeviceResources* GetDeviceResources() const;
 
-		// Once a sprite derived from hTSprite has been created, it needs to be added to the
-		// renderer with AddSprite. The list of sprites is cleared after each call to Render.
+		// Add an hTSprite-derived object to the list of sprites to render.
 		void AddSprite(const hTSprite* sprite);
+
+		// Render all sprites in order and then clear the sprite list.
+		void Render();
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
@@ -33,6 +36,7 @@ namespace hosTile
 		// Convert from screen space (pixels) to world space.
 		DirectX::XMFLOAT3 ScreenToWorldPosition(int x, int y) const;
 
+		// Set the background clear color.
 		void SetClearColor(DirectX::XMVECTORF32 clearColor);
 
 	private:

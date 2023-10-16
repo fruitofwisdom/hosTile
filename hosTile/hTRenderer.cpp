@@ -15,8 +15,9 @@ hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 	m_loadingComplete(false),
 	m_clearColor(Colors::CornflowerBlue)
 {
+	// The orthographic camera's eye position, focus position, and up direction.
 	m_cameraPosition = { 0.0f, 0.0f, -1.0f, 0.0f };
-	m_cameraFocus = { 0.0f, 0.0f, 1.0f, 0.0f };
+	m_cameraFocus = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_cameraUp = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	CreateDeviceDependentResources();
@@ -83,7 +84,8 @@ void hTRenderer::CreateDeviceDependentResources()
 		{
 			ZeroMemory(&m_vertexBufferData[i], sizeof(VertexPositionTex) * 4);
 			// Load mesh indices. Each trio of indices represents a triangle to be rendered on the
-			// screen. Note the clockwise winding order.
+			// screen. Note the clockwise winding order: 0, bottom-left; 1, bottom-right; 2, top-
+			// right; 3, top-left.
 			m_indexBufferData[i * 6] = 0 + i * 4;
 			m_indexBufferData[i * 6 + 1] = 2 + i * 4;
 			m_indexBufferData[i * 6 + 2] = 1 + i * 4;
@@ -120,6 +122,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				&indexBufferData,
 				&m_indexBuffer));
 
+		// Create the sampler state.
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 		samplerDesc.MaxAnisotropy = 0;
@@ -139,12 +142,17 @@ void hTRenderer::CreateDeviceDependentResources()
 				&samplerDesc,
 				&m_samplerState));
 
+		// Create the blend state.
 		D3D11_BLEND_DESC blendState;
 		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
+		blendState.AlphaToCoverageEnable = FALSE;
+		blendState.IndependentBlendEnable = FALSE;
 		blendState.RenderTarget[0].BlendEnable = TRUE;
+		// dst.rgb = src.rgb * src.a + dst.rgb * (1 - src.a)
 		blendState.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		blendState.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 		blendState.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		// dst.a = src.a + dst.a
 		blendState.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		blendState.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 		blendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
@@ -181,7 +189,18 @@ void hTRenderer::ReleaseDeviceDependentResources()
 	delete m_indexBufferData;
 }
 
-// Renders one frame using the vertex and pixel shaders.
+DX::DeviceResources* hTRenderer::GetDeviceResources() const
+{
+	return m_deviceResources;
+}
+
+// Add an hTSprite-derived object to the list of sprites to render.
+void hTRenderer::AddSprite(const hTSprite* sprite)
+{
+	m_sprites.push_back(sprite);
+}
+
+// Render all sprites in order and then clear the sprite list.
 void hTRenderer::Render()
 {
 	// Loading is asynchronous. Only draw geometry after it's loaded.
@@ -190,8 +209,7 @@ void hTRenderer::Render()
 		return;
 	}
 
-	// TODO: Upgrade this to ID3D11DeviceContext4.
-	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
+	ID3D11DeviceContext4* deviceContext = m_deviceResources->GetD3DDeviceContext();
 
 	// Reset the viewport to target the whole screen.
 	D3D11_VIEWPORT viewport = m_deviceResources->GetScreenViewport();
@@ -225,10 +243,8 @@ void hTRenderer::Render()
 		DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
 		0);
 
-	// Set the input layout.
+	// Bind the input layout and primitive type to the IA stage.
 	deviceContext->IASetInputLayout(m_inputLayout.Get());
-
-	// Set the primitive topology.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Attach our vertex shader.
@@ -240,6 +256,7 @@ void hTRenderer::Render()
 	// Attach our pixel shader.
 	deviceContext->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
+	// Send the sampler state to the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -260,16 +277,6 @@ void hTRenderer::Render()
 
 	// Empty the list for next frame.
 	m_sprites.clear();
-}
-
-DX::DeviceResources* hTRenderer::GetDeviceResources() const
-{
-	return m_deviceResources;
-}
-
-void hTRenderer::AddSprite(const hTSprite* sprite)
-{
-	m_sprites.push_back(sprite);
 }
 
 XMFLOAT3 hTRenderer::GetCameraPosition() const
@@ -311,6 +318,7 @@ XMFLOAT3 hTRenderer::ScreenToWorldPosition(int x, int y) const
 	return toReturn;
 }
 
+// Set the background clear color.
 void hTRenderer::SetClearColor(DirectX::XMVECTORF32 clearColor)
 {
 	m_clearColor = clearColor;
