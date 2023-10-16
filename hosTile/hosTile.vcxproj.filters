@@ -91,6 +91,9 @@
     <ClInclude Include="hTTileSprite.h">
       <Filter>hosTile</Filter>
     </ClInclude>
+    <ClInclude Include="Original\hosTile.h">
+      <Filter>hosTile\Original</Filter>
+    </ClInclude>
     <ClInclude Include="Other\DeviceResources.h">
       <Filter>hosTile\Other</Filter>
     </ClInclude>
