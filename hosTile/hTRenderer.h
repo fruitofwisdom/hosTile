@@ -39,6 +39,10 @@ namespace hosTile
 		// Set the background clear color.
 		void SetClearColor(DirectX::XMVECTORF32 clearColor);
 
+		// A global scale can be applied.
+		float GetScale() const;
+		void SetScale(float scale);
+
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
 		void FillVertexBuffer();
@@ -73,5 +77,6 @@ namespace hosTile
 		DirectX::XMVECTORF32 m_cameraUp;
 
 		DirectX::XMVECTORF32 m_clearColor;
+		float m_scale;
 	};
 }

@@ -24,6 +24,8 @@ Game::Game(hTRenderer& renderer, string startingMap)
 	}
 	s_game = this;
 
+	m_renderer->SetScale(Scale);
+
 	m_level = make_unique<Level>(startingMap);
 	m_camera = make_unique<Camera>(*m_renderer, m_level->GetPlayer());
 
@@ -31,9 +33,7 @@ Game::Game(hTRenderer& renderer, string startingMap)
 	m_textBox = make_unique<TextBox>(
 		"futile_tileset.json", "futile_textbox.json", "futile_font.dds",
 		L"Welcome to Futile - a demo game for hosTile!\n\nPress space to play!");
-	m_textBox->SetScale(Scale);
 	m_ui = make_unique<UI>("futile_font.dds", App::GetVersion()->Data());
-	m_ui->SetScale(Scale);
 }
 
 Game::~Game()
@@ -59,7 +59,7 @@ void Game::Update(const DX::StepTimer& timer)
 
 		XMFLOAT3 textBoxPosition = m_renderer->ScreenToWorldPosition(
 			(int)(m_renderer->GetDeviceResources()->GetLogicalSize().Width / 2),
-			(int)(m_textBox->GetHeight() / 2.0f));
+			(int)(m_textBox->GetHeight() / 2.0f * m_renderer->GetScale()));
 		m_textBox->SetPosition(textBoxPosition);
 
 		// Press Enter, Space, or left-click in the text box to close it.

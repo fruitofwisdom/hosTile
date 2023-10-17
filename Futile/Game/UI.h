@@ -3,6 +3,8 @@
 #include "..\hosTile\hTFont.h"
 #include "..\hosTile\hTTextBox.h"
 
+// The UI represents two lines of text in the bottom-right corner of the screen: some optional
+// debug text and the version number.
 namespace Futile
 {
 	class UI
@@ -12,8 +14,6 @@ namespace Futile
 
 		void Update();
 		void Render();
-
-		void SetScale(float scale);
 
 		void SetDebugText(const wchar_t* text);
 

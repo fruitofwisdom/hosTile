@@ -21,15 +21,16 @@ UI::UI(string fontFilename, const wchar_t* version)
 void UI::Update()
 {
 	hTRenderer& renderer = Game::Get().GetRenderer();
-	int screenBottom = (int)renderer.GetDeviceResources()->GetLogicalSize().Height
-		- (int)(m_debug->GetFont()->GetLetterHeight() * m_debug->GetScale());
+	int screenWidth = (int)renderer.GetDeviceResources()->GetLogicalSize().Width;
+	int screenHeight = (int)renderer.GetDeviceResources()->GetLogicalSize().Height;
+	float scale = renderer.GetScale();
+
+	int screenBottom = screenHeight - (int)(m_debug->GetFont()->GetLetterHeight() * scale);
 	DirectX::XMFLOAT3 debugPosition = renderer.ScreenToWorldPosition(
-		(int)renderer.GetDeviceResources()->GetLogicalSize().Width
-		- (int)(m_debug->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_debug->GetText()) * m_debug->GetScale()),
-		screenBottom - (int)(m_debug->GetFont()->GetLetterHeight() * m_debug->GetScale()));
+		screenWidth - (int)(m_debug->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_debug->GetText()) * scale),
+		screenBottom - (int)(m_debug->GetFont()->GetLetterHeight() * scale));
 	DirectX::XMFLOAT3 versionPosition = renderer.ScreenToWorldPosition(
-		(int)renderer.GetDeviceResources()->GetLogicalSize().Width
-		- (int)(m_version->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_version->GetText()) * m_version->GetScale()),
+		screenWidth - (int)(m_version->GetFont()->GetLetterWidth() * (unsigned int)wcslen(m_version->GetText()) * scale),
 		screenBottom);
 	m_debug->SetPosition(debugPosition);
 	m_version->SetPosition(versionPosition);
@@ -39,12 +40,6 @@ void UI::Render()
 {
 	m_debug->Render(Game::Get().GetRenderer());
 	m_version->Render(Game::Get().GetRenderer());
-}
-
-void UI::SetScale(float scale)
-{
-	m_debug->SetScale(scale);
-	m_version->SetScale(scale);
 }
 
 void UI::SetDebugText(const wchar_t* debugText)

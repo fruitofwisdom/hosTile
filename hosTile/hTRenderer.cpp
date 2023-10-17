@@ -13,7 +13,8 @@ using namespace Windows::Foundation;
 hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources),
 	m_loadingComplete(false),
-	m_clearColor(Colors::CornflowerBlue)
+	m_clearColor(Colors::CornflowerBlue),
+	m_scale(1.0f)
 {
 	// The orthographic camera's eye position, focus position, and up direction.
 	m_cameraPosition = { 0.0f, 0.0f, -1.0f, 0.0f };
@@ -324,6 +325,18 @@ void hTRenderer::SetClearColor(DirectX::XMVECTORF32 clearColor)
 	m_clearColor = clearColor;
 }
 
+// A global scale can be applied.
+float hTRenderer::GetScale() const
+{
+	return m_scale;
+}
+
+void hTRenderer::SetScale(float scale)
+{
+	m_scale = scale;
+	UpdateConstantBuffer();
+}
+
 // Copy each sprite's vertices into the vertex buffer.
 void hTRenderer::FillVertexBuffer()
 {
@@ -381,12 +394,12 @@ void hTRenderer::UpdateConstantBuffer()
 	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
 	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
-	XMStoreFloat4x4(
-		&m_constantBufferData.projection,
-		XMMatrixTranspose(orthoMatrix * orientationMatrix));
+	XMStoreFloat4x4(&m_constantBufferData.projection, XMMatrixTranspose(orthoMatrix * orientationMatrix));
 
 	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
 	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
 
-	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
+	// TODO: Is this the best place to apply a global scale?
+	XMMATRIX modelMatrix = XMMatrixScaling(m_scale, m_scale, m_scale);
+	XMStoreFloat4x4(&m_constantBufferData.model, modelMatrix);
 }

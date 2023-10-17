@@ -33,8 +33,6 @@ namespace Futile
 		// The primary UI.
 		UI& GetUI() const;
 
-		static const float Scale;
-
 	private:
 		enum GameState
 		{
@@ -50,5 +48,7 @@ namespace Futile
 		std::unique_ptr<Level> m_level;
 		std::unique_ptr<TextBox> m_textBox;
 		std::unique_ptr<UI> m_ui;
+
+		static const float Scale;
 	};
 }

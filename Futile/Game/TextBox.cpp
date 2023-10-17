@@ -41,8 +41,8 @@ void TextBox::SetPosition(DirectX::XMFLOAT3 position)
 	// The text starts one tile inwards and two tiles up from the middle.
 	DirectX::XMFLOAT3 topLeft =
 	{
-		m_box->GetPosition().x - GetWidth() / 2.0f + (float)m_text->GetFont()->GetLetterWidth() * m_box->GetScale(),
-		m_box->GetPosition().y + (float)(m_text->GetFont()->GetLetterHeight() * 2) * m_box->GetScale(),
+		m_box->GetPosition().x - GetWidth() / 2.0f + (float)m_text->GetFont()->GetLetterWidth(),
+		m_box->GetPosition().y + (float)(m_text->GetFont()->GetLetterHeight() * 2),
 		m_box->GetPosition().z
 	};
 	m_text->SetPosition(topLeft);
@@ -56,12 +56,6 @@ unsigned int TextBox::GetWidth() const
 unsigned int TextBox::GetHeight() const
 {
 	return (unsigned int)(m_box->GetHeight() * m_box->GetScale());
-}
-
-void TextBox::SetScale(float scale)
-{
-	m_box->SetScale(scale);
-	m_text->SetScale(scale);
 }
 
 bool TextBox::Contains(float x, float y) const

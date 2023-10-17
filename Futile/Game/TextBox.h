@@ -19,8 +19,6 @@ namespace Futile
 		unsigned int GetWidth() const;		// in pixels
 		unsigned int GetHeight() const;		// in pixels
 
-		void SetScale(float scale);
-
 		// Are x and y contained within the text box's box?
 		bool Contains(float x, float y) const;
 

@@ -9,7 +9,7 @@ using namespace DirectX;
 using namespace Futile;
 using namespace std;
 
-const float Player::MovementSpeed = 256.0f;		// pixels-per-second
+const float Player::MovementSpeed = 64.0f;		// pixels-per-second
 
 Player::Player(XMFLOAT3 position, float scale)
 :	WorldObject("WarriorDownIdle.json", position, scale),

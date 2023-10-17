@@ -31,7 +31,6 @@ Level::Level(string levelFilename)
 			DX::DeviceResources* deviceResources = Game::Get().GetRenderer().GetDeviceResources();
 			m_tileset = make_unique<hTTileset>(deviceResources, tilesetSource);
 			m_map = make_unique<hTMap>(*m_tileset, levelJson);
-			m_map->SetScale(Game::Scale);
 
 			if (levelJson.contains("backgroundcolor"))
 			{
@@ -53,20 +52,20 @@ Level::Level(string levelFilename)
 						// the map are positioned at their center.
 						float x =
 							(m_map->GetPosition().x - m_map->GetWidth() / 2.0f +
-							object["x"] + object["width"] / 2.0f) * Game::Scale;
+							object["x"] + object["width"] / 2.0f);
 						float y =
 							(m_map->GetPosition().y + m_map->GetHeight() / 2.0f -
-							object["y"] - object["height"] / 2.0f) * Game::Scale;
+							object["y"] - object["height"] / 2.0f);
 						DirectX::XMFLOAT3 position = DirectX::XMFLOAT3(x, y, 0.0f);
 
 						if (object["type"] == "Enemy")
 						{
-							unique_ptr<Enemy> newEnemy = make_unique<Enemy>(position, Game::Scale);
+							unique_ptr<Enemy> newEnemy = make_unique<Enemy>(position);
 							m_gameObjects.push_back(move(newEnemy));
 						}
 						else if (object["type"] == "Player")
 						{
-							unique_ptr<Player> newPlayer = make_unique<Player>(position, Game::Scale);
+							unique_ptr<Player> newPlayer = make_unique<Player>(position);
 							m_player = newPlayer.get();
 							m_gameObjects.push_back(move(newPlayer));
 						}

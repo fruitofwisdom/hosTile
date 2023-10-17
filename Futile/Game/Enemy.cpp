@@ -8,10 +8,10 @@ using namespace DirectX;
 using namespace Futile;
 
 const float Enemy::AttackCooldown = 2.5f;		// seconds
-const float Enemy::AttackDistanceFar = 100.0f;		// distance in world space
-const float Enemy::AttackDistanceNear = 80.0f;		// distance in world space
-const float Enemy::AwareDistance = 500.0f;		// distance in world space
-const float Enemy::MovementSpeed = 128.0f;		// pixels-per-second
+const float Enemy::AttackDistanceFar = 25.0f;		// distance in world space
+const float Enemy::AttackDistanceNear = 20.0f;		// distance in world space
+const float Enemy::AwareDistance = 125.0f;		// distance in world space
+const float Enemy::MovementSpeed = 32.0f;		// pixels-per-second
 
 Enemy::Enemy(XMFLOAT3 position, float scale)
 :	WorldObject("GoblinDownIdle.json", position, scale),

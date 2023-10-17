@@ -15,8 +15,8 @@ void Camera::Update()
 	DirectX::XMFLOAT3 cameraPosition = m_renderer->GetCameraPosition();
 	if (m_focus != nullptr)
 	{
-		cameraPosition.x = m_focus->GetPosition().x;
-		cameraPosition.y = m_focus->GetPosition().y;
+		cameraPosition.x = m_focus->GetPosition().x * m_renderer->GetScale();
+		cameraPosition.y = m_focus->GetPosition().y * m_renderer->GetScale();
 		// Leave the camera's z in the same place.
 	}
 	m_renderer->SetCameraPosition(cameraPosition);
