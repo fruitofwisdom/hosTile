@@ -92,6 +92,19 @@ void Level::Update(const DX::StepTimer& timer)
 	for (unique_ptr<GameObject>& gameObject : m_gameObjects)
 	{
 		gameObject->Update(timer);
+
+		for (unique_ptr<GameObject>& otherGameObject : m_gameObjects)
+		{
+			if (gameObject == otherGameObject)
+			{
+				continue;
+			}
+
+			if (gameObject->GetHitBox().Intersects(otherGameObject->GetHurtBox()))
+			{
+				otherGameObject->ReceiveHit(gameObject.get());
+			}
+		}
 	}
 
 	// Sort all the GameObjects by their y-values so they render with the correct depth.

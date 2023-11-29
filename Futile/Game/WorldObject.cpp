@@ -30,17 +30,29 @@ void WorldObject::Render(hTRenderer& renderer)
 
 hTRegion WorldObject::GetCollision() const
 {
-	return m_sprite->GetCollision();
+	hTRegion collision = m_sprite->GetCollision();
+	// offset the region based on our position
+	collision.x += GetPosition().x;
+	collision.y += GetPosition().y;
+	return collision;
 }
 
 hTRegion WorldObject::GetHitBox() const
 {
-	return m_sprite->GetHitBox();
+	hTRegion hitBox = m_sprite->GetHitBox();
+	// offset the region based on our position
+	hitBox.x += GetPosition().x;
+	hitBox.y += GetPosition().y;
+	return hitBox;
 }
 
 hTRegion WorldObject::GetHurtBox() const
 {
-	return m_sprite->GetHurtBox();
+	hTRegion hurtBox = m_sprite->GetHurtBox();
+	// offset the region based on our position
+	hurtBox.x += GetPosition().x;
+	hurtBox.y += GetPosition().y;
+	return hurtBox;
 }
 
 // Move to a new position, considering collision.

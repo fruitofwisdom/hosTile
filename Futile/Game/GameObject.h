@@ -23,6 +23,7 @@ namespace Futile
 		virtual hosTile::hTRegion GetCollision() const;
 		virtual hosTile::hTRegion GetHitBox() const;
 		virtual hosTile::hTRegion GetHurtBox() const;
+		virtual void ReceiveHit(const GameObject* attacker);
 
 	private:
 		DirectX::XMFLOAT3 m_position;

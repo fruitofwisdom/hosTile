@@ -36,6 +36,16 @@ void Enemy::Update(const DX::StepTimer& timer)
 		}
 		break;
 
+	case ES_Hurt:
+		{
+			if (m_sprite->AnimationDone())
+			{
+				m_state = ES_Idle;
+				PlayAnimationForDirection("GoblinLeftIdle.json", "GoblinDownIdle.json", "GoblinRightIdle.json", "GoblinUpIdle.json");
+			}
+		}
+		break;
+
 	case ES_Idle:
 		{
 			// Only act when we're within aware distance of the player.
@@ -126,4 +136,11 @@ void Enemy::Update(const DX::StepTimer& timer)
 	}
 
 	WorldObject::Update(timer);
+}
+
+void Enemy::ReceiveHit(const GameObject* attacker)
+{
+	m_state = ES_Hurt;
+	PlayAnimationForDirection(
+		"GoblinLeftHurt.json", "GoblinDownHurt.json", "GoblinRightHurt.json", "GoblinUpHurt.json", false);
 }

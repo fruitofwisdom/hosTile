@@ -32,6 +32,16 @@ void Player::Update(const DX::StepTimer& timer)
 		}
 		break;
 
+	case PS_Hurt:
+		{
+			if (m_sprite->AnimationDone())
+			{
+				m_state = PS_Idle;
+				PlayAnimationForDirection("WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
+			}
+		}
+		break;
+
 	case PS_Idle:
 		{
 			Mouse::ButtonStateTracker mouseTracker = Input::Get().GetMouseTracker();
@@ -103,4 +113,11 @@ void Player::Update(const DX::StepTimer& timer)
 	}
 
 	WorldObject::Update(timer);
+}
+
+void Player::ReceiveHit(const GameObject* attacker)
+{
+	m_state = PS_Hurt;
+	PlayAnimationForDirection(
+		"WarriorLeftHurt.json", "WarriorDownHurt.json", "WarriorRightHurt.json", "WarriorUpHurt.json", false);
 }

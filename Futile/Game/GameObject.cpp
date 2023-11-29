@@ -23,18 +23,23 @@ void GameObject::SetPosition(XMFLOAT3 position)
 
 hTRegion GameObject::GetCollision() const
 {
-	hTRegion collision;
-	return collision;
+	hTRegion emptyRegion;
+	return emptyRegion;
 }
 
 hTRegion GameObject::GetHitBox() const
 {
-	hTRegion hitBox;
-	return hitBox;
+	hTRegion emptyRegion;
+	return emptyRegion;
 }
 
 hTRegion GameObject::GetHurtBox() const
 {
-	hTRegion hurtBox;
-	return hurtBox;
+	hTRegion emptyRegion;
+	return emptyRegion;
+}
+
+void GameObject::ReceiveHit(const GameObject* attacker)
+{
+	// do nothing here
 }

@@ -11,10 +11,13 @@ namespace Futile
 
 		void Update(const DX::StepTimer& timer);
 
+		void ReceiveHit(const GameObject* attacker);
+
 	private:
 		enum PlayerState
 		{
 			PS_Attack,
+			PS_Hurt,
 			PS_Idle,
 			PS_Walk
 		};
