@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hTRenderer.h"
 
-#include "DDSTextureLoader.h"
+#include <DDSTextureLoader.h>
 #include "Other/DirectXHelper.h"
 #include "hTSprite.h"
 
@@ -160,6 +160,21 @@ void hTRenderer::CreateDeviceDependentResources()
 		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState));
+
+		// Create the debug Direct3D resources.
+		m_debugStates = make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
+		m_debugBasicEffect = make_unique<BasicEffect>(m_deviceResources->GetD3DDevice());
+		m_debugBasicEffect->SetProjection(XMLoadFloat4x4(&m_constantBufferData.projection));
+		m_debugBasicEffect->SetVertexColorEnabled(true);
+		void const* shaderByteCode;
+		size_t byteCodeLength;
+		m_debugBasicEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateInputLayout(
+				VertexPositionColor::InputElements, VertexPositionColor::InputElementCount,
+				shaderByteCode, byteCodeLength,
+				m_debugInputLayout.ReleaseAndGetAddressOf()));
+		m_debugPrimitiveBatch = make_unique<PrimitiveBatch<VertexPositionColor>>(m_deviceResources->GetD3DDeviceContext());
 	});
 
 	// Once all tasks have finished, we are ready to render.
@@ -199,6 +214,12 @@ DX::DeviceResources* hTRenderer::GetDeviceResources() const
 void hTRenderer::AddSprite(const hTSprite* sprite)
 {
 	m_sprites.push_back(sprite);
+}
+
+// Add a quad to render with the debug pipeline.
+void hTRenderer::AddDebugQuad(hTQuad quad)
+{
+	m_debugQuads.push_back(quad);
 }
 
 // Render all sprites in order and then clear the sprite list.
@@ -278,6 +299,10 @@ void hTRenderer::Render()
 
 	// Empty the list for next frame.
 	m_sprites.clear();
+
+#if defined(_DEBUG)
+	RenderDebug();
+#endif
 }
 
 XMFLOAT3 hTRenderer::GetCameraPosition() const
@@ -391,7 +416,7 @@ void hTRenderer::UpdateConstantBuffer()
 	// orthographic camera, we don't want the size to take into account a high resolution
 	// display's render scaling (where output size is larger than logical size).
 	Size outputSize = m_deviceResources->GetLogicalSize();
-	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
+	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.0f, 1000.0f);
 	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
 	XMStoreFloat4x4(&m_constantBufferData.projection, XMMatrixTranspose(orthoMatrix * orientationMatrix));
@@ -402,4 +427,36 @@ void hTRenderer::UpdateConstantBuffer()
 	// TODO: Is this the best place to apply a global scale?
 	XMMATRIX modelMatrix = XMMatrixScaling(m_scale, m_scale, m_scale);
 	XMStoreFloat4x4(&m_constantBufferData.model, modelMatrix);
+}
+
+void hTRenderer::RenderDebug()
+{
+	// Loading is asynchronous. Only draw geometry after it's loaded.
+	if (!m_loadingComplete)
+	{
+		return;
+	}
+
+	ID3D11DeviceContext4* deviceContext = m_deviceResources->GetD3DDeviceContext();
+
+	deviceContext->OMSetBlendState(m_debugStates->Opaque(), nullptr, 0xFFFFFFFF);
+	deviceContext->OMSetDepthStencilState(m_debugStates->DepthNone(), 0);
+	deviceContext->RSSetState(m_debugStates->CullNone());
+
+	m_debugBasicEffect->SetProjection(XMLoadFloat4x4(&m_constantBufferData.projection));
+	XMMATRIX cameraMatrix = XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp);
+	m_debugBasicEffect->SetView(cameraMatrix);
+	m_debugBasicEffect->SetWorld(XMLoadFloat4x4(&m_constantBufferData.model));
+	m_debugBasicEffect->Apply(deviceContext);
+	deviceContext->IASetInputLayout(m_debugInputLayout.Get());
+
+	m_debugPrimitiveBatch->Begin();
+	for (hTQuad quad : m_debugQuads)
+	{
+		m_debugPrimitiveBatch->DrawQuad(quad.mVertices[0], quad.mVertices[1], quad.mVertices[2], quad.mVertices[3]);
+	}
+	m_debugPrimitiveBatch->End();
+
+	// Empty the list for next frame.
+	m_debugQuads.clear();
 }

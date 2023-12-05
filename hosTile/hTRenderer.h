@@ -1,8 +1,11 @@
 ﻿#pragma once
 
-#include <vector>
-#include "Other/DeviceResources.h"
+#include <CommonStates.h>
+#include <Effects.h>
 #include "hTShaderStructures.h"
+#include "Other/DeviceResources.h"
+#include <PrimitiveBatch.h>
+#include <vector>
 
 namespace hosTile { class hTSprite; }
 
@@ -26,6 +29,9 @@ namespace hosTile
 
 		// Add an hTSprite-derived object to the list of sprites to render.
 		void AddSprite(const hTSprite* sprite);
+
+		// Add a quad to render with the debug pipeline.
+		void AddDebugQuad(hTQuad quad);
 
 		// Render all sprites in order and then clear the sprite list.
 		void Render();
@@ -52,7 +58,7 @@ namespace hosTile
 
 		DX::DeviceResources* m_deviceResources;
 
-		// Direct3D resources for the geometry.
+		// Primary Direct3D resources.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;
@@ -66,6 +72,14 @@ namespace hosTile
 		VertexPositionTex* m_vertexBufferData;
 		unsigned short* m_indexBufferData;
 		ModelViewProjectionConstantBuffer m_constantBufferData;
+
+		// Debug Direct3D resources.
+		std::unique_ptr<DirectX::CommonStates> m_debugStates;
+		std::unique_ptr<DirectX::BasicEffect> m_debugBasicEffect;
+		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_debugInputLayout;
+		std::vector<hTQuad> m_debugQuads;
+		std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>> m_debugPrimitiveBatch;
+		void RenderDebug();
 
 		bool m_loadingComplete;
 

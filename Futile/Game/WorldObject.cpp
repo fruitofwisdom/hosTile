@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "WorldObject.h"
 
+#include <DirectXColors.h>
 #include "Game.h"
 #include "..\hosTile\hTAnimatedSprite.h"
 #include <string>
@@ -26,32 +27,40 @@ void WorldObject::Update(const DX::StepTimer& timer)
 void WorldObject::Render(hTRenderer& renderer)
 {
 	m_sprite->Render(renderer);
+
+	// Debug options to render our various regions.
+	//renderer.AddDebugQuad(GetCollision().AsQuad(DirectX::Colors::Blue));
+	//renderer.AddDebugQuad(GetHitBox().AsQuad(DirectX::Colors::Red));
+	//renderer.AddDebugQuad(GetHurtBox().AsQuad(DirectX::Colors::Yellow));
 }
 
+// Return the collision region in world space.
 hTRegion WorldObject::GetCollision() const
 {
 	hTRegion collision = m_sprite->GetCollision();
-	// offset the region based on our position
-	collision.x += (int)GetPosition().x;
-	collision.y += (int)GetPosition().y;
+	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
+	collision.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + collision.x;
+	collision.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - collision.y;
 	return collision;
 }
 
+// Return the hit box in world space.
 hTRegion WorldObject::GetHitBox() const
 {
 	hTRegion hitBox = m_sprite->GetHitBox();
-	// offset the region based on our position
-	hitBox.x += (int)GetPosition().x;
-	hitBox.y += (int)GetPosition().y;
+	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
+	hitBox.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + hitBox.x;
+	hitBox.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - hitBox.y;
 	return hitBox;
 }
 
+// Return the hurt box in world space.
 hTRegion WorldObject::GetHurtBox() const
 {
 	hTRegion hurtBox = m_sprite->GetHurtBox();
-	// offset the region based on our position
-	hurtBox.x += (int)GetPosition().x;
-	hurtBox.y += (int)GetPosition().y;
+	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
+	hurtBox.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + hurtBox.x;
+	hurtBox.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - hurtBox.y;
 	return hurtBox;
 }
 
