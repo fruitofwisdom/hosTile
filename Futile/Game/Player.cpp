@@ -15,7 +15,7 @@ Player::Player(XMFLOAT3 position, float scale)
 :	WorldObject("WarriorDownIdle.json", position, scale),
 	m_state(PS_Idle)
 {
-	;
+	m_type = "player";
 }
 
 void Player::Update(const DX::StepTimer& timer)

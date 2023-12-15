@@ -2,7 +2,6 @@
 
 #include "GameObject.h"
 #include "../hosTile/hTAnimatedSprite.h"
-#include <string>
 
 // A WorldObject is a specialized type of GameObject that is visible in the world, such as the
 // Player or an Enemy. These have animated sprites with associated regions, facing, etc.

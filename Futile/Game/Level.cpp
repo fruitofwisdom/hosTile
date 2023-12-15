@@ -100,7 +100,8 @@ void Level::Update(const DX::StepTimer& timer)
 				continue;
 			}
 
-			if (gameObject->GetHitBox().Intersects(otherGameObject->GetHurtBox()))
+			if (gameObject->GetType() != otherGameObject->GetType() &&
+				gameObject->GetHitBox().Intersects(otherGameObject->GetHurtBox()))
 			{
 				otherGameObject->ReceiveHit(gameObject.get());
 			}

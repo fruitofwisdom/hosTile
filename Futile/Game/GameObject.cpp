@@ -6,7 +6,8 @@ using namespace Futile;
 using namespace hosTile;
 
 GameObject::GameObject(XMFLOAT3 position)
-:	m_position(position)
+:	m_type("unknown"),
+	m_position(position)
 {
 	;
 }
@@ -19,6 +20,11 @@ XMFLOAT3 GameObject::GetPosition() const
 void GameObject::SetPosition(XMFLOAT3 position)
 {
 	m_position = position;
+}
+
+std::string GameObject::GetType() const
+{
+	return m_type;
 }
 
 hTRegion GameObject::GetCollision() const

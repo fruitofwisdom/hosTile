@@ -18,7 +18,7 @@ Enemy::Enemy(XMFLOAT3 position, float scale)
 	m_state(ES_Idle),
 	m_timeSinceLastAttack(AttackCooldown)
 {
-	;
+	m_type = "enemy";
 }
 
 void Enemy::Update(const DX::StepTimer& timer)

@@ -4,7 +4,6 @@
 #include <DirectXColors.h>
 #include "Game.h"
 #include "..\hosTile\hTAnimatedSprite.h"
-#include <string>
 
 using namespace Futile;
 using namespace hosTile;
@@ -39,8 +38,8 @@ hTRegion WorldObject::GetCollision() const
 {
 	hTRegion collision = m_sprite->GetCollision();
 	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
-	collision.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + collision.x;
-	collision.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - collision.y;
+	collision.x = (int)(GetPosition().x - m_sprite->GetWidth() / 2.0f + collision.x);
+	collision.y = (int)(GetPosition().y + m_sprite->GetHeight() / 2.0f - collision.y);
 	return collision;
 }
 
@@ -49,8 +48,8 @@ hTRegion WorldObject::GetHitBox() const
 {
 	hTRegion hitBox = m_sprite->GetHitBox();
 	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
-	hitBox.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + hitBox.x;
-	hitBox.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - hitBox.y;
+	hitBox.x = (int)(GetPosition().x - m_sprite->GetWidth() / 2.0f + hitBox.x);
+	hitBox.y = (int)(GetPosition().y + m_sprite->GetHeight() / 2.0f - hitBox.y);
 	return hitBox;
 }
 
@@ -59,8 +58,8 @@ hTRegion WorldObject::GetHurtBox() const
 {
 	hTRegion hurtBox = m_sprite->GetHurtBox();
 	// Convert from the sprite's orientation (positive-y downwards) to our game's (positive-y up).
-	hurtBox.x = (int)GetPosition().x - (int)m_sprite->GetWidth() / 2.0f + hurtBox.x;
-	hurtBox.y = (int)GetPosition().y + (int)m_sprite->GetHeight() / 2.0f - hurtBox.y;
+	hurtBox.x = (int)(GetPosition().x - m_sprite->GetWidth() / 2.0f + hurtBox.x);
+	hurtBox.y = (int)(GetPosition().y + m_sprite->GetHeight() / 2.0f - hurtBox.y);
 	return hurtBox;
 }
 
