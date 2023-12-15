@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>f3e9dbd2-35ea-4c41-a500-5527cd950e86</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="Assets\App">
+      <UniqueIdentifier>{7916499a-796f-46d9-b8f0-68d122085cfe}</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Image Include="Assets\App\BadgeLogo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\BadgeLogo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\BadgeLogo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\SplashScreen.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.altform-unplated_targetsize-16.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-16.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-48.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.altform-lightunplated_targetsize-256.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-16.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-48.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-48_altform-unplated.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-256.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square44x44Logo.targetsize-256_altform-unplated.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square71x71Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square150x150Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Square310x310Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\StoreLogo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-100.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-200.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Image Include="Assets\App\Wide310x150Logo.scale-400.png">
+      <Filter>Assets\App</Filter>
+    </Image>
+    <Filter Include="Assets\Futile">
+      <UniqueIdentifier>{9a2f9c2a-3e80-4ffa-8d0d-9f4406779be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Futile\Goblin">
+      <UniqueIdentifier>{d0d60f47-1ff6-47bd-808e-11ade22efc34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Futile\Warrior">
+      <UniqueIdentifier>{f7beb7bb-db6e-488d-a10b-a97d58f0accd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7a1accf8-ced7-45e0-b1ae-53401b656223}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Camera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Input.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Level.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TextBox.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Utilities.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\WorldObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="FutileMain.cpp" />
+    <ClCompile Include="pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game\Camera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Input.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Level.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\StepTimer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TextBox.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Utilities.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\WorldObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="App.h" />
+    <ClInclude Include="FutileMain.h" />
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownHurt.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownHurt.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftHurt.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftHurt.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightHurt.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightHurt.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpHurt.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpHurt.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpIdle.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpRun.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownHurt.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownHurt.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftAttack01.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftHurt.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftHurt.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightAttack01.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightHurt.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightHurt.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpAttack01.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpHurt.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpHurt.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpIdle.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpWalk.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\DungeonMap.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\DungeonTileset.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\DungeonTileset.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_font.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_map.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_textbox.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.dds">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\futile_tileset.json">
+      <Filter>Assets\Futile</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

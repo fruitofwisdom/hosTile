@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <VertexTypes.h>
+
 namespace hosTile
 {
 	// Constant buffer used to send MVP matrices to the vertex shader.
@@ -15,5 +17,11 @@ namespace hosTile
 	{
 		DirectX::XMFLOAT3 pos;
 		DirectX::XMFLOAT2 tex;
+	};
+
+	// A simple quad to use with the debug rendering pipeline.
+	struct hTQuad
+	{
+		DirectX::VertexPositionColor mVertices[4];
 	};
 }

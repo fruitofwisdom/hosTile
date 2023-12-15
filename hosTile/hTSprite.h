@@ -22,22 +22,29 @@ namespace hosTile
 		virtual ID3D11ShaderResourceView* GetTexture() const = 0;
 		virtual unsigned int GetNumVertices() const = 0;
 		virtual const VertexPositionTex* GetVertices() const = 0;
+		
+		// Sprites may fill out vertex data this way if GetVertices returns null.
+		virtual void FillVertices(VertexPositionTex* buffer) const {}
 
 		DirectX::XMFLOAT3 GetPosition() const;
 		void SetPosition(DirectX::XMFLOAT3 position);
 
-		unsigned int GetWidth() const;		// in pixels
-		unsigned int GetHeight() const;		// in pixels
+		unsigned int GetWidth() const;		// unscaled, in pixels
+		unsigned int GetHeight() const;		// unscaled, in pixels
 
 		float GetScale() const;
 		void SetScale(float scale);
 		void SetXFlip(bool xFlip);
 		void SetYFlip(bool yFlip);
 
+		// Are x and y are contained within the sprite, in world space?
+		bool Contains(float x, float y) const;
+
 	protected:
 		// Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
 		void SwapUVs(DirectX::XMFLOAT2& uv1, DirectX::XMFLOAT2& uv2) const;
 
+		// Position is the midpoint of the sprite in world space.
 		DirectX::XMFLOAT3 m_position;
 
 		unsigned int m_width;		// in pixels

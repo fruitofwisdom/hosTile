@@ -14,7 +14,7 @@ namespace hosTile
 	{
 	public:
 		hTTextBox(
-			const hTFont* font, const wchar_t* text,
+			const hTFont& font, const wchar_t* text,
 			DirectX::XMFLOAT3 position = { 0.0f, 0.0f, 0.0f },
 			unsigned int boundingWidth = 0, unsigned int boundingHeight = 0);
 

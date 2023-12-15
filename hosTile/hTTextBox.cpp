@@ -8,11 +8,11 @@ using namespace DirectX;
 using namespace hosTile;
 
 hTTextBox::hTTextBox(
-	const hTFont* font, const wchar_t* text,
+	const hTFont& font, const wchar_t* text,
 	XMFLOAT3 position,
 	unsigned int boundingWidth, unsigned int boundingHeight)
 :	hTSprite(position),
-	m_font(font),
+	m_font(&font),
 	m_text(text),
 	m_boundingWidth(boundingWidth),
 	m_boundingHeight(boundingHeight)

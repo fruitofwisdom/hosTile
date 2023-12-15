@@ -21,11 +21,14 @@ namespace hosTile
 		unsigned int GetNumVertices() const;
 		const VertexPositionTex* GetVertices() const;
 
-	private:
-		// Update the vertices' data after the position has changed.
-		void UpdateVertices();
+		// Replace the sprite with a new one.
+		void SetSprite(const DX::DeviceResources* deviceResources, std::string spriteFilename);
 
-		const std::string m_spriteFilename;
+	protected:
+		// Update the vertices' data after the position has changed.
+		virtual void UpdateVertices();
+
+		std::string m_spriteFilename;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 
 		VertexPositionTex m_vertices[4];

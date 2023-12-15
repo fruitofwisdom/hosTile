@@ -1,0 +1,74 @@
+{ "frames": [
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 48, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 96, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 144, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 192, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   },
+   {
+    "filename": "WarriorDownAttack01.ase",
+    "frame": { "x": 240, "y": 0, "w": 48, "h": 48 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 48, "h": 48 },
+    "sourceSize": { "w": 48, "h": 48 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3-rc6-x64",
+  "format": "RGBA8888",
+  "size": { "w": 288, "h": 48 },
+  "scale": "1",
+  "frameTags": [
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "Collision", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 1, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 2, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 3, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 4, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }, { "frame": 5, "bounds": {"x": 16, "y": 24, "w": 16, "h": 16 } }] },
+   { "name": "Hit Box", "color": "#0000ffff", "keys": [{ "frame": 2, "bounds": {"x": 6, "y": 20, "w": 36, "h": 24 } }, { "frame": 3, "bounds": {"x": 6, "y": 20, "w": 36, "h": 24 } }, { "frame": 4, "bounds": {"x": 6, "y": 20, "w": 36, "h": 24 } }] },
+   { "name": "Hurt Box", "color": "#0000ffff", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 1, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 2, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 3, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 4, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }, { "frame": 5, "bounds": {"x": 16, "y": 16, "w": 16, "h": 16 } }] }
+  ]
+ }
+}

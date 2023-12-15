@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="hosTile">
+      <UniqueIdentifier>{6d800d35-04c0-4cac-b42f-2ced77fafc62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile\Original">
+      <UniqueIdentifier>{9b311bf1-52d4-4629-81c7-fbeb53e1153a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile\Other">
+      <UniqueIdentifier>{f961daee-3521-4243-ba56-97814c159a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hosTile\Shaders">
+      <UniqueIdentifier>{87af0c7d-4f57-4a3d-9a58-d4bb877492ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hTAnimatedSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTFont.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTMap.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTRenderer.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTSimpleSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTTextBox.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTTileset.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="hTTileSprite.cpp">
+      <Filter>hosTile</Filter>
+    </ClCompile>
+    <ClCompile Include="Original\hosTile.cpp">
+      <Filter>hosTile\Original</Filter>
+    </ClCompile>
+    <ClCompile Include="Other\DeviceResources.cpp">
+      <Filter>hosTile\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hTAnimatedSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTException.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTFont.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTFrameData.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTMap.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTRenderer.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTShaderStructures.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTSimpleSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTTextBox.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTTileset.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="hTTileSprite.h">
+      <Filter>hosTile</Filter>
+    </ClInclude>
+    <ClInclude Include="Original\hosTile.h">
+      <Filter>hosTile\Original</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\DeviceResources.h">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\DirectXHelper.h">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\json.hpp">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Other\json_fwd.hpp">
+      <Filter>hosTile\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\hTPixelShader.hlsl">
+      <Filter>hosTile\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\hTVertexShader.hlsl">
+      <Filter>hosTile\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

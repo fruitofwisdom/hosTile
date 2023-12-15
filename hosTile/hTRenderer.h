@@ -1,15 +1,21 @@
 ﻿#pragma once
 
-#include <vector>
-#include "Other/DeviceResources.h"
+#include <CommonStates.h>
+#include <Effects.h>
 #include "hTShaderStructures.h"
+#include "Other/DeviceResources.h"
+#include <PrimitiveBatch.h>
+#include <vector>
 
 namespace hosTile { class hTSprite; }
 
+// hTRenderer is the hosTile graphics engine's main rendering component. It manages the creation
+// and rendering of sprites and interfacing with the DirectX hardware. Every frame, any hTSprite-
+// derived sprite, map, text box, etc. that wants to render must call AddSprite. When Render is
+// called, all sprites are drawn in order (with depth via the painter's algorithm) and the list of
+// sprites is then cleared.
 namespace hosTile
 {
-	// The hosTile 2D graphics engine main renderer component. Manages the creation and rendering
-	// of sprites and interfacing with the DirectX hardware.
 	class hTRenderer
 	{
 	public:
@@ -19,19 +25,29 @@ namespace hosTile
 		void CreateWindowSizeDependentResources();
 		void ReleaseDeviceDependentResources();
 
-		void Render();
-
 		DX::DeviceResources* GetDeviceResources() const;
 
-		// Once a sprite derived from hTSprite has been created, it needs to be added to the
-		// renderer with AddSprite. The list of sprites is cleared after each call to Render.
+		// Add an hTSprite-derived object to the list of sprites to render.
 		void AddSprite(const hTSprite* sprite);
+
+		// Add a quad to render with the debug pipeline.
+		void AddDebugQuad(hTQuad quad);
+
+		// Render all sprites in order and then clear the sprite list.
+		void Render();
 
 		DirectX::XMFLOAT3 GetCameraPosition() const;
 		void SetCameraPosition(DirectX::XMFLOAT3 cameraPosition);
 
 		// Convert from screen space (pixels) to world space.
 		DirectX::XMFLOAT3 ScreenToWorldPosition(int x, int y) const;
+
+		// Set the background clear color.
+		void SetClearColor(DirectX::XMVECTORF32 clearColor);
+
+		// A global scale can be applied.
+		float GetScale() const;
+		void SetScale(float scale);
 
 	private:
 		// Copy each sprite's vertices into the vertex buffer.
@@ -42,7 +58,7 @@ namespace hosTile
 
 		DX::DeviceResources* m_deviceResources;
 
-		// Direct3D resources for the geometry.
+		// Primary Direct3D resources.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;
@@ -57,6 +73,14 @@ namespace hosTile
 		unsigned short* m_indexBufferData;
 		ModelViewProjectionConstantBuffer m_constantBufferData;
 
+		// Debug Direct3D resources.
+		std::unique_ptr<DirectX::CommonStates> m_debugStates;
+		std::unique_ptr<DirectX::BasicEffect> m_debugBasicEffect;
+		Microsoft::WRL::ComPtr<ID3D11InputLayout> m_debugInputLayout;
+		std::vector<hTQuad> m_debugQuads;
+		std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>> m_debugPrimitiveBatch;
+		void RenderDebug();
+
 		bool m_loadingComplete;
 
 		static const int MaxSprites = 10000;
@@ -65,5 +89,8 @@ namespace hosTile
 		DirectX::XMVECTORF32 m_cameraPosition;
 		DirectX::XMVECTORF32 m_cameraFocus;
 		DirectX::XMVECTORF32 m_cameraUp;
+
+		DirectX::XMVECTORF32 m_clearColor;
+		float m_scale;
 	};
 }

@@ -55,6 +55,17 @@ void hTSprite::SetYFlip(bool yFlip)
 	m_yFlip = yFlip;
 }
 
+bool hTSprite::Contains(float x, float y) const
+{
+	float positionX = GetPosition().x;
+	float positionY = GetPosition().y;
+	return
+		(x >= positionX - m_width * m_scale / 2.0f) &&
+		(x <= positionX + m_width * m_scale / 2.0f) &&
+		(y >= positionY - m_height * m_scale / 2.0f) &&
+		(y <= positionY + m_height * m_scale / 2.0f);
+}
+
 // Swaps the values of two UVs. Handy for applying x-flip, y-flip, etc.
 void hTSprite::SwapUVs(XMFLOAT2& uv1, XMFLOAT2& uv2) const
 {

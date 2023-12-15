@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "hTRenderer.h"
 
-#include "DDSTextureLoader.h"
+#include <DDSTextureLoader.h>
 #include "Other/DirectXHelper.h"
 #include "hTSprite.h"
 
@@ -12,10 +12,13 @@ using namespace Windows::Foundation;
 
 hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 :	m_deviceResources(deviceResources),
-	m_loadingComplete(false)
+	m_loadingComplete(false),
+	m_clearColor(Colors::CornflowerBlue),
+	m_scale(1.0f)
 {
+	// The orthographic camera's eye position, focus position, and up direction.
 	m_cameraPosition = { 0.0f, 0.0f, -1.0f, 0.0f };
-	m_cameraFocus = { 0.0f, 0.0f, 1.0f, 0.0f };
+	m_cameraFocus = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_cameraUp = { 0.0f, 1.0f, 0.0f, 0.0f };
 
 	CreateDeviceDependentResources();
@@ -26,8 +29,8 @@ hTRenderer::hTRenderer(DX::DeviceResources* deviceResources)
 void hTRenderer::CreateDeviceDependentResources()
 {
 	// Load shaders asynchronously.
-	auto loadVSTask = DX::ReadDataAsync(L"hTVertexShader.cso");
-	auto loadPSTask = DX::ReadDataAsync(L"hTPixelShader.cso");
+	auto loadVSTask = DX::ReadDataAsync(L"hosTile\\hTVertexShader.cso");
+	auto loadPSTask = DX::ReadDataAsync(L"hosTile\\hTPixelShader.cso");
 
 	// After the vertex shader file is loaded, create the shader and input layout.
 	auto createVSTask = loadVSTask.then([this](const vector<byte>& fileData)
@@ -82,7 +85,8 @@ void hTRenderer::CreateDeviceDependentResources()
 		{
 			ZeroMemory(&m_vertexBufferData[i], sizeof(VertexPositionTex) * 4);
 			// Load mesh indices. Each trio of indices represents a triangle to be rendered on the
-			// screen. Note the clockwise winding order.
+			// screen. Note the clockwise winding order: 0, bottom-left; 1, bottom-right; 2, top-
+			// right; 3, top-left.
 			m_indexBufferData[i * 6] = 0 + i * 4;
 			m_indexBufferData[i * 6 + 1] = 2 + i * 4;
 			m_indexBufferData[i * 6 + 2] = 1 + i * 4;
@@ -119,6 +123,7 @@ void hTRenderer::CreateDeviceDependentResources()
 				&indexBufferData,
 				&m_indexBuffer));
 
+		// Create the sampler state.
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
 		samplerDesc.MaxAnisotropy = 0;
@@ -138,18 +143,38 @@ void hTRenderer::CreateDeviceDependentResources()
 				&samplerDesc,
 				&m_samplerState));
 
+		// Create the blend state.
 		D3D11_BLEND_DESC blendState;
 		ZeroMemory(&blendState, sizeof(D3D11_BLEND_DESC));
+		blendState.AlphaToCoverageEnable = FALSE;
+		blendState.IndependentBlendEnable = FALSE;
 		blendState.RenderTarget[0].BlendEnable = TRUE;
+		// dst.rgb = src.rgb * src.a + dst.rgb * (1 - src.a)
 		blendState.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 		blendState.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
 		blendState.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		// dst.a = src.a + dst.a
 		blendState.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
 		blendState.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
 		blendState.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 		blendState.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 		DX::ThrowIfFailed(
 			m_deviceResources->GetD3DDevice()->CreateBlendState(&blendState, &m_blendState));
+
+		// Create the debug Direct3D resources.
+		m_debugStates = make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
+		m_debugBasicEffect = make_unique<BasicEffect>(m_deviceResources->GetD3DDevice());
+		m_debugBasicEffect->SetProjection(XMLoadFloat4x4(&m_constantBufferData.projection));
+		m_debugBasicEffect->SetVertexColorEnabled(true);
+		void const* shaderByteCode;
+		size_t byteCodeLength;
+		m_debugBasicEffect->GetVertexShaderBytecode(&shaderByteCode, &byteCodeLength);
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateInputLayout(
+				VertexPositionColor::InputElements, VertexPositionColor::InputElementCount,
+				shaderByteCode, byteCodeLength,
+				m_debugInputLayout.ReleaseAndGetAddressOf()));
+		m_debugPrimitiveBatch = make_unique<PrimitiveBatch<VertexPositionColor>>(m_deviceResources->GetD3DDeviceContext());
 	});
 
 	// Once all tasks have finished, we are ready to render.
@@ -180,7 +205,24 @@ void hTRenderer::ReleaseDeviceDependentResources()
 	delete m_indexBufferData;
 }
 
-// Renders one frame using the vertex and pixel shaders.
+DX::DeviceResources* hTRenderer::GetDeviceResources() const
+{
+	return m_deviceResources;
+}
+
+// Add an hTSprite-derived object to the list of sprites to render.
+void hTRenderer::AddSprite(const hTSprite* sprite)
+{
+	m_sprites.push_back(sprite);
+}
+
+// Add a quad to render with the debug pipeline.
+void hTRenderer::AddDebugQuad(hTQuad quad)
+{
+	m_debugQuads.push_back(quad);
+}
+
+// Render all sprites in order and then clear the sprite list.
 void hTRenderer::Render()
 {
 	// Loading is asynchronous. Only draw geometry after it's loaded.
@@ -189,8 +231,19 @@ void hTRenderer::Render()
 		return;
 	}
 
-	// TODO: Upgrade this to ID3D11DeviceContext4.
-	ID3D11DeviceContext3* deviceContext = m_deviceResources->GetD3DDeviceContext();
+	ID3D11DeviceContext4* deviceContext = m_deviceResources->GetD3DDeviceContext();
+
+	// Reset the viewport to target the whole screen.
+	D3D11_VIEWPORT viewport = m_deviceResources->GetScreenViewport();
+	deviceContext->RSSetViewports(1, &viewport);
+
+	// Reset render targets to the screen.
+	ID3D11RenderTargetView* const targets[1] = { m_deviceResources->GetBackBufferRenderTargetView() };
+	deviceContext->OMSetRenderTargets(1, targets, m_deviceResources->GetDepthStencilView());
+
+	// Clear the back buffer and depth stencil view.
+	deviceContext->ClearRenderTargetView(m_deviceResources->GetBackBufferRenderTargetView(), m_clearColor);
+	deviceContext->ClearDepthStencilView(m_deviceResources->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	// Prepare the constant buffer to send it to the graphics device.
 	deviceContext->UpdateSubresource1(
@@ -212,10 +265,8 @@ void hTRenderer::Render()
 		DXGI_FORMAT_R16_UINT, // Each index is one 16-bit unsigned integer (short).
 		0);
 
-	// Set the input layout.
+	// Bind the input layout and primitive type to the IA stage.
 	deviceContext->IASetInputLayout(m_inputLayout.Get());
-
-	// Set the primitive topology.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Attach our vertex shader.
@@ -227,6 +278,7 @@ void hTRenderer::Render()
 	// Attach our pixel shader.
 	deviceContext->PSSetShader(m_pixelShader.Get(), nullptr, 0);
 
+	// Send the sampler state to the pixel shader.
 	deviceContext->PSSetSamplers(0, 1, m_samplerState.GetAddressOf());
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -247,16 +299,10 @@ void hTRenderer::Render()
 
 	// Empty the list for next frame.
 	m_sprites.clear();
-}
 
-DX::DeviceResources* hTRenderer::GetDeviceResources() const
-{
-	return m_deviceResources;
-}
-
-void hTRenderer::AddSprite(const hTSprite* sprite)
-{
-	m_sprites.push_back(sprite);
+#if defined(_DEBUG)
+	RenderDebug();
+#endif
 }
 
 XMFLOAT3 hTRenderer::GetCameraPosition() const
@@ -298,6 +344,24 @@ XMFLOAT3 hTRenderer::ScreenToWorldPosition(int x, int y) const
 	return toReturn;
 }
 
+// Set the background clear color.
+void hTRenderer::SetClearColor(DirectX::XMVECTORF32 clearColor)
+{
+	m_clearColor = clearColor;
+}
+
+// A global scale can be applied.
+float hTRenderer::GetScale() const
+{
+	return m_scale;
+}
+
+void hTRenderer::SetScale(float scale)
+{
+	m_scale = scale;
+	UpdateConstantBuffer();
+}
+
 // Copy each sprite's vertices into the vertex buffer.
 void hTRenderer::FillVertexBuffer()
 {
@@ -319,8 +383,17 @@ void hTRenderer::FillVertexBuffer()
 		{
 			continue;
 		}
+
+		// Get vertex data in one of two ways, either contiguously or by asking the sprite.
 		const VertexPositionTex* vertexData = sprite->GetVertices();
-		memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
+		if (vertexData)
+		{
+			memcpy(&m_vertexBufferData[totalVertices], vertexData, sizeof(VertexPositionTex) * numVertices);
+		}
+		else
+		{
+			sprite->FillVertices(&m_vertexBufferData[totalVertices]);
+		}
 		totalVertices += numVertices;
 	}
 
@@ -343,15 +416,47 @@ void hTRenderer::UpdateConstantBuffer()
 	// orthographic camera, we don't want the size to take into account a high resolution
 	// display's render scaling (where output size is larger than logical size).
 	Size outputSize = m_deviceResources->GetLogicalSize();
-	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.01f, 1000.0f);
+	XMMATRIX orthoMatrix = XMMatrixOrthographicLH(outputSize.Width, outputSize.Height, 0.0f, 1000.0f);
 	XMFLOAT4X4 orientation = m_deviceResources->GetOrientationTransform3D();
 	XMMATRIX orientationMatrix = XMLoadFloat4x4(&orientation);
-	XMStoreFloat4x4(
-		&m_constantBufferData.projection,
-		XMMatrixTranspose(orthoMatrix * orientationMatrix));
+	XMStoreFloat4x4(&m_constantBufferData.projection, XMMatrixTranspose(orthoMatrix * orientationMatrix));
 
 	XMMATRIX cameraMatrix = XMMatrixTranspose(XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp));
 	XMStoreFloat4x4(&m_constantBufferData.view, cameraMatrix);
 
-	XMStoreFloat4x4(&m_constantBufferData.model, XMMatrixTranspose(XMMatrixIdentity()));
+	// TODO: Is this the best place to apply a global scale?
+	XMMATRIX modelMatrix = XMMatrixScaling(m_scale, m_scale, m_scale);
+	XMStoreFloat4x4(&m_constantBufferData.model, modelMatrix);
+}
+
+void hTRenderer::RenderDebug()
+{
+	// Loading is asynchronous. Only draw geometry after it's loaded.
+	if (!m_loadingComplete)
+	{
+		return;
+	}
+
+	ID3D11DeviceContext4* deviceContext = m_deviceResources->GetD3DDeviceContext();
+
+	deviceContext->OMSetBlendState(m_debugStates->Opaque(), nullptr, 0xFFFFFFFF);
+	deviceContext->OMSetDepthStencilState(m_debugStates->DepthNone(), 0);
+	deviceContext->RSSetState(m_debugStates->CullNone());
+
+	m_debugBasicEffect->SetProjection(XMLoadFloat4x4(&m_constantBufferData.projection));
+	XMMATRIX cameraMatrix = XMMatrixLookAtLH(m_cameraPosition, m_cameraFocus, m_cameraUp);
+	m_debugBasicEffect->SetView(cameraMatrix);
+	m_debugBasicEffect->SetWorld(XMLoadFloat4x4(&m_constantBufferData.model));
+	m_debugBasicEffect->Apply(deviceContext);
+	deviceContext->IASetInputLayout(m_debugInputLayout.Get());
+
+	m_debugPrimitiveBatch->Begin();
+	for (hTQuad quad : m_debugQuads)
+	{
+		m_debugPrimitiveBatch->DrawQuad(quad.mVertices[0], quad.mVertices[1], quad.mVertices[2], quad.mVertices[3]);
+	}
+	m_debugPrimitiveBatch->End();
+
+	// Empty the list for next frame.
+	m_debugQuads.clear();
 }
