@@ -19,6 +19,9 @@ Enemy::Enemy(XMFLOAT3 position, float scale)
 	m_timeSinceLastAttack(AttackCooldown)
 {
 	m_type = "enemy";
+	m_maxHP = 100;
+	m_currentHP = m_maxHP;
+	m_strength = 15;
 }
 
 void Enemy::Update(const DX::StepTimer& timer)
@@ -36,6 +39,15 @@ void Enemy::Update(const DX::StepTimer& timer)
 		}
 		break;
 
+	case ES_Death:
+		{
+			if (m_sprite->AnimationDone())
+			{
+				// TODO: Go away somehow.
+			}
+		}
+		break;
+
 	case ES_Hurt:
 		{
 			if (m_sprite->AnimationDone())
@@ -48,6 +60,12 @@ void Enemy::Update(const DX::StepTimer& timer)
 
 	case ES_Idle:
 		{
+			// If the player is dead, do nothing.
+			if (Game::Get().GetPlayer()->GetCurrentHP() <= 0)
+			{
+				break;
+			}
+
 			// Only act when we're within aware distance of the player.
 			XMVECTOR playerVector = XMLoadFloat3(&Game::Get().GetPlayer()->GetPosition());
 			XMVECTOR positionVector = XMLoadFloat3(&GetPosition());
@@ -85,11 +103,11 @@ void Enemy::Update(const DX::StepTimer& timer)
 
 	case ES_Walk:
 		{
-			// Only act when we're within aware distance of the player.
+			// Only act when we're within aware distance of the player and the player is alive.
 			XMVECTOR playerVector = XMLoadFloat3(&Game::Get().GetPlayer()->GetPosition());
 			XMVECTOR positionVector = XMLoadFloat3(&GetPosition());
 			float distanceToPlayer = XMVectorGetX(XMVector3Length(playerVector - positionVector));
-			if (distanceToPlayer < AwareDistance)
+			if (distanceToPlayer < AwareDistance && Game::Get().GetPlayer()->GetCurrentHP() > 0)
 			{
 				float elapsedSeconds = (float)timer.GetElapsedSeconds();
 				m_timeSinceLastAttack += elapsedSeconds;
@@ -140,7 +158,21 @@ void Enemy::Update(const DX::StepTimer& timer)
 
 void Enemy::ReceiveHit(const GameObject* attacker)
 {
-	m_state = ES_Hurt;
-	PlayAnimationForDirection(
-		"GoblinLeftHurt.json", "GoblinDownHurt.json", "GoblinRightHurt.json", "GoblinUpHurt.json", false);
+	const Player* player = dynamic_cast<const Player*>(attacker);
+	if (player)
+	{
+		m_currentHP -= player->GetStrength();
+		if (m_currentHP > 0)
+		{
+			m_state = ES_Hurt;
+			PlayAnimationForDirection(
+				"GoblinLeftHurt.json", "GoblinDownHurt.json", "GoblinRightHurt.json", "GoblinUpHurt.json", false);
+		}
+		else
+		{
+			m_state = ES_Death;
+			PlayAnimationForDirection(
+				"GoblinLeftDeath.json", "GoblinDownDeath.json", "GoblinRightDeath.json", "GoblinUpDeath.json", false);
+		}
+	}
 }

@@ -11,7 +11,10 @@ using namespace std;
 
 WorldObject::WorldObject(string animation, DirectX::XMFLOAT3 position, float scale)
 :	GameObject(position),
-	m_facingAngle(90.0f)
+	m_facingAngle(90.0f),
+	m_maxHP(0),
+	m_currentHP(0),
+	m_strength(0)
 {
 	m_sprite = make_unique<hTAnimatedSprite>(Game::Get().GetRenderer().GetDeviceResources(), animation, GetPosition());
 	m_sprite->SetScale(scale);
@@ -61,6 +64,21 @@ hTRegion WorldObject::GetHurtBox() const
 	hurtBox.x = (int)(GetPosition().x - m_sprite->GetWidth() / 2.0f + hurtBox.x);
 	hurtBox.y = (int)(GetPosition().y + m_sprite->GetHeight() / 2.0f - hurtBox.y);
 	return hurtBox;
+}
+
+int WorldObject::GetMaxHP() const
+{
+	return m_maxHP;
+}
+
+int WorldObject::GetCurrentHP() const
+{
+	return m_currentHP;
+}
+
+int WorldObject::GetStrength() const
+{
+	return m_strength;
 }
 
 // Move to a new position, considering collision.

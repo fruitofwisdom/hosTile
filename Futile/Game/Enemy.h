@@ -17,6 +17,7 @@ namespace Futile
 		enum EnemyState
 		{
 			ES_Attack,
+			ES_Death,
 			ES_Hurt,
 			ES_Idle,
 			ES_Walk

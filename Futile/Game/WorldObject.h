@@ -19,6 +19,10 @@ namespace Futile
 		hosTile::hTRegion GetHitBox() const;
 		hosTile::hTRegion GetHurtBox() const;
 
+		int GetMaxHP() const;
+		int GetCurrentHP() const;
+		int GetStrength() const;
+
 	protected:
 		// Move to a new position, considering collision.
 		void Move(DirectX::XMFLOAT3 position);
@@ -30,5 +34,10 @@ namespace Futile
 		std::unique_ptr<hosTile::hTAnimatedSprite> m_sprite;
 
 		float m_facingAngle;		// in degrees
+
+		// Stats for hit points, strength...
+		int m_maxHP;
+		int m_currentHP;
+		int m_strength;
 	};
 }

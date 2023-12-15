@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 
+#include "Enemy.h"
 #include "Game.h"
 #include "Input.h"
 #include "Utilities.h"
@@ -16,6 +17,9 @@ Player::Player(XMFLOAT3 position, float scale)
 	m_state(PS_Idle)
 {
 	m_type = "player";
+	m_maxHP = 100;
+	m_currentHP = m_maxHP;
+	m_strength = 35;
 }
 
 void Player::Update(const DX::StepTimer& timer)
@@ -28,6 +32,15 @@ void Player::Update(const DX::StepTimer& timer)
 			{
 				m_state = PS_Idle;
 				PlayAnimationForDirection("WarriorLeftIdle.json", "WarriorDownIdle.json", "WarriorRightIdle.json", "WarriorUpIdle.json");
+			}
+		}
+		break;
+
+	case PS_Death:
+		{
+			if (m_sprite->AnimationDone())
+			{
+				// TODO: Die?
 			}
 		}
 		break;
@@ -117,7 +130,21 @@ void Player::Update(const DX::StepTimer& timer)
 
 void Player::ReceiveHit(const GameObject* attacker)
 {
-	m_state = PS_Hurt;
-	PlayAnimationForDirection(
-		"WarriorLeftHurt.json", "WarriorDownHurt.json", "WarriorRightHurt.json", "WarriorUpHurt.json", false);
+	const Enemy* enemy = dynamic_cast<const Enemy*>(attacker);
+	if (enemy)
+	{
+		m_currentHP -= enemy->GetStrength();
+		if (m_currentHP > 0)
+		{
+			m_state = PS_Hurt;
+			PlayAnimationForDirection(
+				"WarriorLeftHurt.json", "WarriorDownHurt.json", "WarriorRightHurt.json", "WarriorUpHurt.json", false);
+		}
+		else
+		{
+			m_state = PS_Death;
+			PlayAnimationForDirection(
+				"WarriorLeftDeath.json", "WarriorDownDeath.json", "WarriorRightDeath.json", "WarriorUpDeath.json", false);
+		}
+	}
 }

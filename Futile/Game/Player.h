@@ -17,6 +17,7 @@ namespace Futile
 		enum PlayerState
 		{
 			PS_Attack,
+			PS_Death,
 			PS_Hurt,
 			PS_Idle,
 			PS_Walk
