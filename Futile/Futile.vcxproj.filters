@@ -210,6 +210,12 @@
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownAttack01.json">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinDownHurt.dds">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
@@ -232,6 +238,12 @@
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftDeath.json">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinLeftHurt.dds">
@@ -258,6 +270,12 @@
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightAttack01.json">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightDeath.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinRightHurt.dds">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
@@ -280,6 +298,12 @@
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpAttack01.json">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpDeath.dds">
+      <Filter>Assets\Futile\Goblin</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpDeath.json">
       <Filter>Assets\Futile\Goblin</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Goblin\GoblinUpHurt.dds">
@@ -306,6 +330,12 @@
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownAttack01.json">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorDownHurt.dds">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
@@ -328,6 +358,12 @@
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftDeath.json">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorLeftHurt.dds">
@@ -354,6 +390,12 @@
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightAttack01.json">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightDeath.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorRightHurt.dds">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
@@ -376,6 +418,12 @@
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpAttack01.json">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpDeath.dds">
+      <Filter>Assets\Futile\Warrior</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpDeath.json">
       <Filter>Assets\Futile\Warrior</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="Assets\Futile\Warrior\WarriorUpHurt.dds">
